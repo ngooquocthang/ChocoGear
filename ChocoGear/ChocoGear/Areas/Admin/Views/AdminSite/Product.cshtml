@@ -6,7 +6,7 @@
 <style>
     .Name {
         width: 386px;
-        border-bottom: 2px solid #2C2A2A;
+        border-bottom: 1px solid #2C2A2A;
         border-top: none;
         border-right: none;
         border-left: none;
@@ -20,26 +20,27 @@
 
     .Category {
         width: 386px;
-        border-bottom: 2px solid #2C2A2A;
+        border-bottom: 1px solid #2C2A2A;
         border-top: none;
         border-right: none;
         border-left: none;
         background: none;
-        margin-top: 10px;
+        margin-top: 0px;
         font-family: 'Source Sans Pro', sans-serif;
         outline: none;
         font-size: 15px;
         font-weight: 600;
+        color: #707070;
     }
 
     .Price {
         width: 386px;
-        border-bottom: 2px solid #2C2A2A;
+        border-bottom: 1px solid #2C2A2A;
         border-top: none;
         border-right: none;
         border-left: none;
         background: none;
-        margin-top: 10px;
+        margin-top: 0px;
         font-family: 'Source Sans Pro', sans-serif;
         outline: none;
         font-size: 15px;
@@ -48,10 +49,24 @@
 
     .Img {
         width: 336px;
-        border-bottom: 2px solid #2C2A2A;
+        border-bottom: 1px solid #2C2A2A;
         border-top: none;
         border-right: none;
         border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Description {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        height: 239px;
+        border-radius: 13px;
         background: none;
         margin-top: 10px;
         font-family: 'Source Sans Pro', sans-serif;
@@ -59,14 +74,28 @@
         font-size: 15px;
         font-weight: 600;
     }
-
-    .Description {
+    .Brand {
         width: 386px;
-        border-bottom: 2px solid #2C2A2A;
-        height: 239px;
-        border-radius: 13px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
         background: none;
-        margin-top: 10px;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color:#707070;
+    }
+    .Discount {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
         font-family: 'Source Sans Pro', sans-serif;
         outline: none;
         font-size: 15px;
@@ -78,31 +107,33 @@
         padding: 0;
     }
 
-    h2 {
+    h4 {
         font-family: 'Source Sans Pro', sans-serif;
         background: none;
         color: #2C2A2A;
     }
 
-        h2::after {
+        h4::after {
             content: '';
             bottom: 0;
-            width: 92px;
-            height: 3px;
+            width: 60px;
+            height: 2px;
             background: #2C2A2A;
             display: block;
         }
 
 
     .btn-add {
-        width: 175px;
-        height: 44px;
+        width: 140px;
+        height: 30px;
         border: none;
         border-radius: 22px;
         background: #373434;
-        margin-top: 10px;
+        margin-top: 0px;
         color: white;
         cursor: pointer;
+        padding:0;
+        margin-right:232px;
     }
 
     option {
@@ -262,11 +293,11 @@
 
     .picturebox {
         position: absolute;
-        height: 50px;
+        height: 40px;
         width: 50px;
-        border: 2px solid #2C2A2A;
+        border: 1px solid #2C2A2A;
         display: inline-block;
-        top: 257px;
+        top: 301px;
     }
 
     .formedit h2::after {
@@ -284,11 +315,17 @@
         left: 457px;
     }
 
-        .btn-x:hover {
+    .btn-x:hover {
             cursor: pointer;
-        }
+    }
+    option {
+        background: pink;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size:15px;
+    }
+
 </style>
-<h2>Product</h2>
+<h4>Product</h4>
 <form method="post" action="" enctype="multipart/form-data">
     <input type="text" class="Name" name="Name" placeholder="Name" />
     <br />
@@ -302,13 +339,20 @@
     <br />
     <input class="Price" type="text" name="Price" placeholder="Price" />
     <br />
-    <input class="Img" type="file" name="Img" /><div class="picturebox"><img src="#" alt="fk" /></div>
+    <select class="Brand" name="Category" id="Category" onchange="selectid_category(this);">
+        <option selected>Choose Brand</option>
+
+        <option value="">oke</option>
+
+    </select>
+    <br />
+    <input class="Discount" type="text" name="discount" placeholder="Discount" />
+    <br />
+    <input class="Img" type="file" name="Img" /><div class="picturebox"><img src="#" /></div>
     <br />
     <textarea class="Description" name="Decription" placeholder="Description"></textarea>
     <br />
-    <input type="checkbox" name="Active" />
-    <br />
-    <input class="btn-add" type="submit" value="Add Product" />
+    <input class="btn-add" type="submit" value="Add Product" /><input class="checkboxP" type="checkbox" name="Active" />
 </form>
 @*editform*@
 <form class="formedit" id="formedit" method="post" action="">
