@@ -34,5 +34,9 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
+        public ActionResult CheckOut()
+        {
+            return View();
+        }
     }
 }
