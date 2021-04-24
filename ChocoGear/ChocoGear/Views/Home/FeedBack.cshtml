@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "FeedBack";
+    Layout = "~/Views/Shared/SmallUserPage.cshtml";
+}
+<style>
+    .feedback-container {
+        width: 100%;
+        background:black;
+    }
+    .listFeedback {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        height: 700px;
+        width: 100%;
+        float: left;
+        background:white;
+    }
+    
+    .headlistbigs table {
+        border-bottom: 2px solid #ECACAC;
+        padding: 0;
+        margin: 0;
+    }
+    .listproduct .headlistbigs p {
+        display: inline-flex;
+        padding: 0px;
+        margin-top: 50px;
+        margin-left: 50px;
+        height: 50px;
+        text-align: center;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        color: #707070;
+    }
+
+
+
+    .headlists table {
+        border-bottom: 2px solid #ECACAC;
+        padding: 0;
+        margin: 0;
+    }
+
+    .headlists table tr th {
+        padding: 0;
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        height: 100px;
+    }
+
+    .headlistbigs table {
+        border-bottom: 2px solid #ECACAC;
+        padding: 0;
+        margin: 0;
+    }
+
+    .headlistbigs table tr th {
+        padding: 0;
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        height: 100px;
+    }
+    .listFeedback {
+        padding:40px 40px 0 40px;
+    }
+    .btn-delete {
+        height: 50px;
+        width: 100px;
+        border-radius: 10px;
+        border: none;
+        background: #FFDFDF;
+        transition: 0.5s;
+        font-family: 'Source Sans Pro', sans-serif;
+        color:#707070;
+        font-weight:600;
+    }
+    .btn-delete:hover{
+        background:#EBABAB;
+    }
+    .headlists {
+        height:700px;
+        overflow-y:scroll;
+    }
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: white;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #EBABAB;
+        border-radius: 20px;
+        height: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to right, #1093ff, #83d1e9);
+    }
+</style>
+<div class="feedback-container">
+    <div class="listFeedback">
+        <div class="headlistbigs">
+            <table style="width:100%">
+                <tr>
+                    <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst" onclick="checkFluency();" type="checkbox" value="" /></th>
+                    <th style="max-width:32px;">Usrname</th>
+                    <th style="max-width:73px;">Content</th>
+                    <th style="max-width:73px;">Action</th>
+                </tr>
+            </table>
+        </div>
+        <div class="headlists">
+            @*auto render data*@
+            <table style="width:100%">
+                <tr>
+                    <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
+                    <th style="max-width:40px;">Name</th>
+                    <th style="max-width:73px;">noidung</th>
+                    <th style="max-width:53px;"><button class="btn-delete">Delete</button></th>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
