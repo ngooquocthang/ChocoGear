@@ -1,0 +1,357 @@
+﻿
+@{
+    ViewBag.Title = "LoginAndRegister";
+    Layout = "~/Views/Shared/LoginAndRegister.cshtml";
+}
+
+<style>
+    body {
+        background: #EBABAB;
+        padding: 0;
+    }
+
+    .container {
+        background: #F9CDCD;
+        width: 1094px;
+        height: 621px;
+        border-radius: 21px;
+        box-shadow: 0px 5px 35px rgba(0,0,0,0.2);
+        padding:0;
+        margin-left: 400px;
+        margin-top:40px;
+
+    }
+    .login {
+        height: 621px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 21px;
+        border-bottom-left-radius: 21px;
+        background: white;
+        width: 400px;
+    }
+    .loginform h3 {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    .loginform .usrname, .password {
+        border-bottom: 2px solid #F9CDCD;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        width: 250px;
+        margin-left: 70px;
+        margin-top: 50px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline:none;
+        font-size: 17px;
+    }
+    .loginform p {
+        font-family: 'Source Sans Pro', sans-serif;
+        text-align: center;
+        font-weight: 500;
+        color: #707070;
+    }
+    .loginform a {
+        text-decoration: none;
+        text-decoration-style: none;
+        color: #707070;
+    }
+    .btn-login {
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+        border: none;
+        margin-left: 100px;
+        margin-top: 60px;
+        margin-bottom:35px;
+        background: #F9CDCD;
+        font-weight: 600;
+        color: #707070;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        cursor:pointer;
+        transition:0.5s;
+
+    }
+    .btn-login:hover{
+        background: #EBABAB;
+    }
+    h3 {
+        margin-left: 70px;
+    }
+    .loginform .logo {
+        margin-top: 60px;
+        margin-bottom: 30px;
+        border-radius: 50%;
+        margin-left: 140px;
+        border: 3px solid #F9CDCD;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    }
+    .registerform{
+        position:absolute;
+        top:40px;
+        left:1102px;
+    }
+    .registerform .logo {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        margin-left: 140px;
+        border: 3px solid #F9CDCD;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    }
+
+    .register {
+        height: 621px;
+        border-top-right-radius: 21px;
+        border-bottom-right-radius: 21px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        background: white;
+        width: 400px;
+    }
+    .registerform .name, .usrname, .password, .phone, .email, .address {
+        border-bottom: 2px solid #F9CDCD;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        width: 250px;
+        margin-left: 70px;
+        margin-top: 26px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 17px;
+    }
+    .btn-regis {
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+        border: none;
+        margin-left: 100px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        background: #F9CDCD;
+        font-weight: 600;
+        color: #707070;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: 0.5s;
+    }
+    .btn-regis:hover{
+        background: #EBABAB;
+    }
+
+    .register p {
+        font-family: 'Source Sans Pro', sans-serif;
+        text-align: center;
+        font-weight: 500;
+        color: #707070;
+    }
+    .register a {
+        text-decoration: none;
+        text-decoration-style: none;
+        color: #707070;
+    }
+
+    @*navigation*@
+    .slider {
+        width: 800px;
+        height: 621px;
+        border-top-right-radius: 21px;
+        border-bottom-right-radius: 21px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        overflow: hidden;
+        transition:0.5s;
+    }
+    .slides {
+        width: 500%;
+        height: 621px;
+        display: flex;
+    }
+    .slides input {
+        display:none;
+    }
+    .slide {
+        width:20%;
+        transition:2s;
+    }
+    .slide img {
+        width:800px;
+        height:621px;
+    }
+    .navigation-manual {
+        position: absolute;
+        width: 800px;
+        margin-top: 567px;
+        display: flex;
+        justify-content: center;
+        left: -47px;
+    }
+    .manual-btn {
+        border:2px solid #EBABAB;
+        width:10px;
+        height:10px;
+        padding:5px;
+        border-radius:21px;
+        cursor:pointer;
+        transition:1s;
+    }
+    .manual-btn:not(:last-child){
+        margin-right:40px;
+    }
+    .manual-btn:hover{
+        background:#EBABAB;
+    }
+    #radio1:checked ~ .first {
+        margin-left: 0;
+    }
+    #radio2:checked ~ .first {
+        margin-left: -20%;
+    }
+    #radio3:checked ~ .first {
+        margin-left: -40%;
+    }
+    #radio4:checked ~ .first {
+        margin-left: -60%;
+    }
+    .bodySlide {
+        margin: 0;
+        padding: 0;
+        height: 620px;
+        width:694px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        position:absolute;
+        left:808px;
+        transition:0.5s;
+        z-index:10;
+    }
+
+
+
+
+</style>
+@*loading*@
+<div id="loading">
+    <div>G</div>
+    <div>N</div>
+    <div>I</div>
+    <div>D</div>
+    <div>A</div>
+    <div>O</div>
+    <div>L</div>
+</div>
+@*done*@
+@*slide*@
+<div class="bodySlide" id="bodySlide">
+    <div class="slider" id="slide">
+        <div class="slides">
+            <input type="radio" name="radio-btn" id="radio1" value="" />
+            <input type="radio" name="radio-btn" id="radio2" value="" />
+            <input type="radio" name="radio-btn" id="radio3" value="" />
+            <input type="radio" name="radio-btn" id="radio4" value="" />
+            <div class="slide first">
+                <img src="~/Upload/Img/keyboard.jpg" alt="" />
+            </div>
+            <div class="slide">
+                <img src="~/Upload/Img/4525229.jpg" alt="" />
+            </div>
+            <div class="slide">
+                <img src="~/Upload/Img/keyboard2.jpg" alt="" />
+            </div>
+            <div class="slide">
+                <img src="~/Upload/Img/keyboard3.jpg" alt="" />
+            </div>
+            <div class="navigation-auto">
+                <div class="auto-btn1"></div>
+                <div class="auto-btn2"></div>
+                <div class="auto-btn3"></div>
+                <div class="auto-btn4"></div>
+            </div>
+            <div class="navigation-manual">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+                <label for="radio4" class="manual-btn"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*done*@
+
+
+<div class="square2" style="--i:0;"></div>
+<div class="square3" style="--i:1;"></div>
+<div class="square4" style="--i:2;"></div>
+<div class="square5" style="--i:3;"></div>
+<div class="square6" style="--i:4;"></div>
+<div class="square7" style="--i:5;"></div>
+<div class="container">
+    <div class="loginform">
+        <form class="login" method="post" action="">
+            <img class="logo" src="~/Upload/Logo/LOGOCHOSCOR.png" width="120" alt="" />
+            <input type="text" class="usrname" name="usrname" placeholder="Username" value="" />
+            <br />
+            <input type="password" class="password" name="password" placeholder="Password" value="" />
+            <br />
+            <input type="submit" class="btn-login" name="btn-login" value="LOGIN" />
+            <br />
+            <p>DONT HAVE ACCOUNT? <a href="#" onclick="RegisToggle();"><strong>SIGN UP</strong></a></p>
+
+        </form>
+    </div>
+    <div class="registerform">
+        <form class="register" method="post" action="">
+            <img class="logo" src="~/Upload/Logo/LOGOCHOSCOR.png" width="100" alt="" />
+            <input type="text" class="name" name="name" placeholder="Full Name" value="" />
+            <br />
+            <input type="text" class="usrname" name="usrname" placeholder="Username" value="" />
+            <br />
+            <input type="password" class="password" name="password" placeholder="Password" value="" />
+            <br />
+            <input type="password" class="password" name="cfpassword" placeholder="Confirm Password" value="" />
+            <br />
+            <input type="email" class="email" name="email" placeholder="Email" value="" />
+            <br />
+            <input type="text" class="address" name="address" placeholder="Address" value="" />
+            <br />
+            <input type="text" class="phone" name="phone" placeholder="Phone" maxlength="12" value="" />
+            <br />
+            <input type="submit" class="btn-regis" name="btn-login" value="SIGN UP" />
+            <br />
+            <p>HAVE ACCOUNT? <a href="#" onclick="LoginToggle();"><strong>LOGIN</strong></a></p>
+        </form>
+    </div>
+</div>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+<script>
+    let spinnerWrapper = document.getElementById("loading");
+    window.addEventListener('load', function () {
+        spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+    });
+
+    function LoginToggle() {
+        var login = document.getElementById("bodySlide");
+        var slide = document.getElementById("slide");
+        login.style.left = '808px';
+        slide.style.borderTopRightRadius = '21px';
+        slide.style.borderBottomRightRadius = '21px';
+        slide.style.borderTopLeftRadius = '0';
+        slide.style.borderBottomLeftRadius = '0';
+    }
+    function RegisToggle() {
+        var regis = document.getElementById("bodySlide");
+        var slide = document.getElementById("slide");
+        regis.style.left = '408px';
+        slide.style.borderTopLeftRadius = '21px';
+        slide.style.borderBottomLeftRadius = '21px';
+        slide.style.borderTopRightRadius = '0';
+        slide.style.borderBottomRightRadius = '0';
+    }
+</script>
+
