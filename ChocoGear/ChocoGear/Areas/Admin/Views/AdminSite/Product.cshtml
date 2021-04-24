@@ -300,6 +300,7 @@
     .picturebox {
         position: absolute;
         height: 40px;
+        padding: 0px;
         width: 50px;
         border: 1px solid #2C2A2A;
         display: inline-block;
@@ -345,8 +346,9 @@
     }
 </style>
 <h4>Product</h4>
+@**@
 <form method="post" action="@Url.Action("CreateProduct")" enctype="multipart/form-data">
-    <input type="text" class="Name" name="Name" placeholder="Name" />
+    <input id="name" type="text" class="Name" name="Name" placeholder="Name" />
     <br />
     <select class="Category" name="Category" id="Category">
         <option selected>Choose Category</option>
@@ -357,7 +359,7 @@
     </select>
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
     <br />
-    <input class="Price" type="text" name="Price" placeholder="Price" />
+    <input class="Price" id="Price" type="text" name="Price" placeholder="Price" />
     <br />
     <select class="Brand" name="Brand" id="Brand">
         <option selected>Choose Brand</option>
@@ -367,13 +369,13 @@
         }
     </select>
     <br />
-    <input class="Discount" type="text" name="discount" placeholder="Discount" />
+    <input class="Discount" id="Discount" type="text" name="Discount" placeholder="Discount" />
     <br />
-    <input class="Img" type="file" name="Img" /><div class="picturebox"><img width="50" src="#" /></div>
+    <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="#" /></div>
     <br />
-    <textarea class="Description" name="Decription" placeholder="Description"></textarea>
+    <textarea id="Desciption" class="Description" name="Decription" placeholder="Description"></textarea>
     <br />
-    <input class="btn-add" type="submit" value="Add Product" /><input class="checkboxP" type="checkbox" name="Active" />
+    <input class="btn-add" id="Create" type="submit" value="Add Product" /><input class="checkboxP" type="checkbox" name="Active" />
 </form>
 @*editform*@
 
@@ -406,7 +408,7 @@
     <br />
     <textarea class="Description" name="Decription" placeholder="Description"></textarea>
     <br />
-    <input class="btn-update" type="submit" value="Update" /><input type="checkbox" name="Active" />
+    <input class="btn-update" type="submit" value="Update" /><input type="checkbox" id="status" name="Active" />
 </form>
 
 @*editform done*@
@@ -438,7 +440,7 @@
                     <td style="max-width:32px;">@item.price$</td>
                     <td style="max-width:40px;"><img height="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
                     <td style="max-width:100px;">@item.description</td>
-                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit();" data-id_product="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-id_product="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                 </tr>
             </table>
         }
@@ -448,10 +450,13 @@
 </div>
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
-<script>
-        function showEdit() {
-            var showEditform = document.getElementById("formedit");
-            showEditform.style.display = "block";
+    <script>
+        function showEdit(obj) {
+            var name = $(obj).attr('data-nameproduct');
+            $('#Row_' + name).each(function () {
+                var cellText = $(this).cellText;
+                alert(cellText);
+            });
         }
         function ExitEdit() {
             var ExitEdits = document.getElementById("formedit");
@@ -474,7 +479,18 @@
             }
 
         }
-</script>
+        function chooseFile(obj) {
+            var file = $(obj).val();
+            if (file != "") {
+                var tmppath = URL.createObjectURL(event.target.files[0]);
+                $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+            } else {
+                var tmppath = "";
+                $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+            }
+        }
+
+    </script>
 }
 
 
