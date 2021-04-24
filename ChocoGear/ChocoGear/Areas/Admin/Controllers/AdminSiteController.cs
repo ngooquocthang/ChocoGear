@@ -78,5 +78,28 @@ namespace ChocoGear.Areas.Admin.Controllers
             return Json("success");
         }
 
+        //Category
+        public ActionResult Category()
+        {
+            return View();
+        }
+
+        //FeedBack
+        public ActionResult FeedBack()
+        {
+            return View();
+        }
+
+        //Customer
+        public ActionResult Customer()
+        {
+            return View();
+        }
+
+        //Order
+        public ActionResult Order()
+        {
+            return View();
+        }
     }
 }
