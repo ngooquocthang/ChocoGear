@@ -12,18 +12,26 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        public ActionResult Product()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult FeedBack()
         {
-            ViewBag.Message = "Your contact page.";
+            return View();
 
+        }
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+        public ActionResult LoginAndRegister()
+        {
             return View();
         }
     }
