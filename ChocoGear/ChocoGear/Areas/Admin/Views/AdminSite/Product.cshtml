@@ -288,7 +288,7 @@
             margin-left: 55px;
         }
 
-        .formedit h2 {
+        .formedit h4 {
             margin-top: 17px;
             margin-left: 55px;
             font-family: 'Source Sans Pro', sans-serif;
@@ -303,10 +303,10 @@
         top: 301px;
     }
 
-    .formedit h2::after {
+    .formedit h4::after {
         content: '';
         bottom: 0;
-        width: 46px;
+        width: 35px;
         height: 3px;
         background: #2C2A2A;
         display: block;
@@ -325,6 +325,18 @@
         background: pink;
         font-family: 'Source Sans Pro', sans-serif;
         font-size:15px;
+    }
+    .btn-update {
+        width: 140px;
+        height: 30px;
+        border: none;
+        border-radius: 22px;
+        background: #373434;
+        margin-top: 0px;
+        color: white;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 178px;
     }
 
 </style>
@@ -353,7 +365,7 @@
     <br />
     <input class="Discount" type="text" name="discount" placeholder="Discount" />
     <br />
-    <input class="Img" type="file" name="Img" /><div class="picturebox"><img src="#" /></div>
+    <input class="Img" type="file" name="Img" /><div class="picturebox"><img width="50" src="#" /></div>
     <br />
     <textarea class="Description" name="Decription" placeholder="Description"></textarea>
     <br />
@@ -361,7 +373,7 @@
 </form>
 @*editform*@
 <form class="formedit" id="formedit" method="post" action="">
-    <h2>Edit</h2>
+    <h4>Edit</h4>
     <img class="btn-x" onclick="ExitEdit();" src="~/Areas/Admin/Upload/Icon/iconcancel.png" alt="" />
     <input type="text" class="Name" name="Name" placeholder="Name" />
     <br />
@@ -376,13 +388,20 @@
     <br />
     <input class="Price" type="text" name="Price" placeholder="Price" />
     <br />
+    <select class="Brand" name="Brand" id="Brand">
+        <option selected>Choose Brand</option>
+        @foreach (var item in listBrand)
+        {
+            <option value="@item.id">@item.name</option>
+        }
+    </select>
+    <input class="Discount" type="text" name="Discount" placeholder="Discount" />
+    <br />
     <input class="Img" type="file" name="Img" />@*<div class="pictureboxedit"><img src="#" alt="fk" /></div>*@
     <br />
     <textarea class="Description" name="Decription" placeholder="Description"></textarea>
     <br />
-    <input type="checkbox" name="Active" />
-    <br />
-    <input class="btn-add" type="submit" value="Update" />
+    <input class="btn-update" type="submit" value="Update" /><input type="checkbox" name="Active" />
 </form>
 @*editform done*@
 <div class="righside">
