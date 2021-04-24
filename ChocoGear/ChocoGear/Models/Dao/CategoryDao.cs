@@ -8,6 +8,7 @@ namespace ChocoGear.Models.Dao
 {
     public sealed class CategoryDao : IRepository<ModelView.CategoryView>
     {
+        Models.Entity.ChocoGearEntities database = new Entity.ChocoGearEntities();
         private static CategoryDao instance = null;
         private CategoryDao()
         {
@@ -42,7 +43,8 @@ namespace ChocoGear.Models.Dao
 
         public List<CategoryView> Gets()
         {
-            throw new NotImplementedException();
+            var q = database.Categories.Select(d=>new CategoryView { id = d.id, name_category = d.name_category, status = (bool)d.status}).ToList();
+            return q;
         }
 
         public int Update(CategoryView item)

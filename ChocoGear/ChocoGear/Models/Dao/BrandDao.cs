@@ -8,6 +8,7 @@ namespace ChocoGear.Models.Dao
 {
     public sealed class BrandDao : IRepository<ModelView.Brand>
     {
+        Models.Entity.ChocoGearEntities database = new Entity.ChocoGearEntities();
         private static BrandDao instance = null;
         private BrandDao()
         {
@@ -42,7 +43,8 @@ namespace ChocoGear.Models.Dao
 
         public List<Brand> Gets()
         {
-            throw new NotImplementedException();
+            var q = database.Brands.Select(d => new Brand { id = d.id, name = d.name }).ToList();
+            return q;
         }
 
         public int Update(Brand item)

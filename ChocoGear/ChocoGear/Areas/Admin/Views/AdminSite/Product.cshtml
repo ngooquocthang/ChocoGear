@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Product";
     Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
+    var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
+    var listBrand = (List<ChocoGear.Models.ModelView.Brand>)Session["listBrand"];
+    var listProduct = (List<ChocoGear.Models.ModelView.ProductView>)Session["listProduct"];
 }
 <style>
     .Name {
@@ -326,24 +329,26 @@
 
 </style>
 <h4>Product</h4>
-<form method="post" action="" enctype="multipart/form-data">
+<form method="post" action="@Url.Action("CreateProduct")" enctype="multipart/form-data">
     <input type="text" class="Name" name="Name" placeholder="Name" />
     <br />
-    <select class="Category" name="Category" id="Category" onchange="selectid_category(this);">
+    <select class="Category" name="Category" id="Category">
         <option selected>Choose Category</option>
-
-        <option value="">oke</option>
-
+        @foreach (var item in listCate)
+        {
+            <option value="@item.id">@item.name_category</option>
+        }
     </select>
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
     <br />
     <input class="Price" type="text" name="Price" placeholder="Price" />
     <br />
-    <select class="Brand" name="Category" id="Category" onchange="selectid_category(this);">
+    <select class="Brand" name="Brand" id="Brand">
         <option selected>Choose Brand</option>
-
-        <option value="">oke</option>
-
+        @foreach (var item in listBrand)
+        {
+            <option value="@item.id">@item.name</option>
+        }
     </select>
     <br />
     <input class="Discount" type="text" name="discount" placeholder="Discount" />
@@ -362,9 +367,9 @@
     <br />
     <select class="Category" name="Category" id="Category" onchange="selectid_category(this);">
         <option selected>Choose Category</option>
-        @*@foreach (var item in list)
+        @*@foreach (var item in listCate)
             {
-                <option value="@item.id">@item.name</option>
+                <option value="@item.id">@item.name_category</option>
             }*@
     </select>
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
@@ -385,7 +390,8 @@
         <table class="headtable2" style="width:100%">
             <tr>
                 <td style="max-width:55px;">Name</td>
-                <td style="max-width:51px;">Category</td>
+                <td style="max-width:51px;">Type</td>
+                <td style="max-width:51px;">Brand</td>
                 <td style="max-width:60px;">Price</td>
                 <td style="max-width:58px;">Img</td>
                 <td style="max-width:100px;">Description</td>
@@ -395,16 +401,22 @@
     </div>
 
     <div class="bodytable">
-        <table class="tablerow" style="width:100%">
-            <tr id="tr_ne">
-                <td style="max-width:40px;"></td>
-                <td style="max-width:33px;"></td>
-                <td style="max-width:32px;"></td>
-                <td style="max-width:40px;"><img height="100" src="" alt="Alternate Text" /></td>
-                <td style="max-width:100px;"></td>
-                <td style="max-width:40px;"><button type="button" class="btn-Del"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit();"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
-            </tr>
-        </table>
+        @foreach (var item in listProduct)
+        {
+            <table class="tablerow" style="width:100%">
+
+                <tr id="tr_ne">
+                    <td style="max-width:40px;">@item.name_product</td>
+                    <td style="max-width:33px;">@item.name_category</td>
+                    <td style="max-width:33px;">@item.name_brand</td>
+                    <td style="max-width:32px;">@item.price$</td>
+                    <td style="max-width:40px;"><img height="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
+                    <td style="max-width:100px;">@item.description</td>
+                    <td style="max-width:40px;"><button type="button" class="btn-Del"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit();"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                </tr>
+            </table>
+        }
+
 
     </div>
 </div>

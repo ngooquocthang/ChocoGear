@@ -17,5 +17,7 @@ namespace ChocoGear.Models.ModelView
         public int id_brand { get; set; }
         public int id_category { get; set; }
         public bool status { get; set; }
+        public string name_brand { get; set; }
+        public string name_category { get; set; }
     }
 }
