@@ -1,6 +1,8 @@
 ﻿using ChocoGear.Models.ModelView;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -27,7 +29,19 @@ namespace ChocoGear.Models.Dao
 
         public int Create(CustomerView item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+                Models.Entity.Customer c = new Entity.Customer() {first_name=item.first_name,last_name=item.last_name,phone=item.phone,email=item.email,address=item.address,username=item.username,password=item.password,status=item.status};
+                db.Customers.Add(c);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (EntityException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return 0;
+            }
         }
 
         public int Delete(int id)
