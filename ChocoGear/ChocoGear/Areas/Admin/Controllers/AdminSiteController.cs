@@ -77,7 +77,10 @@ namespace ChocoGear.Areas.Admin.Controllers
             Product.Delete(id);
             return Json("success");
         }
-
+        public ActionResult EditProduct()
+        {
+            return View();
+        }
         //Category
         public ActionResult Category()
         {
