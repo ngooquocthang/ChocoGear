@@ -1,0 +1,287 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/SmallUserPage.cshtml";
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container2 {
+        max-width: 100%;
+        margin: auto;
+        padding-left: 25px;
+        padding-right: 25px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .container-cart {
+        width: 60%;
+        height: 700px;
+        background: lightgrey;
+        box-sizing: border-box;
+        float: left;
+        padding:13px 0 0 60px;
+        background:white;
+    }
+
+    .rightside {
+        width: 40%;
+        height: 700px;
+        background: white;
+        box-sizing: border-box;
+        float: left;
+        padding: 99px 20px 10px 140px;
+    }
+
+    .listproduct {
+        background: white;
+        height: 700px;
+        width: 100%;
+    }
+
+        .listproduct .headlistbig p {
+            display: inline-flex;
+            padding: 0px;
+            margin-top: 50px;
+            margin-left: 50px;
+            height: 50px;
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 600;
+            color: #707070;
+        }
+
+        .listproduct .headlist button {
+            height: 20px;
+            width: 20px;
+            background: #ECACAC;
+            border: none;
+            color: #707070;
+            cursor: pointer;
+        }
+    /*.headlist {
+        border-bottom: 2px solid #ECACAC;
+        padding:1px;
+    }*/
+    .numbertext {
+        width: 20px;
+        outline: none;
+        margin: 0 5px 0 5px;
+        height: 20px;
+        border: 1px solid #ECACAC;
+        color: #ECACAC;
+        text-align: center;
+    }
+
+    .listproduct .headlistbig p button {
+        height: 20px;
+        width: 20px;
+        background: #ECACAC;
+        border: none;
+        color: #707070;
+        cursor: pointer;
+    }
+
+
+
+    .headlist table {
+        border-bottom: 2px solid #ECACAC;
+        padding: 0;
+        margin: 0;
+    }
+
+    .headlist table tr th {
+        padding: 0;
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        height: 100px;
+    }
+
+    .headlistbig table {
+        border-bottom: 2px solid #ECACAC;
+        padding: 0;
+        margin: 0;
+    }
+
+    .headlistbig table tr th {
+        padding: 0;
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        height: 100px;
+    }
+
+    .container-table {
+        padding: 10px;
+    }
+
+    .listproduct .headlistbig .product {
+        width: 111px;
+    }
+
+    .listproduct .headlistbig .name {
+        width: 189px;
+    }
+
+    .listproduct .headlistbig .price {
+        width: 142px;
+    }
+
+    .listproduct .headlistbig .quantity {
+        width: 176px;
+    }
+
+    .summary {
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        font-weight: 600;
+        width: 90%;
+        height: 512px;
+        background: white;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    }
+
+    .summary p {
+            padding: 40px;
+    }
+
+    .titleofsummary {
+        height: 80px;
+        background: #ECACAC;
+        padding: 40px;
+    }
+
+    .foottotal .total {
+        height: 80px;
+        background: #F3D1D1;
+        padding: 40px;
+        margin-top:156px;
+    }
+
+    .btn-checkout {
+        width: 90%;
+        font-weight: 600;
+        height: 70px;
+        border: none;
+        color: white;
+        background: #363333;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    }
+
+    .btn-del-all {
+        width: 250px;
+        height: 50px;
+        border: none;
+        font-weight: 600;
+        color: #707070;
+        background: #F3D1D1;
+        display: none;
+    }
+
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: white;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #EBABAB;
+        border-radius: 20px;
+        height: 100px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #1093ff, #83d1e9);
+    }
+
+    .headlist {
+        height: 600px;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+</style>
+<div class="container2">
+    <div class="container-cart">
+        <div class="listproduct">
+            <div class="headlistbig">
+                <table style="width:100%">
+                    <tr>
+                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst" onclick="checkFluency();" type="checkbox" value="" /></th>
+                        <th style="max-width:180px;">Product</th>
+                        <th style="max-width:73px;">Name</th>
+                        <th style="max-width:180px;">Price</th>
+                        <th style="max-width:39px;">Quantity</th>
+                        <th style="max-width:180px;">Total</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="headlist">
+                @*auto render data*@
+                <table style="width:100%">
+                    <tr>
+                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
+                        <th style="max-width:180px;"><img src="~/Upload/Img/JonsboMOD3Pink.png" height="80" alt="fk" /></th>
+                        <th style="max-width:73px;">Keyboard hdah daghdgah hagdh dahgdah haghda hdgadha hdghak jdjahks jfahsj dajshfuq jdahjd djahdja kjahdja hda dahgdjk dakdahhdgh hsgda hagdhk dahdhs hdgah kjjda dahdghw jdha jadghad jhdagd dadhad da dsa da fahjdh fhahgdja hdagshgd agsdg dgagjw  hagd awhdgja lkkghjad ahdga </th>
+                        <th style="max-width:180px;">120$</th>
+                        <th style="max-width:180px;"><button>-</button><input class="numbertext" maxlength="2" max="10" type="text" name="number" value="" /><button>+</button></th>
+                        <th style="max-width:180px;">120$</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="rightside">
+        <button class="btn-del-all" id="btndelall">DELETE</button>
+        <br />
+        <div class="summary">
+            <div class="headsummary">
+                <p class="titleofsummary">SUMMARY :</p>
+            </div>
+            <p class="subtotal">SUBTOTAL :</p>
+            <p class="voucher">VOUCHER :</p>
+            <div class="foottotal">
+                <p class="total">TOTAL :</p>
+            </div>
+        </div>
+        <br />
+        <button class="btn-checkout">CHECKOUT</button>
+    </div>
+</div>
+@section script_admin{
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+    <script>
+        function checkFluency() {
+            var checkbox = document.getElementById("checkboxfirst");
+
+            var btndel = document.getElementById("btndelall");
+            if (checkbox.checked != true) {
+                btndel.style.display = 'none';
+            }
+            else {
+                btndel.style.display = 'block';
+            }
+        }
+        function checkFluency1() {
+            var checkbox1 = document.getElementById("checkboxfirst2");
+
+            var btndel = document.getElementById("btndelall");
+            if (checkbox1.checked != true) {
+                btndel.style.display = 'none';
+            }
+            else {
+                btndel.style.display = 'block';
+            }
+        }
+    </script>
+}
+
