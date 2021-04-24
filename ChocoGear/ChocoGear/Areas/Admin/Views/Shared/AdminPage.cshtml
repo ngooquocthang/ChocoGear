@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    
+        <style>
+            * {
+                padding: 17px 12px 12px 12px;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #EBABAB;
+            }
+
+            .container {
+                background: white;
+                width: 1494px;
+                height: 661px;
+                border-radius: 21px;
+                box-shadow: 0px 5px 35px rgba(0,0,0,0.2);
+                padding: 7px 7px 7px 7px;
+            }
+
+            .menubar1 {
+                width: 203px;
+                height: 448px;
+                background: #2C2A2A;
+                border-radius: 21px;
+                box-shadow: 0px 5px 35px rgba(0,0,0,0.2);
+            }
+
+            .menubar2 {
+                width: 203px;
+                background: #2C2A2A;
+                border-radius: 21px;
+                height: 192px;
+                margin-top: 5px;
+                position: absolute;
+                box-shadow: 0px 5px 35px rgba(0,0,0,0.2);
+            }
+
+            .content {
+                width: 1266px;
+                height: 645px;
+                background: #FFDFDF;
+                border-radius: 21px;
+                position: absolute;
+                box-shadow: 0px 5px 35px rgba(0,0,0,0.2);
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                background: none;
+                padding: 0;
+            }
+
+            .col-2 {
+                background: none;
+                position: absolute;
+                left: 34px;
+                padding: 0;
+            }
+
+            .col-3 {
+                background: none;
+                position: absolute;
+                left: 242px;
+                padding: 0;
+            }
+
+            .logo {
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                border: solid 5px #EBABAB;
+                background: white;
+                margin-left: 44px;
+                padding:0px;
+            }
+
+
+            .teamname {
+                font-family: 'Source Sans Pro', sans-serif;
+                color: white;
+                background: none;
+                text-align: center;
+                font-size: 15px;
+            }
+
+            strong {
+                background: none;
+            }
+
+            .menubar1 a {
+                color: #fff;
+                display: block;
+                width: 100%;
+                line-height: 18px;
+                text-decoration: none;
+                padding-left: 15px;
+                box-sizing: border-box;
+                transition: .5s;
+                transition-property: background;
+                font-family: 'RocknRoll One', sans-serif;
+                border-radius: 50px;
+                background: #2C2A2A;
+                text-align: center;
+            }
+
+            .menubar1 i {
+                padding-right: 10px;
+            }
+
+            .menubar2 a {
+                color: #fff;
+                display: block;
+                width: 100%;
+                line-height: 18px;
+                text-decoration: none;
+                padding-left: 15px;
+                box-sizing: border-box;
+                transition: .5s;
+                transition-property: background;
+                font-family: 'RocknRoll One', sans-serif;
+                border-radius: 50px;
+                background: #2C2A2A;
+                text-align: center;
+                margin-top: 20px;
+            }
+
+            .menubar2 i {
+                padding-right: 10px;
+            }
+
+            span {
+                font-size: 14px;
+                border-radius: 10px;
+                background: none;
+            }
+
+            .menubar1 a:hover {
+                background: #373434;
+            }
+
+            .menubar2 a:hover {
+                background: #373434;
+            }
+        </style>
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <div class="menubar1">
+                        <img class="logo" src="~/Areas/Admin/Upload/Logo/LOGOCHOSCOR.png" width="90" alt="Alternate Text" />
+                        <p class="teamname"><strong>Chó Cỏ</strong></p>
+                        <a href=""><span>Product</span></a>
+                        <a href=""><span>Customer</span></a>
+                        <a href=""><span>Employee</span></a>
+                        <a href=""><span>Inventory</span></a>
+                        <a href=""><span>Order</span></a>
+                        <a href=""><span>Payment</span></a>
+                    </div>
+                    <div class="menubar2">
+                        <a href=""><span>Đồ Điện Tử</span></a>
+                        <a href=""><span>Log Out</span></a>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("script_admin", required: false)
+</body>
+</html>
