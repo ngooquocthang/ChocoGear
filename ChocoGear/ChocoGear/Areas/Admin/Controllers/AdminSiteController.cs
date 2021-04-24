@@ -54,5 +54,29 @@ namespace ChocoGear.Areas.Admin.Controllers
 
             return RedirectToAction("Product");
         }
+
+        public ActionResult Edit()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
+            var q = Product.GetId(id);
+            Session["EditProduct"] = q;
+            return RedirectToAction("Product");
+        }
+
+        public ActionResult DeleteProduct()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
+            var q = Product.GetId(id);
+            string fullPath = Request.MapPath("~/Areas/Admin/Upload/"+q.name_image);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+            Product.Delete(id);
+            return Json("success");
+        }
+
     }
 }

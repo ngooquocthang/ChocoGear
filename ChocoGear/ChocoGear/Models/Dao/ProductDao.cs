@@ -30,10 +30,14 @@ namespace ChocoGear.Models.Dao
         {
             try
             {
-                Entity.Product pro = new Entity.Product() { id = item.id, name_product = item.name_product, name_image = item.name_image, id_brand = item.id_brand, id_category = item.id_category, description = item.description, discount = item.discount, price = item.price, created = item.created, status = item.status };
-                database.Products.Add(pro);
-                database.SaveChanges();
-                return 1;
+                if(checkNameProduct(item.name_product) == false)
+                {
+                    Entity.Product pro = new Entity.Product() { id = item.id, name_product = item.name_product, name_image = item.name_image, id_brand = item.id_brand, id_category = item.id_category, description = item.description, discount = item.discount, price = item.price, created = item.created, status = item.status };
+                    database.Products.Add(pro);
+                    database.SaveChanges();
+                    return 1;
+                }
+                return 0;
             }
             catch (Exception)
             {
@@ -43,42 +47,73 @@ namespace ChocoGear.Models.Dao
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+
+            var q = database.Products.Where(d => d.id == id).FirstOrDefault();
+            database.Products.Remove(q);
+            database.SaveChanges();
+
+            return 1;
         }
 
         public ProductView GetId(int id)
         {
-            throw new NotImplementedException();
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Products.Where(d => d.id == id).Select(d => new ModelView.ProductView()
+            {
+                id = d.id,
+                name_product = d.name_product,
+                name_image = d.name_image,
+                created = (DateTime)d.created,
+                price = (float)d.price,
+                description = d.description,
+                discount = (float)d.discount,
+                name_category = d.Category.name_category,
+                name_brand = d.Brand.name,
+                status = (bool)d.status
+            }).FirstOrDefault();
+            return q;
         }
 
         public List<ProductView> Gets()
         {
-            /*var q = database.Products.Select(d=>new ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created =(DateTime)d.created, description =d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price =(float)d.price, status =(bool)d.status}).ToList();
-            return q;*/
-            var q = (from pr in database.Products
-                     join br in database.Brands on pr.id_brand equals br.id
-                     join ct in database.Categories on pr.id_category equals ct.id
-                     select new ProductView
-                     {
-                         id = pr.id,
-                         name_product = pr.name_product,
-                         name_image = pr.name_image,
-                         created = (DateTime)pr.created,
-                         description = pr.description,
-                         discount = (float)pr.discount,
-                         id_brand = (int)pr.id_brand,
-                         id_category = (int)pr.id_category,
-                         price = (float)pr.price,
-                         status = (bool)pr.status,
-                         name_brand = br.name,
-                         name_category = ct.name_category,
-                     }).ToList();
+            var q = database.Products.Where(d => d.status == true).Select(d => new ProductView
+            {
+                id = d.id,
+                name_product = d.name_product,
+                name_image = d.name_image,
+                created = (DateTime)d.created,
+                price = (float)d.price,
+                description = d.description,
+                discount = (float)d.discount,
+                name_category = d.Category.name_category,
+                name_brand = d.Brand.name,
+                status = (bool)d.status
+            }).ToList();
             return q;
         }
 
         public int Update(ProductView item)
         {
             throw new NotImplementedException();
+        }
+
+        public bool checkNameProduct(string name)
+        {
+            var q = database.Products.Where(d => d.name_product == name).FirstOrDefault();
+            if(q != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public List<ProductView> Skip(int Page, int Row)
+        {
+            var q = database.Products.Select(d => new ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).OrderBy(d => d.id).Skip((Page - 1) * Row).Take(Row).ToList();
+            return q;
         }
     }
 }
