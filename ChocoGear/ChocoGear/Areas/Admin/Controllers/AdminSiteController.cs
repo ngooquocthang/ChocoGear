@@ -84,7 +84,47 @@ namespace ChocoGear.Areas.Admin.Controllers
         //Category
         public ActionResult Category()
         {
+            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
+            Session["listCate"] = Category.Gets();
             return View();
+        }
+
+        public ActionResult CreateCategory()
+        {
+            var name = Request.Form["Name"];
+            var status = Request.Form["Status"];
+            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
+            Models.ModelView.CategoryView cate = new Models.ModelView.CategoryView();
+            cate.name_category = name;
+            cate.status = bool.Parse(status);
+            Category.Create(cate);
+            return RedirectToAction("Category");
+            /*var listCate = Category.Gets();
+            var a = "";
+            var b = "";
+            foreach(var item in listCate)
+            {
+                if(item.status == true)
+                {
+                    b += "< input type = 'checkbox' name = 'status' id = 'status' checked />";
+                }
+                else
+                {
+                    b += "< input type = 'checkbox' name = 'status' id = 'status' />";
+                }
+                a += "<table class='tablerow'style='width: 100 % '><tr><td style='max-width:40px;' >"+ item.name_category+"</td>"+ b +"< td style = 'max-width:40px;' >< button type = 'button' class='btn-Del'><img width = '20' src='~/Areas/Admin/Upload/Icon/icondelete.ico' alt='Alternate Text' /></button><button class='btn-Edit'><img width = '20' src='~/Areas/Admin/Upload/Icon/iconedit.ico' alt='Alternate Text' /></button></td></tr></table>";
+            }
+            *//*if (cate.status == true)
+            {
+                b += "< input type = 'checkbox' name = 'status' id = 'status' checked />";
+            }
+            else
+            {
+                b += "< input type = 'checkbox' name = 'status' id = 'status' />";
+            }
+            var c = "<table class='tablerow'style='width: 100 % '><tr><td style='max-width:40px;' >" + name + "</td>" + b + "< td style = 'max-width:40px;' >< button type = 'button' class='btn-Del'><img width = '20' src='~/Areas/Admin/Upload/Icon/icondelete.ico' alt='Alternate Text' /></button><button class='btn-Edit'><img width = '20' src='~/Areas/Admin/Upload/Icon/iconedit.ico' alt='Alternate Text' /></button></td></tr></table>";*//*
+
+            return Json(a);*/
         }
 
         //FeedBack
