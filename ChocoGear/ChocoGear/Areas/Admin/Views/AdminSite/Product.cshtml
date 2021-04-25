@@ -392,41 +392,6 @@
     <br />
     <input class="btn-add" id="Create" type="submit" value="Add Product" />
 </form>
-@*editform*@
-
-<form class="formedit" id="formedit" method="post" action="">
-    <h4>Edit</h4>
-    <img class="btn-x" onclick="ExitEdit();" src="~/Areas/Admin/Upload/Icon/iconcancel.png" alt="" />
-    <input type="text" id="dmm" class="Name" name="Name" placeholder="Name" value="" />
-    <br />
-    <select class="Category" name="Category" id="Category" onchange="selectid_category(this);">
-        <option selected>Choose Category</option>
-        @*@foreach (var item in listCate)
-            {
-                <option value="@item.id">@item.name_category</option>
-            }*@
-    </select>
-    <input type="hidden" id="Category_id" name="Category_id" value="/" />
-    <br />
-    <input class="Price" type="text" name="Price" placeholder="Price" />
-    <br />
-    <select class="Brand" name="Brand" id="Brand">
-        <option selected>Choose Brand</option>
-        @foreach (var item in listBrand)
-        {
-            <option value="@item.id">@item.name</option>
-        }
-    </select>
-    <input class="Discount" type="text" name="Discount" placeholder="Discount" />
-    <br />
-    <input class="Img" type="file" name="Img" />@*<div class="pictureboxedit"><img src="#" alt="fk" /></div>*@
-    <br />
-    <textarea class="Description" name="Decription" placeholder="Description"></textarea>
-    <br />
-    <input class="btn-update" type="submit" value="Update" /><input type="checkbox" id="status" name="Active" />
-</form>
-
-@*editform done*@
 
 <div class="righside">
     <div class="headtable">
@@ -435,6 +400,7 @@
                 <td style="max-width:55px;">Name</td>
                 <td style="max-width:51px;">Type</td>
                 <td style="max-width:51px;">Brand</td>
+                <td style="max-width:51px;">Status</td>
                 <td style="max-width:60px;">Price</td>
                 <td style="max-width:58px;">Img</td>
                 <td style="max-width:100px;">Description</td>
@@ -451,6 +417,7 @@
                 <tr id="Row_@item.name_product">
                     <td style="max-width:40px;">@item.name_product</td>
                     <td style="max-width:33px;">@item.name_category</td>
+                    <td style="max-width:33px;">text</td>
                     <td style="max-width:33px;">@item.name_brand</td>
                     <td style="max-width:32px;">@item.price$</td>
                     <td style="max-width:40px;"><img height="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
