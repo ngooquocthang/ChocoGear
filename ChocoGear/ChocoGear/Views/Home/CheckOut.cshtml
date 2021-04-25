@@ -26,8 +26,8 @@
         background: lightgrey;
         box-sizing: border-box;
         float: left;
-        padding:13px 0 0 60px;
-        background:white;
+        padding: 13px 0 0 60px;
+        background: white;
     }
 
     .rightside {
@@ -96,13 +96,13 @@
         margin: 0;
     }
 
-    .headlist table tr th {
-        padding: 0;
-        margin: 0;
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #707070;
-        height: 100px;
-    }
+        .headlist table tr th {
+            padding: 0;
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #707070;
+            height: 100px;
+        }
 
     .headlistbig table {
         border-bottom: 2px solid #ECACAC;
@@ -110,13 +110,13 @@
         margin: 0;
     }
 
-    .headlistbig table tr th {
-        padding: 0;
-        margin: 0;
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #707070;
-        height: 100px;
-    }
+        .headlistbig table tr th {
+            padding: 0;
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #707070;
+            height: 100px;
+        }
 
     .container-table {
         padding: 10px;
@@ -148,9 +148,9 @@
         box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     }
 
-    .summary p {
+        .summary p {
             padding: 40px;
-    }
+        }
 
     .titleofsummary {
         height: 80px;
@@ -162,7 +162,7 @@
         height: 80px;
         background: #F3D1D1;
         padding: 40px;
-        margin-top:156px;
+        margin-top: 156px;
     }
 
     .btn-checkout {
@@ -199,9 +199,9 @@
         height: 100px;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
+        ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(to right, #1093ff, #83d1e9);
-    }
+        }
 
     .headlist {
         height: 600px;
@@ -227,16 +227,23 @@
 
             <div class="headlist">
                 @*auto render data*@
-                <table style="width:100%">
-                    <tr>
-                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
-                        <th style="max-width:180px;"><img src="~/Upload/Img/JonsboMOD3Pink.png" height="80" alt="fk" /></th>
-                        <th style="max-width:73px;">Keyboard hdah daghdgah hagdh dahgdah haghda hdgadha hdghak jdjahks jfahsj dajshfuq jdahjd djahdja kjahdja hda dahgdjk dakdahhdgh hsgda hagdhk dahdhs hdgah kjjda dahdghw jdha jadghad jhdagd dadhad da dsa da fahjdh fhahgdja hdagshgd agsdg dgagjw  hagd awhdgja lkkghjad ahdga </th>
-                        <th style="max-width:180px;">120$</th>
-                        <th style="max-width:180px;"><button>-</button><input class="numbertext" maxlength="2" max="10" type="text" name="number" value="" /><button>+</button></th>
-                        <th style="max-width:180px;">120$</th>
-                    </tr>
-                </table>
+                @if (Session["Cart"] != null)
+                {
+                    var cart = (List<ChocoGear.Models.ModelView.CartView>)Session["Cart"];
+                    foreach (var item in cart)
+                    {
+                        <table style="width:100%" id="Row_@item.product">
+                            <tr>
+                                <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
+                                <th style="max-width:180px;"><img src="@Url.Content("~/Areas/Admin/Upload/")@item.image" height="80" alt="fk" /></th>
+                                <th style="max-width:73px;">@item.product</th>
+                                <th style="max-width:180px;"><span id="price_@item.product">@item.price</span><span>$</span></th>
+                                <th style="max-width:180px;"><button id="descrease" onclick="descrease(this)" data-product="@item.product">-</button><input class="numbertext" id="quantity_@item.product" maxlength="2" max="10" type="text" name="number" value="@item.quantity" /><button id="inscrease" onclick="inscrease(this)" data-product="@item.product">+</button></th>
+                                <th style="max-width:180px;"><span id="subtotal_@item.product">@item.subtotal</span><span>$</span></th>
+                            </tr>
+                        </table>
+                    }
+                }
             </div>
         </div>
     </div>
@@ -260,6 +267,71 @@
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
     <script>
+        function inscrease(obj) {
+            var name = $(obj).attr('data-product');
+            // NEW QUANTITY
+            var newquantity = parseInt($('#quantity_' + name).val()) + 1;
+
+            // GET PRICE
+            var price = parseInt($('#price_' + name).html());
+
+            //SUBTOTAL = NEWQUANTITY * PRICE
+            var newsubtotal = (newquantity * price).toString();
+
+            //SET NEW SUBTOTAL
+            $('#subtotal_' + name).html(newsubtotal);
+
+            // SET INPUT WITH NEW QUANTITY
+            $('#quantity_' + name).val(newquantity);
+
+            //  AJAX INCREASE QUANTIY
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("InscreaseQuantity")",
+                data: {name : name}
+            })
+        }
+    function descrease(obj) {
+            // NEW QUANTITY
+            var name = $(obj).attr('data-product');
+
+            // SET INPUT WITH NEW QUANTITY
+            var newquantity = parseInt($('#quantity_' + name).val()) - 1;
+
+            var subtotal = parseInt($('#subtotal_' + name).val());
+            $('#subtotal_' + name).val(newquantity * subtotal);
+            // DESCREASE MUST > 0
+        if (newquantity > 0) {
+            // GET PRICE
+            var price = parseInt($('#price_' + name).html());
+
+            //SUBTOTAL = NEWQUANTITY * PRICE
+            var newsubtotal = (newquantity * price).toString();
+
+            //SET NEW SUBTOTAL
+            $('#subtotal_' + name).html(newsubtotal);
+                $('#quantity_' + name).val(newquantity);
+                // AJAX DESCREASE QUANTITY
+                $.ajax({
+                method: "post",
+                url: "@Url.Action("DescreaseQuantity")",
+                data: {name : name}
+            })
+            } else {
+            if (confirm("Are you sure you want to delete this product?")) {
+                $.ajax({
+                    method: "post",
+                    url: "@Url.Action("DeleteCart")",
+                    data: { name: name }
+                }).done(function (data) {
+                    $('#Row_' + name).remove();
+                });
+                } else {
+                    alert("Delete Fail");
+                }
+            }
+
+        }
         function checkFluency() {
             var checkbox = document.getElementById("checkboxfirst");
 

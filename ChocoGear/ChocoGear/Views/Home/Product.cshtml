@@ -3,77 +3,40 @@
     Layout = "~/Views/Shared/UserPage.cshtml";
     List<ChocoGear.Models.ModelView.ProductView> pv = new List<ChocoGear.Models.ModelView.ProductView>();
     List<ChocoGear.Models.ModelView.CategoryView> cv = new List<ChocoGear.Models.ModelView.CategoryView>();
+    @*List<ChocoGear.Models.ModelView.CartView> cart = new List<ChocoGear.Models.ModelView.CartView>();*@
     pv = ViewBag.listproduct;
-    cv = ViewBag.listcate; 
-    }
+    cv = ViewBag.listcate;
 
-@*feature categories*@
-<!--<!--<div class="categories">
-    <div class="small-container">
-        <h2 class="titleofbook">Ice Cream</h2>
-
-        <div class="row">
-            <div class="col-3">
-                <img src="#" alt="" />
-            </div>
-        </div>
-    </div>
-</div>-->
--->
-<!--@*feature product*@-->
-
-
+}
 
 <div class="small-container">
     @foreach (var items in cv)
     {
-<h2 class="titleofbook">@items.name_category</h2>
-                <div class="row">
-
-                    @foreach (var item in pv)
-                    {
-                        if (item.name_category == items.name_category)
-                        {
-    <div class="col-4">
-        <img src="~/Areas/Admin/Upload/@item.name_image" alt="" />
-        <h4>Name</h4>
-        <div class="rating">
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <i class="fa fa-star" aria-hidden="true"></i>
-        </div>
-        <p>@item.price</p>
-        <br />
-        <a href="@Url.Action("CheckOut",new { id=item.id})" class="btn-buy">Buy</a>
-        <a href="#" class="btn-seemore">See more</a>
-
-        @*<a href="#" class="btn-buy">Buy</a>
-        <a href="#" class="btn-seemore">See more</a>*@
-
-    </div>                    }
-
-
-      }
-                </div>
-                }
-
-
-    @*    <h2 class="titleofbook">Free Recipes</h2>
+        <h1 class="titleofbook">@items.name_category</h1>
         <div class="row">
-                <div class="col-4">
-                    <img src="#" alt="" />
-                    <h4>Name</h4>
-                    <div class="rating">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+
+            @foreach (var item in pv)
+            {
+                if (item.name_category == items.name_category)
+                {
+                    <div class="col-4">
+                        <img src="~/Areas/Admin/Upload/@item.name_image" style="width: 70%; height: 80%;" alt="" />
+                        <h4>@item.name_product</h4>
+                        <div class="rating" style="margin-bottom: 5px;">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                        <div><p>Price: @item.price$</p></div>
+                        <br />
+                        <a href="@Url.Action("AddToCart",new { id=item.id})" class="btn-buy">Buy</a>
+                        <a href="#" class="btn-seemore">See more</a>
                     </div>
-                    <a href="#" class="btn-buy">Download</a>
-                    <a href="#" class="btn-seemore">See more</a>
-                </div>
+                }
+            }
+        </div>
+        <h3 class="" style="text-align: center; margin-bottom: 25px;"><a href="#">More...</a></h3>
 
-
-        </div>*@
+    }
 </div>

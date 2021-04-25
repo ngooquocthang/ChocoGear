@@ -1,9 +1,5 @@
-﻿
-@{
-    ViewBag.Title = "EditProduct";
-    Layout = "~/Areas/Admin/Views/Shared/AdminPageEmpty.cshtml";
-
-}
+﻿@{ ViewBag.Title = "EditProduct";
+    Layout = "~/Areas/Admin/Views/Shared/AdminPageEmpty.cshtml"; }
 <style>
     body {
         background: #EBABAB;
@@ -205,63 +201,101 @@
         color: #707070;
     }
 </style>
-<div class="container-EditProduct">
-    <div class="formedit">
-        @if (Session["inforProduct"] != null)
-        {
-            var product = (ChocoGear.Models.ModelView.ProductView)Session["inforProduct"];
-            var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
-            var listBrand = (List<ChocoGear.Models.ModelView.Brand>)Session["listBrand"];
-            <form action="/" method="post">
+<form action="@Url.Action("Create_Edit")" method="post" enctype="multipart/form-data">
+    <div class="container-EditProduct">
+        <div class="formedit">
+            @if (Session["inforProduct"] != null)
+            {
+                var product = (ChocoGear.Models.ModelView.ProductView)Session["inforProduct"];
+                var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
+                var listBrand = (List<ChocoGear.Models.ModelView.Brand>)Session["listBrand"];
                 <h4>Update Product</h4>
-                <input id="name" type="text" class="Name" name="Name" placeholder="Name" value="@product.name_product" />
+                <input type="hidden" id="id_pro" name="id_pro" value="@product.id" />
+                <input id="name" type="text" class="Name" name="Name" placeholder="Name" value="@product.name_product" data_name="@product.name_product" />
                 <br />
                 <select class="Category" name="Category" id="Category">
-
-                    <option selected value="@product.id_category">@product.name_category</option>
-
                     @foreach (var item in listCate)
                     {
-                        <option value="@item.id">@item.name_category</option>
+                        if (item.id == product.id_category)
+                        {
+                            <option selected value="@product.id_category">@product.name_category</option>
+                        }
+                        else
+                        {
+                            <option value="@item.id">@item.name_category</option>
+                        }
                     }
                 </select>
+                <input type="hidden" id="Category_id" name="Category_id" value="/" />
+
                 <select class="Status" name="Status" id="Status">
                     @if (product.status == true)
                     {
-                        <option value="" selected>Available</option>
-                        <option value="">Unavailable</option>
+                        <option value="1" selected>Available</option>
+                        <option value="0">Unavailable</option>
                     }
                     else
                     {
-                        <option value="">Available</option>
-                        <option value="" selected>Unavailable</option>
+                        <option value="1">Available</option>
+                        <option value="0" selected>Unavailable</option>
                     }
 
                 </select>
-                <input type="hidden" id="Category_id" name="Category_id" value="/" />
+                <input type="hidden" id="status" name="Category_id" value="/" />
                 <br />
                 <select class="Brand" name="Brand" id="Brand">
-                    <option selected value="@product.id_brand">@product.name_brand</option>
-
                     @foreach (var item in listBrand)
+
                     {
-                        <option value="@item.id">@item.name</option>
+                        if (item.id == product.id_brand)
+                        {
+                            <option selected value="@product.id_brand">@product.name_brand</option>
+ }
+                        else
+                        {
+                            <option value="@item.id">@item.name</option>
+                        }
+
                     }
-
                 </select>
-                <br />
-                <input class="Price" id="Price" type="text" name="Price" value="@product.price" placeholder="Price" />
 
+                <br />
+                <input class="Price" id="Price" type="text" name="Price" data_price="@product.price" value="@product.price" placeholder="Price" />
                 <br />
                 <input class="Discount" id="Discount" value="@product.discount" type="text" name="Discount" placeholder="Discount" />
                 <br />
-                <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="@Url.Content("~/Areas/Admin/Upload/")@product.name_image" /></div>
+                <input id="img" class="Img" type="file" name="Img" multiple="multiple" /><div class="picturebox"><img id="imagechoose" width="50" src="@Url.Content("~/Areas/Admin/Upload/")@product.name_image" /></div>
                 <br />
                 <textarea id="Desciption" class="Description" name="Decription" placeholder="Description">@product.description</textarea>
                 <br />
-                <input class="btn-update" id="Create" type="submit" value="Update" />
-            </form>
-        }
-    </div>
-</div>
+                <input class="btn-update" id="Create" onclick="File_image();" type="submit" value="Update" />
+            }
 
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $("#Create").change(function () {
+            var formData = new FormData();
+            var totalFiles = document.getElementById("Create").files.length;
+            for (var i = 0; i < totalFiles; i++) {
+                var file = document.getElementById("Create").files[i];
+                formData.append("Create", file);
+            }
+            $.ajax({
+                type: "POST",
+                url: '"~/Areas/Admin/Upload/',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false
+
+            }).done(function () {
+                alert('success');
+            }.fail(function (xhr, status, errorThrown) {
+                alert('fail');
+            };
+        });
+    });
+</script>

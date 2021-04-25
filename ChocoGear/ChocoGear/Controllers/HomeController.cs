@@ -10,13 +10,20 @@ namespace ChocoGear.Controllers
     {
         public ActionResult Index()
         {
-            
+
             return View();
         }
         public ActionResult Product()
         {
             Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;
             Models.IRepository<Models.ModelView.CategoryView> repositorys = Models.Dao.CategoryDao.Instance;
+
+            if (Session["Cart"] == null)
+            {
+                List<Models.ModelView.CartView> Cart = new List<Models.ModelView.CartView>();
+                Session["Cart"] = Cart;
+            }
+
             var s = repositorys.Gets();
             ViewBag.listcate = s;
             var q = repository.Gets();
@@ -45,7 +52,7 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Create_Login()
         {
@@ -55,8 +62,8 @@ namespace ChocoGear.Controllers
             var tmp = user + pass;
             var tmp1 = s.Base64(tmp);
             var tmp2 = s.MD5Hash(tmp1);
-            var check = s.CheckLogin(user,tmp2);
-            if (check==true)
+            var check = s.CheckLogin(user, tmp2);
+            if (check == true)
             {
                 Session["login"] = user;
                 return RedirectToAction("Product");
@@ -77,7 +84,7 @@ namespace ChocoGear.Controllers
             var user = Request.Form["usrname"];
             var pass = Request.Form["password"];
             var cfpass = Request.Form["cfpassword"];
-            if (pass!=cfpass)
+            if (pass != cfpass)
             {
                 return RedirectToAction("LoginAndRegister");
             }
@@ -99,13 +106,49 @@ namespace ChocoGear.Controllers
             return RedirectToAction("LoginAndRegister");
 
         }
-        public ActionResult ProductDetail ()
+
+        public ActionResult AddToCart(int id)
         {
-            return View();
+            List<Models.ModelView.ProductView> pro = new List<Models.ModelView.ProductView>();
+            Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
+            var q = product.GetId(id);
+            var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+            cart.Add(new Models.ModelView.CartView { product = q.name_product, image = q.name_image, price = q.price, quantity = 1, subtotal = (q.price * 1) });
+            Session["Cart"] = cart;
+
+            return RedirectToAction("checkout");
         }
-        public ActionResult CustomerInfor()
+
+        // INSCREASE QUANTITY
+        public ActionResult InscreaseQuantity()
         {
-            return View();
+            var name = Request.Form["name"];
+            var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+            var q = cart.Where(d => d.product == name).FirstOrDefault();
+            q.quantity += 1;
+            q.subtotal = (q.quantity * q.price);
+            Session["Cart"] = cart;
+            return Json("Success");
+        }
+
+        public ActionResult DescreaseQuantity()
+        {
+            var name = Request.Form["name"];
+            var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+            var q = cart.Where(d => d.product == name).FirstOrDefault();
+            q.quantity -= 1;
+            q.subtotal = (q.quantity * q.price);
+            Session["Cart"] = cart;
+            return Json("Success");
+        }
+
+        public ActionResult DeleteCart()
+        {
+            var name = Request.Form["name"];
+            var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+            var q = cart.Where(d => d.product == name).FirstOrDefault();
+            cart.Remove(q);
+            return Json("Success");
         }
     }
 }

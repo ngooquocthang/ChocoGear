@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -69,7 +70,7 @@ namespace ChocoGear.Areas.Admin.Controllers
             var id = int.Parse(Request.Form["id"]);
             Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
             var q = Product.GetId(id);
-            string fullPath = Request.MapPath("~/Areas/Admin/Upload/"+q.name_image);
+            string fullPath = Request.MapPath("~/Areas/Admin/Upload/" + q.name_image);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
@@ -78,7 +79,7 @@ namespace ChocoGear.Areas.Admin.Controllers
             return Json("success");
         }
 
- 
+
         public ActionResult EditProduct(int id)
         {
             /*var id = int.Parse(Request.Form["id"]);*/
@@ -91,6 +92,47 @@ namespace ChocoGear.Areas.Admin.Controllers
             Models.IRepository<Models.ModelView.Brand> Brand = Models.Dao.BrandDao.Instance;
             Session["listBrand"] = Brand.Gets();
             return View();
+        }
+        [HttpPost]
+        public ActionResult Create_Edit()
+        {
+            if (Request.Files.Count != 0)
+            {
+
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var file = Request.Files[i];
+
+                    var fileName = Path.GetFileName(file.FileName);
+
+                    var id = int.Parse(Request.Form["id_pro"]);
+                    var name = Request.Form["name"];
+                    var image_name = Request.Form["Img"];
+                    var id_cate = int.Parse(Request.Form["Category"]);
+                    var id_brand = int.Parse(Request.Form["Brand"]);
+                    var price = float.Parse(Request.Form["Price"]);
+                    var decription = Request.Form["Decription"];
+                    var discount = float.Parse(Request.Form["Discount"]);
+                    var active = Request.Form["Status"].Equals("1") ? true : false;
+                    Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;
+                    Models.ModelView.ProductView pv = new Models.ModelView.ProductView();
+                    pv.id = id;
+                    pv.name_product = name;
+                    pv.name_image = fileName;
+                    pv.id_brand = id_brand;
+                    pv.id_category = id_cate;
+                    pv.price = price;
+                    pv.discount = discount;
+                    pv.status = active;
+                    pv.description = decription;
+                    repository.Update(pv);
+                    var path = Path.Combine(Server.MapPath("~/Areas/Admin/Upload/"), fileName);
+                    file.SaveAs(path);
+                }
+
+            }
+
+            return RedirectToAction("Product");
         }
         //Category
         public ActionResult Category()
@@ -136,29 +178,6 @@ namespace ChocoGear.Areas.Admin.Controllers
             var c = "<table class='tablerow'style='width: 100 % '><tr><td style='max-width:40px;' >" + name + "</td>" + b + "< td style = 'max-width:40px;' >< button type = 'button' class='btn-Del'><img width = '20' src='~/Areas/Admin/Upload/Icon/icondelete.ico' alt='Alternate Text' /></button><button class='btn-Edit'><img width = '20' src='~/Areas/Admin/Upload/Icon/iconedit.ico' alt='Alternate Text' /></button></td></tr></table>";*//*
 
             return Json(a);*/
-        }
-
-        public ActionResult DeleteCate()
-        {
-            var id = int.Parse(Request.Form["id"]);
-            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
-            Category.Delete(id);
-            return Json("Success");
-        }
-
-        public ActionResult UpdateCategory()
-        {
-            var name = Request.Form["name"];
-            var id = int.Parse(Request.Form["id"]);
-            var status = bool.Parse(Request.Form["status"]);
-
-            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
-            Models.ModelView.CategoryView cate = new Models.ModelView.CategoryView();
-            cate.id = id;
-            cate.name_category = name;
-            cate.status = status;
-            Category.Update(cate);
-            return RedirectToAction("Category");
         }
 
         //FeedBack
