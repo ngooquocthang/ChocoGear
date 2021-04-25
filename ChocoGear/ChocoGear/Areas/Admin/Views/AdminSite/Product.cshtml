@@ -368,8 +368,8 @@
     <br />
     <select class="Status" name="Status" id="Status">
         <option disabled selected hidden>Choose Status</option>
-        <option value="">Available</option>
-        <option value="">Unavailable</option>
+        <option value="1">Available</option>
+        <option value="0">Unavailable</option>
     </select>
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
     <br />
@@ -417,12 +417,19 @@
                 <tr id="Row_@item.name_product">
                     <td style="max-width:40px;">@item.name_product</td>
                     <td style="max-width:33px;">@item.name_category</td>
-                    <td style="max-width:33px;">text</td>
                     <td style="max-width:33px;">@item.name_brand</td>
+                    @if (item.status == true)
+                    {
+                        <td style="max-width:33px;">Available</td>
+                    }
+                    else
+                    {
+                        <td style="max-width:33px;">Unavailable</td>
+                    }
                     <td style="max-width:32px;">@item.price$</td>
                     <td style="max-width:40px;"><img height="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
                     <td style="max-width:100px;">@item.description</td>
-                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-id_product="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-idproduct="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                 </tr>
             </table>
         }
@@ -432,13 +439,12 @@
 </div>
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
-    <script>
+<script>
         function showEdit(obj) {
-            var name = $(obj).attr('data-nameproduct');
-            $('#Row_' + name).each(function () {
-                var cellText = $(this).cellText;
-                alert(cellText);
-            });
+            var id = $(obj).attr('data-idproduct');
+            var url = "@Url.Action("EditProduct", new { id = "id"})";
+            url = url.replace("id", id);
+            window.location.href = url;
         }
         function ExitEdit() {
             var ExitEdits = document.getElementById("formedit");
@@ -472,7 +478,7 @@
             }
         }
 
-    </script>
+</script>
 }
 
 

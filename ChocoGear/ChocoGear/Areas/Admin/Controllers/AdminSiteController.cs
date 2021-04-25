@@ -31,7 +31,7 @@ namespace ChocoGear.Areas.Admin.Controllers
         {
             var name = Request.Form["Name"];
             var price = float.Parse(Request.Form["Price"]);
-            var active = Request.Form["Active"].Equals("on") ? true : false;
+            var active = Request.Form["Status"].Equals("1") ? true : false;
             var image_name = Img.FileName;
             var id_cate = int.Parse(Request.Form["Category"]);
             var discount = float.Parse(Request.Form["Discount"]);
@@ -77,8 +77,19 @@ namespace ChocoGear.Areas.Admin.Controllers
             Product.Delete(id);
             return Json("success");
         }
-        public ActionResult EditProduct()
+
+ 
+        public ActionResult EditProduct(int id)
         {
+            /*var id = int.Parse(Request.Form["id"]);*/
+            Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
+            Session["inforProduct"] = Product.GetId(id);
+
+            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
+            Session["listCate"] = Category.Gets();
+
+            Models.IRepository<Models.ModelView.Brand> Brand = Models.Dao.BrandDao.Instance;
+            Session["listBrand"] = Brand.Gets();
             return View();
         }
         //Category
