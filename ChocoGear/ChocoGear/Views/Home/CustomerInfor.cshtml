@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "CustomerInfor";
+    Layout = "~/Views/Shared/SmallUserPage.cshtml";
+}
+<style>
+    body {
+        background: #FFDFDF;
+    }
+    .Usr-Container {
+        border-radius:10px;
+        background:white;
+        width: 40%;
+        height: 40%;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 50px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        padding:50px 20px 20px 20px;
+    }
+    .Usr-Container input {
+        height:30px;
+    }
+    .Usr-Container .title , .Usr-Container .val  {
+        display:inline-block;
+        margin-left:30px;
+        margin-bottom:50px;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight:600;
+        color:#707070;
+        outline:none;
+    }
+    .Usr-Container .btn-edit {
+        display:inline-block;
+        height:20px;
+        width:20px;
+        outline:none;
+
+    }
+    .title {
+        width:100px;
+        height:10px;
+    }
+    .val {
+        width:60%;
+        border:1px solid #a8a3a3;
+    }
+    .bigtitle {
+        margin-bottom: 100px;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        color: #707070;
+        text-align:center;
+        padding:0;
+    }
+    .btn-edit {
+        background: white;
+        margin-left: 20px;
+    }
+    .btn-edit:hover {
+        transform:scale(0.9);
+        cursor:pointer;
+    }
+    button {
+        height: 50px;
+        width: 100px;
+        border: none;
+        outline: none;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        color:white;
+        background:#f58d8d;
+    }
+</style>
+<div class="Usr-Container">
+    <div class="bigtitle"><h1>Your Information</h1></div>
+    <div class="">
+        <div class="title">Name</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png"/>
+    </div>
+    <div class="">
+        <div class="title">Phone</div><input class="val" type="text" maxlength="12" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+    </div>
+    <div class="">
+        <div class="title">Address</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+    </div>
+    <div class="">
+        <div class="title">Email</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+    </div>
+    <div class="">
+        <div class="title">Password</div><input class="val" type="password" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+    </div>
+    <br />
+    <button>Update</button>
+</div>
+

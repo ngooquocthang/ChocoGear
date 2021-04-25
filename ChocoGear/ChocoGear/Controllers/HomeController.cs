@@ -103,5 +103,9 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
+        public ActionResult CustomerInfor()
+        {
+            return View();
+        }
     }
 }
