@@ -99,5 +99,9 @@ namespace ChocoGear.Controllers
             return RedirectToAction("LoginAndRegister");
 
         }
+        public ActionResult ProductDetail ()
+        {
+            return View();
+        }
     }
 }
