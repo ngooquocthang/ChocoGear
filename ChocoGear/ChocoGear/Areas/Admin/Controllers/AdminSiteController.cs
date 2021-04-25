@@ -138,6 +138,29 @@ namespace ChocoGear.Areas.Admin.Controllers
             return Json(a);*/
         }
 
+        public ActionResult DeleteCate()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
+            Category.Delete(id);
+            return Json("Success");
+        }
+
+        public ActionResult UpdateCategory()
+        {
+            var name = Request.Form["name"];
+            var id = int.Parse(Request.Form["id"]);
+            var status = bool.Parse(Request.Form["status"]);
+
+            Models.IRepository<Models.ModelView.CategoryView> Category = Models.Dao.CategoryDao.Instance;
+            Models.ModelView.CategoryView cate = new Models.ModelView.CategoryView();
+            cate.id = id;
+            cate.name_category = name;
+            cate.status = status;
+            Category.Update(cate);
+            return RedirectToAction("Category");
+        }
+
         //FeedBack
         public ActionResult FeedBack()
         {

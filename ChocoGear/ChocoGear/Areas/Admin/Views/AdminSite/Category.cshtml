@@ -266,22 +266,22 @@
     </div>
     <br />
     <input class="btn-add" id="create" type="submit" value="Add Product" />
-    
 </form>
 @*edit*@
-<form action="/" method="post" class="category-edit-form" id="editform">
-    <input type="text" class="Name" id="Name" name="Name" placeholder="Name" />
+<form action="" method="post" class="category-edit-form" id="editform">
+    <input type="text" class="Name" id="Name_Edit" name="Name" placeholder="Name" />
     <br />
     <div class="status">
-        <input type="checkbox" id="Statuss" name="name" />
+        <input type="checkbox" id="Status_Edit" name="name" />
     </div>
+    <input type="hidden" class="idcate" id="idcate" name="idcate"/>
     <div class="status-text">
         <p>Active</p>
     </div>
     <div class="btn-area">
-        <input class="btn-edit" id="create" type="submit" value="Update" /><input class="btn-cancel" id="create" type="submit" value="Cancel" />
+        <input class="btn-edit" id="update" type="submit" style="font-size: 12px;" value="Update" /><input class="btn-cancel" style="font-size: 12px;" id="cancel" value="Cancel" />
     </div>
-   
+
 </form>
 <div class="righside">
     <div class="headtable">
@@ -299,7 +299,7 @@
             var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
             foreach (var item in listCate)
             {
-                <table class="tablerow" style="width:100%">
+                <table class="tablerow" id="Row_@item.name_category" style="width:100%">
                     <tr>
                         <td style="max-width:40px;" class="HeadName">@item.name_category</td>
                         
@@ -311,7 +311,7 @@
                         {
                     <td style="max-width:40px;" class="HeadCheckbok">Unavailable</td>
                         }
-                        <td style="max-width:40px;"><button type="button" class="btn-Del" ><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" onclick="deleteCate(this)" data-namecategory="@item.name_category" data-idcategory="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" data-idcategory="@item.id" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                     </tr>
                 </table>
             }
@@ -334,12 +334,52 @@
         function Edit(obj) {
             var a = $(obj).parents("tr").find(".HeadName").text();
             var b = $(obj).parents("tr").find(".HeadCheckbok").text();
-            alert(a);
-            alert(b);
+            var idcate = $(obj).attr('data-idcategory');
+
+            $('#Name_Edit').val(a);
+            if (b == "Available") {
+                $('#Status_Edit').prop('checked', true);
+            }
+            $('#idcate').val(idcate);
             var showEdit = document.getElementById("editform");
             showEdit.style.display = 'block';
         }
-        
+
+        $('#update').click(function () {
+            var name = $('#Name_Edit').val();
+            var status = $('#Status_Edit').prop('checked');
+            var id = $('#idcate').val();
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("UpdateCategory")",
+                data: { id: id, name: name, status: status }
+            }).done(function () {
+                $('#bodytable').load();
+            });
+        })
+        $('#cancel').click(function () {
+            var showEdit = document.getElementById("editform");
+            showEdit.style.display = 'none';
+        })
+
+        function deleteCate(obj) {
+            var id = $(obj).attr('data-idcategory');
+            var name = $(obj).attr('data-namecategory');
+            if (confirm("Are you sure you want to delete this category?")) {
+                $.ajax({
+                method: "post",
+                url: "@Url.Action("DeleteCate")",
+                data: { id: id }
+            }).done(function (data) {
+                $('#Row_' + name).remove();
+            });
+            }
+            else {
+                return false;
+            }
+
+
+        }
     </script>
 }
 
