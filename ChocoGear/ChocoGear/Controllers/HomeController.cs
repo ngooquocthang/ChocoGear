@@ -10,10 +10,17 @@ namespace ChocoGear.Controllers
     {
         public ActionResult Index()
         {
+            
             return View();
         }
         public ActionResult Product()
         {
+            Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;
+            Models.IRepository<Models.ModelView.CategoryView> repositorys = Models.Dao.CategoryDao.Instance;
+            var s = repositorys.Gets();
+            ViewBag.listcate = s;
+            var q = repository.Gets();
+            ViewBag.listproduct = q;
             return View();
         }
 
@@ -38,6 +45,7 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public ActionResult Create_Login()
         {
@@ -88,7 +96,7 @@ namespace ChocoGear.Controllers
             cv.password = tmp2;
             cv.status = status;
             repository.Create(cv);
-                return RedirectToAction("LoginAndRegister");
+            return RedirectToAction("LoginAndRegister");
 
         }
     }
