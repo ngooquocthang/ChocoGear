@@ -24,6 +24,8 @@ namespace ChocoGear.Areas.Admin.Controllers
 
             Models.IRepository<Models.ModelView.ProductView> repositoryProduct = Models.Dao.ProductDao.Instance;
             Session["listProduct"] = repositoryProduct.Gets();
+            var q= repositoryProduct.Gets();
+            ViewBag.data = q;
 
             return View();
         }
@@ -189,6 +191,8 @@ namespace ChocoGear.Areas.Admin.Controllers
         //Customer
         public ActionResult Customer()
         {
+            Models.IRepository<Models.ModelView.CustomerView> customer = Models.Dao.CustomerDao.Instance;
+            Session["listCus"] = customer.Gets();
             return View();
         }
 
