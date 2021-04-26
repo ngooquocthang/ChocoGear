@@ -165,5 +165,15 @@ namespace ChocoGear.Controllers
             cart.Remove(q);
             return Json("Success");
         }
+
+        public ActionResult ProductDetail(int id)
+        {
+            Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;
+            var q = repository.GetId(id);
+            var q1 = repository.Gets();
+            ViewBag.listproduct = q;
+            ViewBag.listproductall = q1;
+            return View();
+        }
     }
 }

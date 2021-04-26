@@ -133,5 +133,35 @@ namespace ChocoGear.Models.Dao
             var q = database.Products.Select(d => new ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).OrderBy(d => d.id).Skip((Page - 1) * Row).Take(Row).ToList();
             return q;
         }
+        public ProductView Search_Category(string name_cate)
+        {
+            var q = database.Products.Where(d => d.Category.name_category == name_cate).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).FirstOrDefault();
+            return q;
+        }
+        public ProductView Search_Product(string name_product)
+        {
+            var q = database.Products.Where(d => d.name_product == name_product).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).FirstOrDefault();
+            return q;
+        }
+        public List<ProductView> Search_characters_product(string name_product)
+        {
+            var q = database.Products.Where(d => d.name_product.Contains(name_product)).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).ToList();
+            return q;
+        }
+        public List<ProductView> Search_characters_Brand(string name_brand)
+        {
+            var q = database.Products.Where(d => d.Brand.name.Contains(name_brand)).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).ToList();
+            return q;
+        }
+        public List<ProductView> Search_characters_Category(string name_cate)
+        {
+            var q = database.Products.Where(d => d.Category.name_category.Contains(name_cate)).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).ToList();
+            return q;
+        }
+        public ProductView Search_Brand(string name_brand)
+        {
+            var q = database.Products.Where(d => d.Brand.name == name_brand).Select(d => new Models.ModelView.ProductView { id = d.id, name_product = d.name_product, name_image = d.name_image, created = (DateTime)d.created, description = d.description, discount = (float)d.discount, id_brand = (int)d.id_brand, id_category = (int)d.id_category, price = (float)d.price, status = (bool)d.status }).FirstOrDefault();
+            return q;
+        }
     }
 }

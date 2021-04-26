@@ -1,7 +1,11 @@
-﻿
+
 @{
     ViewBag.Title = "ProductDetail";
     Layout = "~/Views/Shared/SmallUserPage.cshtml";
+    List<ChocoGear.Models.ModelView.ProductView> list = new List<ChocoGear.Models.ModelView.ProductView>();
+    ChocoGear.Models.ModelView.ProductView pv = new ChocoGear.Models.ModelView.ProductView();
+    pv = ViewBag.listproduct;
+    list = ViewBag.listproductall;
 }
 
 <style>
@@ -79,7 +83,7 @@
         font-family: 'Source Sans Pro', sans-serif;
         color: #707070;
     }
-  
+
 
     h2 {
         text-align: center;
@@ -112,11 +116,11 @@
         height: 100%;
     }
 
-    .form-user .formtext {
+        .form-user .formtext {
             margin-left: auto;
             margin-right: auto;
             width: 500px;
-     }
+        }
 
     .formtext {
         width: 100%;
@@ -211,45 +215,59 @@
     }
 
 </style>
-<div class="head-infor-product">
-    <div class="cover-img"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /></div>
-</div>
-<div class="about-product-cover">
-    <div class="about-product">
-        <div class="leftside">
-            <img src="~/Upload/Img/PC.png" alt="Alternate Text" />
+@foreach (var item in list)
+{
+    if (item.id==pv.id)
+    {
+        <div class="head-infor-product">
+            <div class="cover-img"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /></div>
         </div>
-        <div class="rightside">
+        <div class="about-product-cover">
+            <div class="about-product">
+                <div class="leftside">
+                    <img src="~/Upload/Img/@item.name_image" alt="Alternate Text" />
+                </div>
+                <div class="rightside">
             
-            <div class="infor">
-                <p class="infor1"></p><p class="infor2" style="font-size:25px;margin-bottom:50px;">PC Gaming </p>
+                    <div class="infor">
+                        <p class="infor1"></p><p class="infor2" style="font-size:25px;margin-bottom:50px;">@pv.name_product</p>
+                    </div>
+                    <div class="infor">
+                        <p class="infor1">Brand : </p><p class="infor2">@pv.name_brand</p>
+                    </div>
+                    <div class="infor">
+                        <p class="infor1">Type : </p><p class="infor2">@pv.name_category</p>
+                    </div>
+                    <div class="infor">
+                        @if (pv.status == true)
+                        {
+                            <p class="infor1">Status : </p><p class="infor2">Stocking</p>
+                        }
+                        else
+                        {
+                            <p class="infor1">Status : </p><p class="infor2">Out of stock</p>
+                        }
+
+                    </div>
+                    <div class="infor">
+                        <p class="infor1">Price : </p><p class="infor2">@pv.price</p>
+                    </div>
+                    <div class="infor">
+                        <p class="infor1">Discount : </p><p class="infor2">@pv.discount %</p>
+                    </div>
+                    <button class="btn-buy">Buy</button>
+                </div>
             </div>
-            <div class="infor">
-                <p class="infor1">Brand : </p><p class="infor2">Oke</p>
-            </div>
-            <div class="infor">
-                <p class="infor1">Type : </p><p class="infor2">Oke</p>
-            </div>
-            <div class="infor">
-                <p class="infor1">Status : </p><p class="infor2">Oke</p>
-            </div>
-            <div class="infor">
-                <p class="infor1">Price : </p><p class="infor2">Oke</p>
-            </div>
-            <div class="infor">
-                <p class="infor1">Discount : </p><p class="infor2">Oke</p>
-            </div>
-            <button class="btn-buy">Buy</button>
         </div>
-    </div>
-</div>
-<div class="Des_cover">
-    <div class="Product-Des">
-        <div class="Des">
-            CKEditor
+        <div class="Des_cover">
+            <div class="Product-Des">
+                <div class="Des">
+                    @pv.description
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    }
+}
 <div class="inforproduct">
     <h1>SUBCRIBE</h1>
     <p><a href="#">SIGN UP</a> for <strong>FREE</strong> account </p>
