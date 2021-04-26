@@ -3,7 +3,7 @@
     ViewBag.Title = "Order";
     Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
 }
-
+<style>
  .Name {
         width: 386px;
         border-bottom: 1px solid #2C2A2A;
@@ -121,7 +121,7 @@
         h4::after {
             content: '';
             bottom: 0;
-            width: 60px;
+            width: 47px;
             height: 2px;
             background: #2C2A2A;
             display: block;
@@ -146,7 +146,7 @@
     }
 
     .righside {
-        width: 822px;
+        width: 1243px;
         height: 573px;
         background: white;
         border-radius: 21px;
@@ -157,7 +157,7 @@
 
     .headtable {
         padding: 0px;
-        width: 797px;
+        width: 1217px;
         border-radius: 8px;
         padding: 0;
         background: #EBABAB;
@@ -172,7 +172,7 @@
 
 
     .bodytable {
-        width: 797px;
+        width: 1217px;
         height: 490px;
         background: white;
         margin-top: 4px;
@@ -218,9 +218,9 @@
         transition: 0.5s;
     }
 
-        .btn-Edit:hover {
-            background: #f17777;
-        }
+    .btn-Edit:hover {
+        background: #f17777;
+    }
 
     .tablerow {
         background: white;
@@ -373,7 +373,7 @@
         position: absolute;
         top: 10px;
         border-radius: 10px;
-        left: 431px;
+        left: 950px;
         margin: 0;
     }
 
@@ -404,45 +404,17 @@
         .btn-src img {
             cursor: pointer;
         }
+        .bodytable .tablerow td a {
+            text-decoration:none;
+            color:#707070;
+        }
+        .bodytable .tablerow td a:hover {
+            color:#f17777;
+        }
 </style>
-<h4>Product</h4>
+<h4>Order</h4>
 @**@
-<form method="post" action="" enctype="multipart/form-data">
-    <input id="name" type="text" class="Name" name="Name" placeholder="Name" />
-    <br />
-    <select class="Category" name="Category" id="Category">
-        <option disabled hidden selected>Choose Category</option>
 
-        <option value=""></option>
-
-    </select>
-    <br />
-    <select class="Status" name="Status" id="Status">
-        <option disabled selected hidden>Choose Status</option>
-        <option value="1">Available</option>
-        <option value="0">Unavailable</option>
-    </select>
-    <input type="hidden" id="Category_id" name="Category_id" value="/" />
-    <br />
-    <select class="Brand" name="Brand" id="Brand">
-        <option disabled hidden selected>Choose Brand</option>
-
-        <option value=""></option>
-
-    </select>
-    <br />
-    <input class="Price" id="Price" type="text" name="Price" placeholder="Price" />
-
-    <br />
-    <input class="Discount" id="Discount" type="text" name="Discount" placeholder="Discount" />
-    <br />
-    <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="#" /></div>
-    <br />
-    <p class="ckeditor-title">Desciption</p>
-    <textarea id="Desciption" class="Description" name="Description" placeholder="Description"></textarea>
-    <br />
-    <input class="btn-add" id="Create" type="submit" value="Add Product" />
-</form>
 <div class="srcbar-cv">
     <input class="srcbar" type="text" name="name" value="" /><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
 </div>
@@ -450,12 +422,10 @@
     <div class="headtable">
         <table class="headtable2" style="width:100%">
             <tr>
-                <td style="max-width:55px;">Name</td>
-                <td style="max-width:51px;">Type</td>
-                <td style="max-width:51px;">Brand</td>
+                <td style="max-width:55px;">Name of user</td>
+                <td style="max-width:51px;">Total</td>
+                <td style="max-width:51px;">Date</td>
                 <td style="max-width:51px;">Status</td>
-                <td style="max-width:60px;">Price</td>
-                <td style="max-width:58px;">Img</td>
                 <td style="max-width:60px;">Action</td>
             </tr>
         </table>
@@ -465,19 +435,13 @@
         <table class="tablerow" style="width:100%">
 
             <tr id="">
-                <td style="max-width:40px;min-width:40px;"></td>
-                <td style="max-width:35px;min-width:30px;"></td>
-                <td style="max-width:33px;min-width:35px;"></td>
-
-                <td style="max-width:40px;min-width:35px;">Available</td>
-
-                <td style="max-width:40px;min-width:35px;">Unavailable</td>
-
-                <td style="max-width:32px;"></td>
-                <td style="max-width:40px;"><img height="100" width="100" src="" alt="Alternate Text" /></td>
-                <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="" data-idproduct=""><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                <td style="max-width:40px;min-width:40px;">Name of user</td>
+                <td style="max-width:35px;min-width:30px;">Total</td>
+                <td style="max-width:33px;min-width:35px;">Date</td>
+                <td style="max-width:40px;min-width:35px;">Status</td>
+                <td style="max-width:40px;"><a href="#">Detail</a></td>
             </tr>
         </table>
     </div>
-</div>
+</div>                         
 
