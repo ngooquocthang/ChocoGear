@@ -5,86 +5,107 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    .container {
-        max-width: 1300px;
-        margin: auto;
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-    .header {
-        background: #FFDFDF;
-    }
 
-    .navbar {
-        display: flex;
-        align-items: center;
-        padding: 20px;
-    }
-
-    nav {
-        flex: 1;
-        text-align: right;
-    }
-
-    nav ul {
-         display: inline-block;
-         list-style-type: none;
-         font-family: 'Source Sans Pro', sans-serif;
-    }
-
-    nav ul li {
-         display: inline-block;
-         margin-right: 20px;
-         font-family: 'Source Sans Pro', sans-serif;
-         font-weight: 700;
-    }
-
-    nav ul li::after {
-         content: '';
-         display: block;
-         background: #c53c7c;
-         width: 0%;
-         height: 2px;
-         margin: auto;
-         border-radius: 1px;
-         transition: 0.5s;
-    }
-
-    nav ul li:hover::after {
-         width: 100%;
-    }
-
-    a {
-        text-decoration: none;
-        color: #555;
-    }
-
-    p {
-        color: #555;
-    }
-    .logo2 {
-        border-radius:50%;
-        width:90px;
-        height:90px;
-    }
-    .cart {
-        transition:0.5s;
-    }
-    .cart:hover {
-        cursor: pointer;
-        border: 2px solid #c53c7c;
-        border-radius: 5px;
-        transform: scale(0.9);
-    }
-
-</style>
 <body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        .header {
+            background: #FFDFDF;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+        }
+
+        nav {
+            flex: 1;
+            text-align: right;
+        }
+
+            nav ul {
+                display: inline-block;
+                list-style-type: none;
+                font-family: 'Source Sans Pro', sans-serif;
+            }
+
+                nav ul li {
+                    display: inline-block;
+                    margin-right: 20px;
+                    font-family: 'Source Sans Pro', sans-serif;
+                    font-weight: 700;
+                }
+
+                    nav ul li::after {
+                        content: '';
+                        display: block;
+                        background: #c53c7c;
+                        width: 0%;
+                        height: 2px;
+                        margin: auto;
+                        border-radius: 1px;
+                        transition: 0.5s;
+                    }
+
+                    nav ul li:hover::after {
+                        width: 100%;
+                    }
+
+        a {
+            text-decoration: none;
+            color: #555;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .logo2 {
+            border-radius: 50%;
+            width: 90px;
+            height: 90px;
+        }
+
+        .cart {
+            transition: 0.5s;
+        }
+
+            .cart:hover {
+                cursor: pointer;
+                border: 2px solid #c53c7c;
+                border-radius: 5px;
+                transform: scale(0.9);
+            }
+
+        .navbar span {
+            width: 25px;
+            height: 25px;
+            background: #f34444;
+            border-radius: 50%;
+            display: none;
+        }
+
+            .navbar span p {
+                color: white;
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 9px;
+                padding-top: 7px;
+                margin-left: 4px;
+            }
+    </style>
     <div class="header">
         <div class="container">
             <div class="navbar">
@@ -100,7 +121,7 @@
                         <li><a href="#">Login</a></li>
                     </ul>
                 </nav>
-                <img src="~/Upload/Icon/cart.png" width="40" height="30" alt="" class="cart" />
+                <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span><p>New</p></span>
                 <img src="#" width="25" class="menu-icon" onclick="menutoggle()" alt="" />
             </div>
         </div>
@@ -108,7 +129,7 @@
     <div>
         @RenderBody()
     </div>
-    
+
 </body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

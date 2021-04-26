@@ -139,10 +139,11 @@
         var mnbar = $('#Menubar');
         var scrTop = $(this).scrollTop()
         @*alert(scrTop);*@
-        if (scrTop >= 650) {
+        if (scrTop >= 650 && scrTop <= 1850) {
             mnbar.css('display', 'block');
         } else {
             mnbar.css('display', 'none');
         }
     });
+    
 </script>

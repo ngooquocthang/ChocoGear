@@ -20,6 +20,7 @@
         outline: none;
         font-size: 15px;
         font-weight: 600;
+        color:#707070;
     }
 
     .Category {
@@ -49,6 +50,7 @@
         outline: none;
         font-size: 15px;
         font-weight: 600;
+        color: #707070;
     }
 
     .Img {
@@ -106,6 +108,7 @@
         outline: none;
         font-size: 15px;
         font-weight: 600;
+        color: #707070;
     }
 
     form {
@@ -148,11 +151,11 @@
 
     .righside {
         width: 822px;
-        height: 623px;
+        height: 573px;
         background: white;
         border-radius: 21px;
         position: absolute;
-        top: 11px;
+        top: 63px;
         right: 12px;
     }
 
@@ -174,13 +177,14 @@
 
     .bodytable {
         width: 797px;
-        height: 540px;
+        height: 490px;
         background: white;
         margin-top: 4px;
         border-radius: 8px;
         padding: 0;
         overflow: scroll;
         overflow-x: hidden;
+        border-bottom: 2px solid #EBABAB;
     }
 
 
@@ -252,7 +256,7 @@
     }
 
     ::-webkit-scrollbar-track {
-        background: lightblue;
+        background: transparent;
     }
 
     ::-webkit-scrollbar-thumb {
@@ -302,7 +306,6 @@
         height: 40px;
         padding: 0px;
         width: 50px;
-        border: 1px solid #2C2A2A;
         display: inline-block;
         top: 350px;
     }
@@ -353,10 +356,52 @@
         font-weight: 600;
         color: #707070;
     }
+    .ckeditor-title {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
 
     .righside .headtable .bodytable tr td {
         padding-right: 0;
         padding-left: 0;
+    }
+    .srcbar-cv {
+        height:45px;
+        padding:0;
+        width:300px;
+        background:white;
+        position:absolute;
+        top:10px;
+        border-radius:10px;
+        left:431px;
+        margin:0;
+    }
+    .srcbar {
+        width: 95%;
+        height: 45px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+        margin-left:20px;
+    }
+    .btn-src{
+        height:45px;
+        width:45px;
+        position:absolute;
+        top:0;
+        padding:6px;
+        right:0;    
+    }
+    .btn-src img {
+        cursor:pointer;
     }
 </style>
 <h4>Product</h4>
@@ -365,7 +410,7 @@
     <input id="name" type="text" class="Name" name="Name" placeholder="Name" />
     <br />
     <select class="Category" name="Category" id="Category">
-        <option selected>Choose Category</option>
+        <option disabled hidden selected>Choose Category</option>
         @foreach (var item in listCate)
         {
             <option value="@item.id">@item.name_category</option>
@@ -380,7 +425,7 @@
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
     <br />
     <select class="Brand" name="Brand" id="Brand">
-        <option selected>Choose Brand</option>
+        <option disabled hidden selected>Choose Brand</option>
         @foreach (var item in listBrand)
         {
             <option value="@item.id">@item.name</option>
@@ -394,11 +439,14 @@
     <br />
     <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="#" /></div>
     <br />
-    <textarea id="Desciption" class="Description" name="Decription" placeholder="Description"></textarea>
+    <p class="ckeditor-title">Desciption</p>
+    <textarea id="Desciption" class="Description" name="Description" placeholder="Description"></textarea>
     <br />
     <input class="btn-add" id="Create" type="submit" value="Add Product" />
 </form>
-
+<div class="srcbar-cv">
+    <input class="srcbar" type="text" name="name" value="" /><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+</div>
 <div class="righside">
     <div class="headtable">
         <table class="headtable2" style="width:100%">
@@ -441,13 +489,14 @@
 
     </div>
 </div>
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
     <script>
-        
-    CKEDITOR.replace('Description', {
-    height: 100,
-    width: 300
+        CKEDITOR.replace('Description', {
+        height: 80,
+        width: 384,
+
     })
     function showEdit(obj) {
     var id = $(obj).attr('data-idproduct');
