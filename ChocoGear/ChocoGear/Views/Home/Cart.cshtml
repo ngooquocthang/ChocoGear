@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "CheckOut";
+    ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/SmallUserPage.cshtml";
     var total = 0.0;
 }
@@ -26,19 +26,19 @@
         height: 700px;
         background: lightgrey;
         box-sizing: border-box;
-        float: left;
-        padding: 13px 0 0 60px;
         background: white;
+        margin-left:auto;
+        margin-right:auto;
     }
 
-    .rightside {
+    @*.rightside {
         width: 40%;
         height: 700px;
         background: white;
         box-sizing: border-box;
         float: left;
         padding: 99px 20px 10px 140px;
-    }
+    }*@
 
     .listproduct {
         background: white;
@@ -171,13 +171,14 @@
     }
 
     .btn-checkout {
-        width: 90%;
+        width: 250px;
         font-weight: 600;
-        height: 70px;
+        height: 50px;
         border: none;
         color: white;
         background: #363333;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
     }
 
     .btn-del-all {
@@ -187,8 +188,7 @@
         font-weight: 600;
         color: black;
         background: #ECACAC;
-        display: none;
-        margin-top: 20px;
+        display: block;
         cursor: pointer;
     }
 
@@ -215,6 +215,8 @@
         overflow: scroll;
         overflow-x: hidden;
     }
+    
+
 </style>
 <div class="container2">
     <div class="container-cart">
@@ -254,10 +256,14 @@
                     }
                 }
             </div>
-            <button class="btn-del-all" id="btndelall">DELETE( <span id="countCart">0</span> )</button>
+            <div class="btn-del-all-cv"><button class="btn-del-all" id="btndelall">DELETE( <span id="countCart">0</span> )</button></div>
+            <div class="totalsub"><p class="subtotal">TOTAL : <span id="total">@total</span><span>.0$</span></p></div>
+            <div class="btn-checkout-cv"><button class="btn-checkout">CHECKOUT</button></div>
+            
         </div>
     </div>
-    <div class="rightside">
+    
+    @*<div class="rightside">
         <div class="summary">
             <div class="headsummary">
                 <p class="titleofsummary">SUMMARY :</p>
@@ -270,7 +276,7 @@
         </div>
         <br />
         <button class="btn-checkout">CHECKOUT</button>
-    </div>
+    </div>*@
 </div>
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@

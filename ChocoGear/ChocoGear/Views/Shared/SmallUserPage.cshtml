@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/Content/CartResponsive.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -105,7 +106,41 @@
                 padding-top: 7px;
                 margin-left: 4px;
             }
+
+        .DropMenubar {
+            height: 70px;
+            width: 150px;
+            background: white;
+            position: absolute;
+            left: 1320px;
+            top: 146px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            transition: 0.5s;
+            opacity:0;
+            border-radius:5px;
+        }
+
+        .DropMenubar ul li {
+            color: #707070;
+            text-decoration: none;
+            list-style-type: none;
+            margin-left: 20px;
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .DropMenubar ul li:hover {
+            color: pink;
+            display:block;
+        }
     </style>
+    <div class="DropMenubar" id="DropMenubar">
+        <ul>
+            <li>Profile</li>
+            <li>Change Password</li>
+            <li>Log Out</li>
+        </ul>
+    </div>
     <div class="header">
         <div class="container">
             <div class="navbar">
@@ -118,7 +153,7 @@
                         <li><a href="#">Product</a></li>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Feed Back</a></li>
-                        <li><a href="#">Login</a></li>
+                        <li><a onmouseover="loginhover();" onmouseout="logmouseout();" href="#">Login</a></li>
                     </ul>
                 </nav>
                 <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span><p>New</p></span>
@@ -129,8 +164,22 @@
     <div>
         @RenderBody()
     </div>
-
+    <script>
+        function loginhover() {
+            var hoverlog = document.getElementById("DropMenubar");
+            hoverlog.style.left = '1370px';
+            hoverlog.style.top = '138px';
+            hoverlog.style.opacity = 1;
+        }
+        function logmouseout() {
+            var hoverlog = document.getElementById("DropMenubar");
+            hoverlog.style.left = '1320px';
+            hoverlog.style.top = '146px';
+            hoverlog.style.opacity = 0;
+        }
+    </script>
 </body>
+
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("script_admin", required: false)

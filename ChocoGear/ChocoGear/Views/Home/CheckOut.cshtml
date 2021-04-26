@@ -148,7 +148,7 @@
         color: #707070;
         font-weight: 600;
         width: 90%;
-        height: 512px;
+        height: 425px;
         background: white;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     }
@@ -163,12 +163,7 @@
         padding: 40px;
     }
 
-    .foottotal .total {
-        height: 80px;
-        background: #F3D1D1;
-        padding: 40px;
-        margin-top: 156px;
-    }
+    
 
     .btn-checkout {
         width: 90%;
@@ -215,6 +210,19 @@
         overflow: scroll;
         overflow-x: hidden;
     }
+    .rightside .summary input {
+        width: 70%;
+        margin-left: 40px;
+        height: 40px;
+        margin: 4px 40px 10px 40px;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight:600;
+        color:#707070;
+    }
+    .rightside .summary .info {
+        margin-left: 40px;
+        
+    }
 </style>
 <div class="container2">
     <div class="container-cart">
@@ -227,7 +235,7 @@
                         <th style="max-width:73px;">Name</th>
                         <th style="max-width:180px;">Price</th>
                         <th style="max-width:39px;">Quantity</th>
-                        <th style="max-width:180px;">Total</th>
+                        <th style="max-width:180px;">Subtotal</th>
                     </tr>
                 </table>
             </div>
@@ -263,13 +271,15 @@
                 <p class="titleofsummary">SUMMARY :</p>
             </div>
             <p class="subtotal">SUBTOTAL : <span id="total">@total</span><span>.0$</span></p>
-            <p class="voucher">VOUCHER :</p>
-            <div class="foottotal">
-                <p class="total">TOTAL :</p>
-            </div>
+            <span class="info">Address</span>
+            <input type="text" name="address" value="" placeholder="" />
+            <span class="info">Phone</span>
+            <input type="text" maxlength="12" name="name" value="+84 " placeholder="" />
+            <span class="info">Email</span>
+            <input type="email" name="email" value="" placeholder="" />
         </div>
         <br />
-        <button class="btn-checkout">CHECKOUT</button>
+        <button class="btn-checkout">ORDER</button>
     </div>
 </div>
 @section script_admin{
