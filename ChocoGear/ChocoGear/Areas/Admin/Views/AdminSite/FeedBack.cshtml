@@ -1,0 +1,461 @@
+﻿
+@{
+    ViewBag.Title = "FeedBack";
+    Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
+}
+
+<style>
+    .Name {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        font-family: 'Source Sans Pro', sans-serif;
+        margin-top: 0px;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Category {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Price {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Img {
+        width: 336px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Description {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        height: 200px;
+        border-radius: 13px;
+        background: none;
+        margin-top: 10px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .Brand {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .Discount {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    form {
+        background: none;
+        padding: 0;
+    }
+
+    h4 {
+        font-family: 'Source Sans Pro', sans-serif;
+        background: none;
+        color: #2C2A2A;
+    }
+
+        h4::after {
+            content: '';
+            bottom: 0;
+            width: 157px;
+            height: 2px;
+            background: #2C2A2A;
+            display: block;
+        }
+
+
+    .btn-add {
+        width: 140px;
+        height: 30px;
+        border: none;
+        border-radius: 22px;
+        background: #373434;
+        margin-top: 0px;
+        color: white;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 232px;
+    }
+
+    option {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .righside {
+        width: 1243px;
+        height: 573px;
+        background: white;
+        border-radius: 21px;
+        position: absolute;
+        top: 63px;
+        right: 12px;
+    }
+
+    .headtable {
+        padding: 0px;
+        width: 1217px;
+        border-radius: 8px;
+        padding: 0;
+        background: #EBABAB;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        color: #767575;
+    }
+
+    .headtable2 {
+        padding: 0px;
+    }
+
+
+    .bodytable {
+        width: 1217px;
+        height: 490px;
+        background: white;
+        margin-top: 4px;
+        border-radius: 8px;
+        padding: 0;
+        overflow: scroll;
+        overflow-x: hidden;
+        border-bottom: 2px solid #EBABAB;
+    }
+
+
+
+    .btn-Del {
+        background: #EBABAB;
+        border-radius: 5px;
+        padding: 0px;
+        color: black;
+        cursor: pointer;
+        height: 38px;
+        width: 38px;
+        border: none;
+        transition: 0.5s;
+        margin-right: 10px;
+    }
+
+        .btn-Del:hover {
+            background: #f17777;
+        }
+
+    img {
+        padding: 0px;
+    }
+
+    .btn-Edit {
+        background: #EBABAB;
+        border-radius: 5px;
+        padding: 0px;
+        color: black;
+        cursor: pointer;
+        height: 38px;
+        width: 38px;
+        border: none;
+        transition: 0.5s;
+    }
+
+        .btn-Edit:hover {
+            background: #f17777;
+        }
+
+    .tablerow {
+        background: white;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        transition: 0.5s;
+        padding: 0px;
+        left: 0px;
+        text-align: left;
+    }
+
+        .tablerow:hover {
+            background: #FFDFDF;
+            cursor: pointer;
+        }
+
+    .tablerow {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+        .tablerow tr td {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 13px;
+        }
+
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #EBABAB;
+        border-radius: 20px;
+        height: 100px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #1093ff, #83d1e9);
+        }
+
+    .formedit {
+        position: absolute;
+        height: 645px;
+        width: 500px;
+        background: white;
+        border-radius: 21px;
+        display: block;
+        top: 0px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+        z-index: 99;
+        left: 320px;
+        display: none;
+    }
+
+        .formedit input {
+            margin-left: 55px;
+        }
+
+        .formedit select {
+            margin-left: 55px;
+        }
+
+        .formedit textarea {
+            margin-left: 55px;
+        }
+
+        .formedit h4 {
+            margin-top: 17px;
+            margin-left: 55px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+    .picturebox {
+        position: absolute;
+        height: 40px;
+        padding: 0px;
+        width: 50px;
+        display: inline-block;
+        top: 350px;
+    }
+
+    .formedit h4::after {
+        content: '';
+        bottom: 0;
+        width: 35px;
+        height: 3px;
+        background: #2C2A2A;
+        display: block;
+    }
+
+    .btn-x {
+        position: absolute;
+        top: 12px;
+        left: 457px;
+    }
+
+        .btn-x:hover {
+            cursor: pointer;
+        }
+
+    .btn-update {
+        width: 140px;
+        height: 30px;
+        border: none;
+        border-radius: 22px;
+        background: #373434;
+        margin-top: 0px;
+        color: white;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 178px;
+    }
+
+    .Status {
+        width: 386px;
+        border-bottom: 1px solid #2C2A2A;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        background: none;
+        margin-top: 0px;
+        font-family: 'Source Sans Pro', sans-serif;
+        outline: none;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .ckeditor-title {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+    }
+
+    .righside .headtable .bodytable tr td {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .srcbar-cv {
+        height: 45px;
+        padding: 0;
+        width: 300px;
+        background: white;
+        position: absolute;
+        top: 10px;
+        border-radius: 10px;
+        left: 950px;
+        margin: 0;
+    }
+
+    .srcbar {
+        width: 95%;
+        height: 45px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        border-radius: 10px;
+        outline: none;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        color: #707070;
+        margin-left: 20px;
+    }
+
+    .btn-src {
+        height: 45px;
+        width: 45px;
+        position: absolute;
+        top: 0;
+        padding: 6px;
+        right: 0;
+    }
+
+        .btn-src img {
+            cursor: pointer;
+        }
+
+    .bodytable .tablerow td a {
+        text-decoration: none;
+        color: #707070;
+    }
+
+        .bodytable .tablerow td a:hover {
+            color: #f17777;
+        }
+
+    .btn-read {
+        height: 30px;
+        width: 100px;
+        padding: 0;
+        background: #EBABAB;
+        border: none;
+        outline: none;
+    }
+    .btn-read:hover {
+        background:#f17777;
+        color:white;
+    }
+</style>
+<h4>Customer Feedback</h4>
+@**@
+
+<div class="srcbar-cv">
+    <input class="srcbar" type="text" name="name" value="" /><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+</div>
+<div class="righside">
+    <div class="headtable">
+        <table class="headtable2" style="width:100%">
+            <tr>
+                <td style="max-width:55px;">Email</td>
+                <td style="max-width:51px;">Content</td>
+                <td style="max-width:51px;">Date</td>
+                <td style="max-width:60px;">Action</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="bodytable">
+        <table class="tablerow" style="width:100%">
+
+            <tr id="">
+                <td style="max-width:40px;min-width:40px;">Email</td>
+                <td style="max-width:35px;min-width:30px;">...</td>
+                <td style="max-width:35px;min-width:30px;">Date</td>
+                <td style="max-width:40px;"><button class="btn-read">Read</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
