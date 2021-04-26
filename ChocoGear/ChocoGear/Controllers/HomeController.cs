@@ -143,7 +143,12 @@ namespace ChocoGear.Controllers
             q.quantity += 1;
             q.subtotal = (q.quantity * q.price);
             Session["Cart"] = cart;
-            return Json("Success");
+            var total = 0.0;
+            foreach (var item in cart)
+            {
+                total += item.subtotal;
+            }
+            return Json(total);
         }
 
         public ActionResult DescreaseQuantity()
@@ -154,7 +159,12 @@ namespace ChocoGear.Controllers
             q.quantity -= 1;
             q.subtotal = (q.quantity * q.price);
             Session["Cart"] = cart;
-            return Json("Success");
+            var total = 0.0;
+            foreach (var item in cart)
+            {
+                total += item.subtotal;
+            }
+            return Json(total);
         }
 
         public ActionResult DeleteCart()
@@ -163,7 +173,8 @@ namespace ChocoGear.Controllers
             var cart = (List<Models.ModelView.CartView>)Session["Cart"];
             var q = cart.Where(d => d.product == name).FirstOrDefault();
             cart.Remove(q);
-            return Json("Success");
+            var count = cart.Count;
+            return Json(count);
         }
 
         public ActionResult ProductDetail(int id)
@@ -173,6 +184,29 @@ namespace ChocoGear.Controllers
             var q1 = repository.Gets();
             ViewBag.listproduct = q;
             ViewBag.listproductall = q1;
+            return View();
+        }
+
+        public ActionResult GetQuantityInCart()
+        {
+            var count = 0;
+            List<string> nam = new List<string>();
+            if (Session["Cart"] != null)
+            {
+                var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+                count += cart.Count;
+                foreach (var item in cart)
+                {
+                    nam.Add(item.product);
+                }
+                nam.Add(count.ToString());
+                return Json(nam);
+            }
+            return Json(count);
+        }
+
+        public ActionResult CustomerInfor()
+        {
             return View();
         }
     }

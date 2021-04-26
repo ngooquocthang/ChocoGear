@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "CheckOut";
     Layout = "~/Views/Shared/SmallUserPage.cshtml";
+    var total = 0.0;
 }
 
 <style>
@@ -65,12 +66,14 @@
             color: #707070;
             cursor: pointer;
         }
+
     .headlist {
         border: 2px #ECACAC solid;
         border-top: none;
-        border-right :none;
-        border-left:none;
+        border-right: none;
+        border-left: none;
     }
+
     .numbertext {
         width: 20px;
         outline: none;
@@ -98,13 +101,13 @@
         margin: 0;
     }
 
-    .headlist table tr th {
-         padding: 0;
-         margin: 0;
-         font-family: 'Source Sans Pro', sans-serif;
-         color: #707070;
-         height: 100px;
-    }
+        .headlist table tr th {
+            padding: 0;
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #707070;
+            height: 100px;
+        }
 
     .headlistbig table {
         border-bottom: 2px solid #ECACAC;
@@ -112,13 +115,13 @@
         margin: 0;
     }
 
-    .headlistbig table tr th {
-        padding: 0;
-        margin: 0;
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #707070;
-        height: 100px;
-    }
+        .headlistbig table tr th {
+            padding: 0;
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            color: #707070;
+            height: 100px;
+        }
 
     .container-table {
         padding: 10px;
@@ -182,10 +185,11 @@
         height: 50px;
         border: none;
         font-weight: 600;
-        color: #707070;
-        background: #F3D1D1;
+        color: black;
+        background: #ECACAC;
         display: none;
-        margin-top:20px;
+        margin-top: 20px;
+        cursor: pointer;
     }
 
     ::-webkit-scrollbar {
@@ -218,7 +222,7 @@
             <div class="headlistbig">
                 <table style="width:100%">
                     <tr>
-                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst" onclick="checkFluency();" type="checkbox" value="" /></th>
+                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxAll" onclick="checkFluency();" type="checkbox" value="" /></th>
                         <th style="max-width:180px;">Product</th>
                         <th style="max-width:73px;">Name</th>
                         <th style="max-width:180px;">Price</th>
@@ -233,18 +237,20 @@
                 @if (Session["Cart"] != null)
                 {
                     var cart = (List<ChocoGear.Models.ModelView.CartView>)Session["Cart"];
+                    var leghtCart = cart.Capacity;
                     foreach (var item in cart)
                     {
                         <table style="width:100%" id="Row_@item.product">
                             <tr>
-                                <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
+                                <th style="max-width:18px;"><input class="checkboxfirst" id="checkbox_@item.product" onclick="" type="checkbox" value="" /></th>
                                 <th style="max-width:180px;"><img src="@Url.Content("~/Areas/Admin/Upload/")@item.image" height="80" alt="fk" /></th>
                                 <th style="max-width:73px;">@item.product</th>
                                 <th style="max-width:180px;"><span id="price_@item.product">@item.price</span><span>$</span></th>
-                                <th style="max-width:180px;"><button id="descrease" onclick="descrease(this)" data-product="@item.product">-</button><input class="numbertext" id="quantity_@item.product" maxlength="2" max="10" type="text" name="number" value="@item.quantity" /><button id="inscrease" onclick="inscrease(this)" data-product="@item.product">+</button></th>
+                                <th style="max-width:180px;"><button id="descrease" onclick="descrease(this)" data-product="@item.product">-</button><input readonly class="numbertext" id="quantity_@item.product" maxlength="2" max="10" type="text" name="number" value="@item.quantity" onchange="total(this)" /><button id="inscrease" onclick="inscrease(this)" data-product="@item.product">+</button></th>
                                 <th style="max-width:180px;"><span id="subtotal_@item.product">@item.subtotal</span><span>$</span></th>
                             </tr>
                         </table>
+                        total += item.subtotal;
                     }
                 }
             </div>
@@ -252,12 +258,11 @@
         </div>
     </div>
     <div class="rightside">
-        
         <div class="summary">
             <div class="headsummary">
                 <p class="titleofsummary">SUMMARY :</p>
             </div>
-            <p class="subtotal">SUBTOTAL :</p>
+            <p class="subtotal">SUBTOTAL : <span id="total">@total</span><span>.0$</span></p>
             <p class="voucher">VOUCHER :</p>
             <div class="foottotal">
                 <p class="total">TOTAL :</p>
@@ -291,8 +296,10 @@
             $.ajax({
                 method: "post",
                 url: "@Url.Action("InscreaseQuantity")",
-                data: {name : name}
-            })
+                data: { name: name }
+            }).done(function (data) {
+                $('#total').html(data);
+            });
         }
     function descrease(obj) {
             // NEW QUANTITY
@@ -315,11 +322,13 @@
             $('#subtotal_' + name).html(newsubtotal);
                 $('#quantity_' + name).val(newquantity);
                 // AJAX DESCREASE QUANTITY
-                $.ajax({
+            $.ajax({
                 method: "post",
                 url: "@Url.Action("DescreaseQuantity")",
-                data: {name : name}
-            })
+                data: { name: name }
+            }).done(function (data) {
+                $('#total').html(data);
+            });
             } else {
             if (confirm("Are you sure you want to delete this product?")) {
                 $.ajax({
@@ -327,6 +336,9 @@
                     url: "@Url.Action("DeleteCart")",
                     data: { name: name }
                 }).done(function (data) {
+                    if (data == 0) {
+                        $('#total').html(0);
+                    }
                     $('#Row_' + name).remove();
                 });
                 } else {
@@ -336,7 +348,7 @@
 
         }
         function checkFluency() {
-            var checkbox = document.getElementById("checkboxfirst");
+            var checkbox = document.getElementById("checkboxAll");
 
             var btndel = document.getElementById("btndelall");
             if (checkbox.checked != true) {
@@ -357,6 +369,30 @@
                 btndel.style.display = 'block';
             }
         }
+
+        $('#checkboxAll').change(function () {
+            var a = "";
+            if (this.checked) {
+                $.ajax({
+                    method: "post",
+                    url: "@Url.Action("GetQuantityInCart")"
+                }).done(function (data) {
+                    a += data;
+                    if (a != "") {
+                        var arr = a.split(",");
+                        for (var i = 0; i < arr.length; i++) {
+                            $('#checkbox_' + arr[i]).prop('checked', true);
+                            if (i == arr.length - 1) {
+                                $('#countCart').html(arr[i]);
+                            }
+                        }
+                    }
+                });
+                
+            } else {
+                alert("off");
+            }
+        });
     </script>
 }
 
