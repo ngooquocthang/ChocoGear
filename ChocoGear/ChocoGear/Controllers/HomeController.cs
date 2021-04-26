@@ -48,7 +48,7 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
-        public ActionResult CheckOut()
+        public ActionResult Cart()
         {
             return View();
         }
@@ -112,6 +112,11 @@ namespace ChocoGear.Controllers
             List<Models.ModelView.ProductView> pro = new List<Models.ModelView.ProductView>();
             Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
             var q = product.GetId(id);
+            if (Session["Cart"] == null)
+            {
+                List<Models.ModelView.CartView> Cart = new List<Models.ModelView.CartView>();
+                Session["Cart"] = Cart;
+            }
             var cart = (List<Models.ModelView.CartView>)Session["Cart"];
             var count = 0;
             foreach(var item in cart)
@@ -131,7 +136,7 @@ namespace ChocoGear.Controllers
                 Session["Cart"] = cart;
             }
 
-            return RedirectToAction("checkout");
+            return RedirectToAction("Cart");
         }
 
         // INSCREASE QUANTITY
@@ -208,6 +213,23 @@ namespace ChocoGear.Controllers
         public ActionResult CustomerInfor()
         {
             return View();
+        }
+
+        public ActionResult DeleteAll()
+        {
+            Session["Cart"] = null;
+            return Json("Success");
+        }
+        
+        public ActionResult checkCart()
+        {
+            var count = 0;
+            if(Session["Cart"] != null)
+            {
+                var cart = (List<Models.ModelView.CartView>)Session["Cart"];
+                count += cart.Count;
+            }
+            return Json(count);
         }
     }
 }
