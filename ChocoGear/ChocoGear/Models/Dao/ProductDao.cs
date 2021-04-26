@@ -94,7 +94,25 @@ namespace ChocoGear.Models.Dao
 
         public int Update(ProductView item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+                var q = db.Products.Where(d => d.id == item.id).FirstOrDefault();
+                q.id = item.id;
+                q.name_product = item.name_product;
+                q.name_image = item.name_image;
+                q.price = item.price;
+                q.description = item.description;
+                q.status = item.status;
+                q.id_category = item.id_category;
+                q.id_brand = item.id_brand;
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public bool checkNameProduct(string name)

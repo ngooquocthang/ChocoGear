@@ -113,8 +113,23 @@ namespace ChocoGear.Controllers
             Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
             var q = product.GetId(id);
             var cart = (List<Models.ModelView.CartView>)Session["Cart"];
-            cart.Add(new Models.ModelView.CartView { product = q.name_product, image = q.name_image, price = q.price, quantity = 1, subtotal = (q.price * 1) });
-            Session["Cart"] = cart;
+            var count = 0;
+            foreach(var item in cart)
+            {
+
+                if (q.name_product == item.product)
+                {
+                    item.quantity += 1;
+                    item.subtotal = (item.quantity * item.price);
+                    count++;
+                    return RedirectToAction("checkout");
+                }
+            }
+            if(count == 0)
+            {
+                cart.Add(new Models.ModelView.CartView { product = q.name_product, image = q.name_image, price = q.price, quantity = 1, subtotal = (q.price * 1) });
+                Session["Cart"] = cart;
+            }
 
             return RedirectToAction("checkout");
         }
