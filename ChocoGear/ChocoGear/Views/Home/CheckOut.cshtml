@@ -65,10 +65,12 @@
             color: #707070;
             cursor: pointer;
         }
-    /*.headlist {
-        border-bottom: 2px solid #ECACAC;
-        padding:1px;
-    }*/
+    .headlist {
+        border: 2px #ECACAC solid;
+        border-top: none;
+        border-right :none;
+        border-left:none;
+    }
     .numbertext {
         width: 20px;
         outline: none;
@@ -96,13 +98,13 @@
         margin: 0;
     }
 
-        .headlist table tr th {
-            padding: 0;
-            margin: 0;
-            font-family: 'Source Sans Pro', sans-serif;
-            color: #707070;
-            height: 100px;
-        }
+    .headlist table tr th {
+         padding: 0;
+         margin: 0;
+         font-family: 'Source Sans Pro', sans-serif;
+         color: #707070;
+         height: 100px;
+    }
 
     .headlistbig table {
         border-bottom: 2px solid #ECACAC;
@@ -110,13 +112,13 @@
         margin: 0;
     }
 
-        .headlistbig table tr th {
-            padding: 0;
-            margin: 0;
-            font-family: 'Source Sans Pro', sans-serif;
-            color: #707070;
-            height: 100px;
-        }
+    .headlistbig table tr th {
+        padding: 0;
+        margin: 0;
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #707070;
+        height: 100px;
+    }
 
     .container-table {
         padding: 10px;
@@ -183,6 +185,7 @@
         color: #707070;
         background: #F3D1D1;
         display: none;
+        margin-top:20px;
     }
 
     ::-webkit-scrollbar {
@@ -204,7 +207,7 @@
         }
 
     .headlist {
-        height: 600px;
+        height: 495px;
         overflow: scroll;
         overflow-x: hidden;
     }
@@ -245,11 +248,11 @@
                     }
                 }
             </div>
+            <button class="btn-del-all" id="btndelall">DELETE( <span id="countCart">0</span> )</button>
         </div>
     </div>
     <div class="rightside">
-        <button class="btn-del-all" id="btndelall">DELETE</button>
-        <br />
+        
         <div class="summary">
             <div class="headsummary">
                 <p class="titleofsummary">SUMMARY :</p>

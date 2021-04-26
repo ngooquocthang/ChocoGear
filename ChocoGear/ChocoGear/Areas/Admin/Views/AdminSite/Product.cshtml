@@ -338,6 +338,7 @@
         padding: 0;
         margin-right: 178px;
     }
+
     .Status {
         width: 386px;
         border-bottom: 1px solid #2C2A2A;
@@ -351,6 +352,11 @@
         font-size: 15px;
         font-weight: 600;
         color: #707070;
+    }
+
+    .righside .headtable .bodytable tr td {
+        padding-right: 0;
+        padding-left: 0;
     }
 </style>
 <h4>Product</h4>
@@ -403,7 +409,6 @@
                 <td style="max-width:51px;">Status</td>
                 <td style="max-width:60px;">Price</td>
                 <td style="max-width:58px;">Img</td>
-                <td style="max-width:100px;">Description</td>
                 <td style="max-width:60px;">Action</td>
             </tr>
         </table>
@@ -415,20 +420,19 @@
             <table class="tablerow" style="width:100%">
 
                 <tr id="Row_@item.name_product">
-                    <td style="max-width:40px;">@item.name_product</td>
-                    <td style="max-width:33px;">@item.name_category</td>
-                    <td style="max-width:33px;">@item.name_brand</td>
+                    <td style="max-width:40px;min-width:40px;">@item.name_product</td>
+                    <td style="max-width:35px;min-width:30px;">@item.name_category</td>
+                    <td style="max-width:33px;min-width:35px;">@item.name_brand</td>
                     @if (item.status == true)
                     {
-                        <td style="max-width:33px;">Available</td>
+                        <td style="max-width:40px;min-width:35px;">Available</td>
                     }
                     else
                     {
-                        <td style="max-width:33px;">Unavailable</td>
+                        <td style="max-width:40px;min-width:35px;">Unavailable</td>
                     }
                     <td style="max-width:32px;">@item.price$</td>
-                    <td style="max-width:40px;"><img height="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
-                    <td style="max-width:100px;">@item.description</td>
+                    <td style="max-width:40px;"><img height="100" width="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
                     <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-idproduct="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                 </tr>
             </table>
@@ -439,46 +443,51 @@
 </div>
 @section script_admin{
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
-<script>
-        function showEdit(obj) {
-            var id = $(obj).attr('data-idproduct');
-            var url = "@Url.Action("EditProduct", new { id = "id"})";
-            url = url.replace("id", id);
-            window.location.href = url;
-        }
-        function ExitEdit() {
-            var ExitEdits = document.getElementById("formedit");
-            ExitEdits.style.display = "none";
-        }
-        function deleteProduct (obj){
-            var id = $(obj).attr('data-idproduct');
-            var name = $(obj).attr('data-name');
-            if (confirm("Are you sure you want to delete this product?")) {
-                $.ajax({
-                method: "post",
-                url: "@Url.Action("DeleteProduct")",
-                data: { id: id }
-            }).done(function () {
-                $('#Row_' + name).remove();
-            });
-            }
-            else {
-                return false;
-            }
+    <script>
+        
+    CKEDITOR.replace('Description', {
+    height: 100,
+    width: 300
+    })
+    function showEdit(obj) {
+    var id = $(obj).attr('data-idproduct');
+    var url = "@Url.Action("EditProduct", new { id = "id" })";
+    url = url.replace("id", id);
+    window.location.href = url;
+    }
+    function ExitEdit() {
+    var ExitEdits = document.getElementById("formedit");
+    ExitEdits.style.display = "none";
+    }
+    function deleteProduct (obj){
+    var id = $(obj).attr('data-idproduct');
+    var name = $(obj).attr('data-name');
+    if (confirm("Are you sure you want to delete this product?")) {
+    $.ajax({
+    method: "post",
+    url: "@Url.Action("DeleteProduct")",
+    data: { id: id }
+    }).done(function () {
+    $('#Row_' + name).remove();
+    });
+    }
+    else {
+    return false;
+    }
 
-        }
-        function chooseFile(obj) {
-            var file = $(obj).val();
-            if (file != "") {
-                var tmppath = URL.createObjectURL(event.target.files[0]);
-                $("#imagechoose").fadeIn("fast").attr('src', tmppath);
-            } else {
-                var tmppath = "";
-                $("#imagechoose").fadeIn("fast").attr('src', tmppath);
-            }
-        }
+    }
+    function chooseFile(obj) {
+    var file = $(obj).val();
+    if (file != "") {
+    var tmppath = URL.createObjectURL(event.target.files[0]);
+    $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+    } else {
+    var tmppath = "";
+    $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+    }
+    }
 
-</script>
+    </script>
 }
 
 

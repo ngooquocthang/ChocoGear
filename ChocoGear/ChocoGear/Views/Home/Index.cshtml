@@ -1,31 +1,148 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<style>
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    ::-webkit-scrollbar-track {
+        background: white;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    ::-webkit-scrollbar-thumb {
+        background: #EBABAB;
+        border-radius: 20px;
+        height: 100px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #1093ff, #83d1e9);
+        }
+
+    .Content-Product {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+    }
+
+    .Product-cv {
+        padding: 0;
+        width: 60%;
+        height: 100%;
+        background: white;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+        .Product-cv .header {
+            width: 100%;
+            height: 50px;
+            background: #EBABAB;
+            padding-top: 12px;
+            margin-top: 10px;
+        }
+
+            .Product-cv .header a {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-weight: 600;
+            }
+
+    .col-4 {
+        width: 100%;
+        border: 1px solid #EBABAB;
+        padding: 0;
+        background: #FFDFDF;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+
+        .col-4 .img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .col-4 p {
+            margin-left: 10px;
+        }
+
+    .Content-small {
+        padding: 0;
+    }
+
+    .row {
+        padding: 0;
+    }
+
+    .Product-cv .header p {
+        margin-left: 10px;
+        font-size: 20px;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        display: inline-block;
+        margin-right: 85%;
+    }
+</style>
+<div class="Menubar" id="Menubar">
+    <ul>
+        <li><a href="#">PC Gaming</a></li>
+        <li><a href="#">Laptop</a></li>
+        <li><a href="#">Keyboard</a></li>
+        <li><a href="#">Mouse</a></li>
+        <li><a href="#">VGA</a></li>
+        <li><a href="#">Network Equipment</a></li>
+        <li><a href="#">Gaming Chair</a></li>
+        <li><a href="#">Console</a></li>
+        <li><a href="#">Monitor</a></li>
+        <li><a href="#">Office Equipment</a></li>
+        <li><a href="#">SSD-HDD</a></li>
+        <li><a href="#">Head Phone</a></li>
+    </ul>
+</div>
+<div class="Content-Product">
+    <div class="Product-cv">
+        @*foreach*@
+        <div class="header"><p>Header</p><a href="#">More</a></div>
+        <div class="Content-small">
+            <div class="row">
+                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+            </div>
+        </div>
+        @*foreach*@
+        <div class="header"><p>Header</p><a href="#">More</a></div>
+        <div class="Content-small">
+            <div class="row">
+                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+            </div>
+        </div>
+        @*foreach*@
+        <div class="header"><p>Header</p><a href="#">More</a></div>
+        <div class="Content-small">
+            <div class="row">
+                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+            </div>
+        </div>
     </div>
 </div>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+<script>
+    $(window).scroll(function (event) {
+        var mnbar = $('#Menubar');
+        var scrTop = $(this).scrollTop()
+        @*alert(scrTop);*@
+        if (scrTop >= 650) {
+            mnbar.css('display', 'block');
+        } else {
+            mnbar.css('display', 'none');
+        }
+    });
+</script>
