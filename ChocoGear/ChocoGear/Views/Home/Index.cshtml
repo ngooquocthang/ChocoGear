@@ -117,25 +117,36 @@
         display:inline-block;
         font-style:italic;
     }
+    .btnbuy-content a:hover {
+        color:hotpink;
+    }
+    .Menubar .list li a:hover {
+        color:white;
+    }
+    .Menubar .list li:hover {
+        background: #707070;
+    }
+
+
+
 </style>
 <div class="Menubar" id="Menubar">
-    <ul>
-        <li><a href="#">PC Gaming</a></li>
-        <li><a href="#">Laptop</a></li>
-        <li><a href="#">Keyboard</a></li>
-        <li><a href="#">Mouse</a></li>
-        <li><a href="#">VGA</a></li>
-        <li><a href="#">Network Equipment</a></li>
-        <li><a href="#">Gaming Chair</a></li>
-        <li><a href="#">Console</a></li>
-        <li><a href="#">Monitor</a></li>
-        <li><a href="#">Office Equipment</a></li>
-        <li><a href="#">SSD-HDD</a></li>
-        <li><a href="#">Head Phone</a></li>
-    </ul>
+    <div class="list">
+        <ul>
+            <li><a href="#">PC Gaming</a></li>
+            <li><a href="#">Laptop</a></li>
+            <li><a href="#">Keyboard</a></li>
+            <li><a href="#">Mouse</a></li>
+            <li><a href="#">VGA</a></li>
+            <li><a href="#">Monitor</a></li>
+            <li><a href="#">SSD-HDD</a></li>
+            <li><a href="#">Head Phone</a></li>
+        </ul>
+    </div>
+    
 </div>
-<div class="Content-Product">
-    <div class="Product-cv">
+<div class="Content-Product" id="Content-Product">
+    <div class="Product-cv" id="Product-cv">
         @*foreach Category*@
         <div class="header"><p>Header</p><a href="#">More</a></div>
         <div class="Content-small">
@@ -145,36 +156,26 @@
                 <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
                 <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
                 <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
-
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
             </div>
         </div>
-        @*foreach Category*@
-        <div class="header"><p>Header</p><a href="#">More</a></div>
-        <div class="Content-small">
-            <div class="row">
-                @*foreach Product*@
-                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
-                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
-                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
-                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
-
-            </div>
-        </div>
-
-
     </div>
 </div>
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
 <script>
     $(window).scroll(function (event) {
         var mnbar = $('#Menubar');
+        var heigh = document.getElementById('Content-Product').clientHeight;
         var scrTop = $(this).scrollTop()
         @*alert(scrTop);*@
-        if (scrTop >= 650 && scrTop <= 1850) {
+        if (scrTop >= 650 && scrTop <= heigh) {
             mnbar.css('display', 'block');
         } else {
             mnbar.css('display', 'none');
         }
     });
-    
+
 </script>
