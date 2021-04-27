@@ -474,9 +474,9 @@
 </form>
 <div class="form-Description" id="form-des">
     <p class="ckeditor-title">Desciption</p>
-    <textarea id="Desciption" class="Description" name="Description" placeholder="Description"></textarea>
+    <textarea id="Description" class="Description" name="Description" placeholder="Description"></textarea>
     <br />
-    <input class="btn-add" onclick="hideDes();" type="button" value="Done" />
+    <input class="btn-add" onclick="hideDes();" type="button" id="GetDescription" value="Done" />
 </div>
 <div class="select-cv">
     <select id="list_search">
@@ -485,12 +485,11 @@
         <option  value="category">Category</option>
         <option  value="brand">Brand</option>
         <option  value="price">Price</option>
-
     </select>
 </div>
 <div class="srcbar-cv">
     <input class="srcbar" type="text" id="name_search" name="name_search" value="" /><div class="btn-src" onclick="click_search();" ><img  src="~/Upload/Icon/iconfinder_icon.png" /></div>
-</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 <div class="righside">
     <div class="headtable">
         <table class="headtable2"  style="width:100%">
@@ -509,6 +508,7 @@
     <div class="bodytable">
         @foreach (var item in listProduct)
         {
+            var row = 0;
             <table class="tablerow" id="load_table"  style="width:100%">
 
                 <tr id="Row_@item.name_product">
@@ -526,6 +526,7 @@
                     <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-idproduct="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                 </tr>
             </table>
+            row++;
         }
 
 
@@ -539,6 +540,10 @@
             height: 450,
             width: 975,
 
+        });
+
+        $('#GetDescription').click(function () {
+            
         });
 
         $('#list_search').click(function () {
@@ -593,50 +598,63 @@
             
         }
 
-    function showEdit(obj) {
-    var id = $(obj).attr('data-idproduct');
-    var url = "@Url.Action("EditProduct", new { id = "id" })";
-    url = url.replace("id", id);
-    window.location.href = url;
-    }
-    function ExitEdit() {
-    var ExitEdits = document.getElementById("formedit");
-    ExitEdits.style.display = "none";
-    }
-    function deleteProduct (obj){
-    var id = $(obj).attr('data-idproduct');
-    var name = $(obj).attr('data-name');
-    if (confirm("Are you sure you want to delete this product?")) {
-    $.ajax({
-    method: "post",
-    url: "@Url.Action("DeleteProduct")",
-    data: { id: id }
-    }).done(function () {
-    $('#Row_' + name).remove();
-    });
-    }
-    else {
-    return false;
-    }
+        function showEdit(obj) {
+            var id = $(obj).attr('data-idproduct');
+            var url = "@Url.Action("EditProduct", new { id = "id" })";
+            url = url.replace("id", id);
+            window.location.href = url;
+        }
 
-    }
-    function chooseFile(obj) {
-    var file = $(obj).val();
-    if (file != "") {
-    var tmppath = URL.createObjectURL(event.target.files[0]);
-    $("#imagechoose").fadeIn("fast").attr('src', tmppath);
-    } else {
-    var tmppath = "";
-    $("#imagechoose").fadeIn("fast").attr('src', tmppath);
-    }
-     }
+        function ExitEdit() {
+            var ExitEdits = document.getElementById("formedit");
+            ExitEdits.style.display = "none";
+        }
+
+        function deleteProduct (obj){
+            var id = $(obj).attr('data-idproduct');
+            var name = $(obj).attr('data-name');
+            if (confirm("Are you sure you want to delete this product?")) {
+                $.ajax({
+                    method: "post",
+                    url: "@Url.Action("DeleteProduct")",
+                    data: { id: id }
+                }).done(function () {
+                    $('#Row_' + name).remove();
+                    });
+                }
+            else {
+                return false;
+            }
+
+        }
+
+        function chooseFile(obj) {
+            var file = $(obj).val();
+            if (file != "") {
+            var tmppath = URL.createObjectURL(event.target.files[0]);
+            $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+            } else {
+            var tmppath = "";
+            $("#imagechoose").fadeIn("fast").attr('src', tmppath);
+            }
+        }
+
         function showDes() {
             var Desshow = document.getElementById("form-des");
             Desshow.style.display = 'block';
         }
+
         function hideDes() {
-            var Deshide = document.getElementById("form-des");
-            Deshide.style.display = 'none';
+            var description = CKEDITOR.instances['Description'].getData();
+            alert(description);
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("UpDescription")",
+                data: { description: description }
+            }).done(function (data) {
+                var Deshide = document.getElementById("form-des");
+                Deshide.style.display = 'none';
+            });
         }
         
    </script>

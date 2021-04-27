@@ -14,6 +14,8 @@ namespace ChocoGear.Areas.Admin.Controllers
         {
             return View();
         }
+
+        // PRODUCT
         public ActionResult Product()
         {
             Models.IRepository<Models.ModelView.CategoryView> repository = Models.Dao.CategoryDao.Instance;
@@ -39,7 +41,12 @@ namespace ChocoGear.Areas.Admin.Controllers
             var id_cate = int.Parse(Request.Form["Category"]);
             var discount = float.Parse(Request.Form["Discount"]);
             var id_brand = int.Parse(Request.Form["Brand"]);
-            var decription = Request.Form["Decription"];
+            var description = "";
+            if (Session["description"] != null)
+            {
+                description = Session["description"].ToString();
+                Session["description"] = null;
+            }
             Models.ModelView.ProductView pro = new Models.ModelView.ProductView();
             pro.name_product = name;
             pro.name_image = image_name;
@@ -48,7 +55,7 @@ namespace ChocoGear.Areas.Admin.Controllers
             pro.price = price;
             pro.discount = discount;
             pro.status = active;
-            pro.description = decription;
+            pro.description = description;
             pro.created = DateTime.Parse(DateTime.Now.ToString("d"));
             Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
             Product.Create(pro);
@@ -56,6 +63,14 @@ namespace ChocoGear.Areas.Admin.Controllers
             Img.SaveAs(pathUpload);
 
             return RedirectToAction("Product");
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public ActionResult UpDescription()
+        {
+            var description = Request.Form["description"];
+            Session["description"] = description;
+            return Json("Success");
         }
 
         public ActionResult Edit()
@@ -104,9 +119,7 @@ namespace ChocoGear.Areas.Admin.Controllers
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
                     var file = Request.Files[i];
-
                     var fileName = Path.GetFileName(file.FileName);
-
                     var id = int.Parse(Request.Form["id_pro"]);
                     var name = Request.Form["name"];
                     var image_name = Request.Form["Img"];
@@ -154,32 +167,6 @@ namespace ChocoGear.Areas.Admin.Controllers
             cate.status = bool.Parse(status);
             Category.Create(cate);
             return RedirectToAction("Category");
-            /*var listCate = Category.Gets();
-            var a = "";
-            var b = "";
-            foreach(var item in listCate)
-            {
-                if(item.status == true)
-                {
-                    b += "< input type = 'checkbox' name = 'status' id = 'status' checked />";
-                }
-                else
-                {
-                    b += "< input type = 'checkbox' name = 'status' id = 'status' />";
-                }
-                a += "<table class='tablerow'style='width: 100 % '><tr><td style='max-width:40px;' >"+ item.name_category+"</td>"+ b +"< td style = 'max-width:40px;' >< button type = 'button' class='btn-Del'><img width = '20' src='~/Areas/Admin/Upload/Icon/icondelete.ico' alt='Alternate Text' /></button><button class='btn-Edit'><img width = '20' src='~/Areas/Admin/Upload/Icon/iconedit.ico' alt='Alternate Text' /></button></td></tr></table>";
-            }
-            *//*if (cate.status == true)
-            {
-                b += "< input type = 'checkbox' name = 'status' id = 'status' checked />";
-            }
-            else
-            {
-                b += "< input type = 'checkbox' name = 'status' id = 'status' />";
-            }
-            var c = "<table class='tablerow'style='width: 100 % '><tr><td style='max-width:40px;' >" + name + "</td>" + b + "< td style = 'max-width:40px;' >< button type = 'button' class='btn-Del'><img width = '20' src='~/Areas/Admin/Upload/Icon/icondelete.ico' alt='Alternate Text' /></button><button class='btn-Edit'><img width = '20' src='~/Areas/Admin/Upload/Icon/iconedit.ico' alt='Alternate Text' /></button></td></tr></table>";*//*
-
-            return Json(a);*/
         }
 
         public ActionResult UpdateCategory()
@@ -241,6 +228,19 @@ namespace ChocoGear.Areas.Admin.Controllers
             Models.IRepository<Models.ModelView.OrderView> order = Models.Dao.OrderDao.Instance;
             Session["listOrder"] = order.Gets();
             return View();
+        }
+
+        public ActionResult ViewOrderDetail()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.Dao.OrderDetailDao orderDetail = Models.Dao.OrderDetailDao.Instance;
+            var list = orderDetail.getList(id);
+            var table = "";
+            foreach(var item in list)
+            {
+                table += "<table style='width:100%'><tr><th style='width: 30%;'>" + item.name_product+ "</th><th style='width: 10%;'>" + item.price+ "$</th><th style='width:33 %;'>" + item.quantity+"</th><th>"+item.sub_total+"$</th></tr></table>";
+            }
+            return Json(table);
         }
     }
 }

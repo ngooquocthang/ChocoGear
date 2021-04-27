@@ -499,16 +499,10 @@
                 </tr>
             </table>
         </div>
-        <div class="body-order">
+        <div class="body-order" id="table">
             @*foreach*@
-            <table style="width:100%">
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Subtotal</th>
-                </tr>
             </table>
+
         </div>
         <button onclick="hideorder();">BACK</button>
     </div>
@@ -560,7 +554,7 @@
                         {
                             <td style="max-width:40px;min-width:35px;">Recived</td>
                         }
-                        <td style="max-width:40px;"><a onclick="showorder();" href="#">Detail</a></td>
+                        <td style="max-width:45px;"><a onclick="showorder(this);" href="#" data-idorder="@item.id">View Detail</a></td>
                     </tr>
                 </table>
             }
@@ -601,7 +595,16 @@
                 })
             }
         })
-        function showorder() {
+        function showorder(obj) {
+            var id = $(obj).attr('data-idorder');
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("ViewOrderDetail")",
+                data: { id: id }
+            }).done(function (data) {
+                $('#table').html(data);
+            });
+
             var ordershow = document.getElementById("order-form");
             ordershow.style.display = 'block';
         }
