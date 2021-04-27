@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -51,6 +53,31 @@ namespace ChocoGear.Controllers
             fv.status = status;
             Models.IRepository<Models.ModelView.FeedBackView> repository = Models.Dao.FeedBackDao.Instance;
             repository.Create(fv);
+
+            //Send Mail
+            var senderEmail = new MailAddress("tranphuoc4511@gmail.com", "ChocoGear");
+            var receiverEmail = new MailAddress(fv.email, "Receiver");
+            var password = "Cf123456789";
+            var sub = "Order Gear";
+            var body = "We will try to make our services better and better. Thanks for your feedback ^-^ \n (NO REPLY !!)";
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(senderEmail.Address, password)
+            };
+            using (var mess = new MailMessage(senderEmail, receiverEmail)
+            {
+                Subject = sub,
+                Body = body
+            })
+            {
+                smtp.Send(mess);
+            }
+
             return Json("Success");
         }
         public ActionResult AboutUs()
