@@ -149,16 +149,30 @@
                         <li><a href="@Url.Action("Product")">Product</a></li>
                         <li><a href="@Url.Action("AboutUs")">About Us</a></li>
                         <li><a href="@Url.Action("FeedBack")">Feed Back</a></li>
-                        <li class="login-f">
-                            <a href="LoginAndRegister">Login</a>
-                            <div class="DropMenubar">
-                                <div><a href="@Url.Action("CustomerInfor")">Profile</a></div>
-                                <br />
-                                <div><a href="@Url.Action("ChangePassword")">Change Password</a></div>
-                                <br />
-                                <div><a href="@Url.Action("Index")">Log Out</a></div>
-                            </div>
-                        </li>
+                        @if (Session["inforCus"] != null)
+                        {
+                            var cv = (ChocoGear.Models.ModelView.CustomerView)Session["inforCus"];
+                            <li class="login-f">
+                                <a href="#">@cv.username</a>
+                                <div class="DropMenubar">
+                                    <div><a href="@Url.Action("CustomerInfor")">Profile</a></div>
+                                    <br />
+                                    <div><a href="@Url.Action("ChangePassword")">Change Password</a></div>
+                                    <br />
+                                    <div><a href="@Url.Action("Index")">Log Out</a></div>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                    <li class="login-f">
+                        <a href="LoginAndRegister">Login</a>
+                        <div class="DropMenubar">
+                            <div><a href="@Url.Action("Forget_pass")">Forget Password</a></div>
+                            <br />
+                        </div>
+                    </li>
+                        }
                     </ul>
                 </nav>
                 <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span><p>New</p></span>
