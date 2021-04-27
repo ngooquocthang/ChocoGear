@@ -33,6 +33,32 @@
             margin-left:4px;
             
         }
+        .DropMenubar {
+            height: 100px;
+            width: 150px;
+            background: white;
+            position: absolute;
+            left: 1320px;
+            top: 146px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+            transition: 0.5s;
+            opacity: 0;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+
+        .DropMenubar a:hover {
+            color: pink;
+            display: block;
+            opacity: 1;
+        }
+
+        .login-f:hover .DropMenubar {
+            left: 1370px;
+            top: 138px;
+            opacity: 1;
+        }
     </style>
     <div class="header">
         <div class="container">
@@ -45,7 +71,7 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="#">Home</a></li>
+                        <li><a href="@Url.Action("Index")">Home</a></li>
                         @*@if (Session["Login"] != null)
                             {
                                 <li><a href="@Url.Action("Logout")">Logout</a></li>
@@ -54,10 +80,19 @@
                             {
                                 <li><a href="@Url.Action("Login")">Login</a></li>
                             }*@
-                        <li><a href="#">Product</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Login</a></li>
+                        <li><a href="@Url.Action("Product")">Product</a></li>
+                        <li><a href="@Url.Action("AboutUs")">About Us</a></li>
+                        <li><a href="@Url.Action("FeedBack")">FeedBack</a></li>
+                        <li class="login-f">
+                            <a href="#">Login</a>
+                            <div class="DropMenubar">
+                                <div><a href="@Url.Action("CustomerInfor")">Profile</a></div>
+                                <br />
+                                <div><a href="@Url.Action("ChangePassword")">Change Password</a></div>
+                                <br />
+                                <div><a href="@Url.Action("Index")">Log Out</a></div>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
                 <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span><p>New</p></span>
