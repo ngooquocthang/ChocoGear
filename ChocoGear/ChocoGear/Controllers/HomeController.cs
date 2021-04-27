@@ -337,6 +337,9 @@ namespace ChocoGear.Controllers
             }
             return Json("Order Fail!");
         }
-
+        public ActionResult FogetPass()
+        {
+            return View();
+        }
     }
 }
