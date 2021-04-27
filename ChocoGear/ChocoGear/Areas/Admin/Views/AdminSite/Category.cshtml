@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Category";
     Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
+    var row = 0;
 
 }
 
@@ -342,7 +343,7 @@
             var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
             foreach (var item in listCate)
             {
-                <table class="tablerow" id="Row_@item.name_category" style="width:100%">
+                <table class="tablerow" id="Row_@row" style="width:100%">
                     <tr>
                         <td style="max-width:40px;" class="HeadName">@item.name_category</td>
                         
@@ -354,9 +355,10 @@
                         {
                     <td style="max-width:40px;" class="HeadCheckbok">Unavailable</td>
                         }
-                        <td style="max-width:40px;"><button type="button" class="btn-Del" onclick="deleteCate(this)" data-namecategory="@item.name_category" data-idcategory="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" data-idcategory="@item.id" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-row="@row" onclick="deleteCate(this)" data-namecategory="@item.name_category" data-idcategory="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" data-idcategory="@item.id" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                     </tr>
                 </table>
+                row++;
             }
         }
     </div>
@@ -416,13 +418,14 @@
         function deleteCate(obj) {
             var id = $(obj).attr('data-idcategory');
             var name = $(obj).attr('data-namecategory');
+            var row = $(obj).attr('data-row');
             if (confirm("Are you sure you want to delete this category?")) {
                 $.ajax({
                 method: "post",
                 url: "@Url.Action("DeleteCate")",
                 data: { id: id }
                 }).done(function (data) {
-                    $('#Row_' + name).remove();
+                    $('#Row_' + row).remove();
             });
             }
             else {

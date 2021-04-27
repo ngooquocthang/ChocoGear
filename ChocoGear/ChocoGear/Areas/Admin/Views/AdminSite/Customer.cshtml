@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Customer";
     Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
+    var row = 0;
 }
 
 <style>
@@ -454,45 +455,50 @@
             var listCus = (List<ChocoGear.Models.ModelView.CustomerView>)Session["listCus"];
             foreach (var item in listCus)
             {
-                <table class="tablerow" style="width:100%" id="row_@item.id">
+                <table class="tablerow" style="width:100%" id="row_@row">
 
                     <tr id="">
                         <td style="max-width:40px;min-width:40px;">@item.first_name @item.last_name</td>
                         <td style="max-width:35px;min-width:30px;">@item.username</td>
-                        <td style="max-width:33px;min-width:35px;">@{
-                            var a = item.address;
-                            var res = "";
-                            if(a.Length > 20)
-                            {
-                                res += a.Substring(0, 20) + "...";
+                        <td style="max-width:33px;min-width:35px;">
+                            @{
+                                var a = item.address;
+                                var res = "";
+                                if (a.Length > 20)
+                                {
+                                    res += a.Substring(0, 20) + "...";
+                                }
+                                else
+                                {
+                                    res += a;
+                                }
+                                @Html.Raw(res);
                             }
-                            else
-                            {
-                                res += a;
-                            }
-                            @Html.Raw(res);
-                        }</td>
+                        </td>
                         <td style="max-width:40px;">@item.phone</td>
                         <td style="max-width:40px;">@item.email</td>
-                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idcustomer="@item.id" data-firstname="" onclick="deleteCustomer(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-row="@row" data-idcustomer="@item.id" data-firstname="" onclick="deleteCustomer(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
                     </tr>
                 </table>
+                row++;
             }
         }
 
     </div>
 </div>
 @section script_admin{
-    <script> 
+    <script>
+
         function deleteCustomer(obj) {
             var id = $(obj).attr('data-idcustomer');
+            var row = $(obj).attr('data-row');
             $.ajax({
                 method: "post",
                 url: "@Url.Action("deleteCustomer")",
                 data: { id: id }
             }).done(function (data) {
                 alert(data);
-                $('#row_' + id).remove();
+                $('#row_' + row).remove();
             });
         }
         $('#Search').click(function () {
@@ -548,7 +554,7 @@
             }
         })
     </script>
-    }
+}
 
 
 

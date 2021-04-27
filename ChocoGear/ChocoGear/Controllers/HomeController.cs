@@ -15,6 +15,19 @@ namespace ChocoGear.Controllers
 
             return View();
         }
+        public ActionResult CountCart()
+        {
+            if (Session["Cart"] != null)
+            {
+                var cart = (List<ChocoGear.Models.ModelView.CartView>)Session["Cart"];
+                var count = cart.Count().ToString();
+                return Json(count);
+            }
+            else
+            {
+                return Json("0");
+            }
+        }
         public ActionResult Product()
         {
             Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;

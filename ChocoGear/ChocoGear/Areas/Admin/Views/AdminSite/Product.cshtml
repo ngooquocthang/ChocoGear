@@ -57,7 +57,7 @@
     }
 
     .Img {
-        width: 336px;
+        width: 386px;
         border-bottom: 1px solid #2C2A2A;
         border-top: none;
         border-right: none;
@@ -305,11 +305,13 @@
         }
 
     .picturebox {
-        position: absolute;
-        height: 40px;
+        @*position: absolute;*@
+        height: 167px;
         padding: 0px;
         width: 50px;
-        display: inline-block;
+        margin-left: 12px;
+        @*
+        display: inline-block;*@
         top: 350px;
     }
 
@@ -439,7 +441,7 @@
     <input id="name" type="text" class="Name" name="Name" placeholder="Name" />
     <br />
     <select class="Category" name="Category" id="Category">
-        <option disabled hidden selected>Choose Category</option>
+        <option value="none" disabled hidden selected>Choose Category</option>
         @foreach (var item in listCate)
         {
             <option value="@item.id">@item.name_category</option>
@@ -447,31 +449,33 @@
     </select>
     <br />
     <select class="Status" name="Status" id="Status">
-        <option disabled selected hidden>Choose Status</option>
+        <option value="none" disabled selected hidden>Choose Status</option>
         <option value="1">Available</option>
         <option value="0">Unavailable</option>
     </select>
     <input type="hidden" id="Category_id" name="Category_id" value="/" />
     <br />
     <select class="Brand" name="Brand" id="Brand">
-        <option disabled hidden selected>Choose Brand</option>
+        <option value="none" disabled hidden selected>Choose Brand</option>
         @foreach (var item in listBrand)
         {
             <option value="@item.id">@item.name</option>
         }
     </select>
     <br />
+    
     <input class="Price" id="Price" type="text" name="Price" placeholder="Price" />
     <br />
-    <input class="Discount" id="Discount" type="text" name="Discount" placeholder="Discount" />
-    <br />
-    <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="#" /></div>
-    <br />
-    <br />
-    <input onclick="showDes();" class="btn-add"  type="button" value="Form Description" />
+    <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" />
+    <div class="picturebox">
+        <img id="imagechoose" style="margin-left: 100px;" width="170" src="" />
+    </div>
     <br />
     <br />
-    <input  class="btn-add" id="Create" type="submit" value="Add Product" />
+    <input onclick="showDes();" class="btn-add" type="button" value="Add Description" />
+    <br />
+    <br />
+    <input class="btn-add" id="Create" type="submit" value="Add Product" />
 </form>
 <div class="form-Description" id="form-des">
     <p class="ckeditor-title">Desciption</p>
@@ -542,7 +546,20 @@
             width: 975,
 
         });
+        $('#Create').click(function () {
+            var name = $('#name').val();
+            var Category = $('#Category').val();
+            var Status = $('#Status').val();
+            var Brand = $('#Brand').val();
+            var Price = $('#Price').val();
+            var img = $('#img').val();
+            var description = CKEDITOR.instances['Description'].getData();
+            if (name != "" && Category != "none" && Status != "none" && Brand != "none", Price != "", img != "" && description != "") {
 
+            } else {
+                alert("Please enter full information!!");
+            }
+        });
         $('#GetDescription').click(function () {
             
         });
@@ -647,7 +664,6 @@
 
         function hideDes() {
             var description = CKEDITOR.instances['Description'].getData();
-            alert(description);
             $.ajax({
                 method: "post",
                 url: "@Url.Action("UpDescription")",

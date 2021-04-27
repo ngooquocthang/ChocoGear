@@ -19,18 +19,18 @@
             border-radius:50%;
         }
         .navbar span {
-            width: 25px;
-            height: 25px;
+            width: 24px;
+            height: 24px;
             background: #f34444;
             border-radius: 50%;
             display:none;
+            text-align: center;
         }
         .navbar span p {
             color: white;
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 9px;
-            padding-top:7px;
-            margin-left:4px;
+            font-size: 12px;
+            padding-top:5px;
             
         }
         .DropMenubar {
@@ -92,7 +92,7 @@
                         {
                             var cv = (ChocoGear.Models.ModelView.CustomerView)Session["inforCus"];
                             <li class="login-f">
-                                <a href="#">@cv.username</a>
+                                <a href="#">@cv.last_name</a>
                                 <div class="DropMenubar">
                                     <div><a href="@Url.Action("CustomerInfor")">Profile</a></div>
                                     <br />
@@ -114,7 +114,7 @@
                         }
                     </ul>
                 </nav>
-                <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span><p>New</p></span>
+                <img src="~/Upload/Icon/cart.png" width="55" height="45" alt="" class="cart" /><span id="cart"><p id="count">New</p></span>
                 <img src="~/Upload/Icon/menu.png" width="25" class="menu-icon" onclick="menutoggle()" alt="" />
             </div>
             <div class="row">
@@ -177,10 +177,19 @@
             </div>
             <hr />
             <br />
-            <p class="copyright">&copy; 2023 - QuhuIceCream.</p>
+            <p class="copyright">&copy; ChocoGear</p>
         </div>
     </div>
     <script>
+        $(window).ready(function () {
+        $.ajax({
+            method: "post",
+            url: "@Url.Action("CountCart")"
+        }).done(function (data) {
+            $('#count').html(data);
+            $('#cart').css('display', 'block');
+        });
+        })
         function playsound() {
             var audio = document.getElementsByTagName("audio")[0];
             audio.play();

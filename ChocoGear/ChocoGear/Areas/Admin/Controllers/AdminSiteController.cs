@@ -14,19 +14,20 @@ namespace ChocoGear.Areas.Admin.Controllers
         {
             return View();
         }
-
+        
         // PRODUCT
-        public ActionResult Product()
+        public ActionResult Product(string category_name)
         {
-            Models.IRepository<Models.ModelView.CategoryView> repository = Models.Dao.CategoryDao.Instance;
-            Session["listCate"] = repository.Gets();
+            Models.IRepository<Models.ModelView.CategoryView> category = Models.Dao.CategoryDao.Instance;
+            Session["listCate"] = category.Gets();
 
-            Models.IRepository<Models.ModelView.Brand> repositoryBrand = Models.Dao.BrandDao.Instance;
-            Session["listBrand"] = repositoryBrand.Gets();
+            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+            Session["listBrand"] = brand.Gets();
 
-            Models.IRepository<Models.ModelView.ProductView> repositoryProduct = Models.Dao.ProductDao.Instance;
-            Session["listProduct"] = repositoryProduct.Gets();
-            var q= repositoryProduct.Gets();
+            Models.Dao.ProductDao product = Models.Dao.ProductDao.Instance;
+            Session["listProduct"] = product.Gets();
+
+            var q= product.Search_characters_Category(category_name);
             ViewBag.data = q;
 
             return View();
@@ -35,34 +36,72 @@ namespace ChocoGear.Areas.Admin.Controllers
         public ActionResult CreateProduct(HttpPostedFileBase Img)
         {
             var name = Request.Form["Name"];
-            var price = float.Parse(Request.Form["Price"]);
-            var active = Request.Form["Status"].Equals("1") ? true : false;
-            var image_name = Img.FileName;
-            var id_cate = int.Parse(Request.Form["Category"]);
-            var discount = float.Parse(Request.Form["Discount"]);
-            var id_brand = int.Parse(Request.Form["Brand"]);
+            var price = 0.0;
+            if(Request.Form["Price"] != "")
+            {
+                price = float.Parse(Request.Form["Price"]);
+            }
+
+            var active = false;
+            if(Request.Form["Status"] != null)
+            {
+                if(int.Parse(Request.Form["Status"]) == 1)
+                {
+                    active = true;
+                }
+                else
+                {
+                    active = false;
+                }
+            }
+            var image_name = "";
+            if (Img != null)
+            {
+                image_name = Img.FileName;
+            }
+            
+
+            var id_cate = 0;
+            if (Request.Form["Category"] != null)
+            {
+                id_cate = int.Parse(Request.Form["Category"]);
+            }
+
+            var id_brand = 0.0;
+            if(Request.Form["Brand"] != null)
+            {
+                id_brand = int.Parse(Request.Form["Brand"]);
+            }
             var description = "";
             if (Session["description"] != null)
             {
                 description = Session["description"].ToString();
                 Session["description"] = null;
             }
-            Models.ModelView.ProductView pro = new Models.ModelView.ProductView();
-            pro.name_product = name;
-            pro.name_image = image_name;
-            pro.id_brand = id_brand;
-            pro.id_category = id_cate;
-            pro.price = price;
-            pro.discount = discount;
-            pro.status = active;
-            pro.description = description;
-            pro.created = DateTime.Parse(DateTime.Now.ToString("d"));
-            Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
-            Product.Create(pro);
-            string pathUpload = Server.MapPath("~/Areas/Admin/Upload/") + image_name;
-            Img.SaveAs(pathUpload);
+            if (name != "" && price != 0  && image_name != "" && id_cate != 0 && id_brand != 0 && description != "")
+            {
+                Models.ModelView.ProductView pro = new Models.ModelView.ProductView();
+                pro.name_product = name;
+                pro.name_image = image_name;
+                pro.id_brand = (int)id_brand;
+                pro.id_category = id_cate;
+                pro.price = (float)price;
+                pro.discount = 0;
+                pro.status = active;
+                pro.description = description;
+                pro.created = DateTime.Parse(DateTime.Now.ToString("d"));
+                Models.IRepository<Models.ModelView.ProductView> Product = Models.Dao.ProductDao.Instance;
+                Product.Create(pro);
+                string pathUpload = Server.MapPath("~/Areas/Admin/Upload/") + image_name;
+                Img.SaveAs(pathUpload);
 
-            return RedirectToAction("Product");
+                return RedirectToAction("Product");
+            }
+            else
+            {
+                return RedirectToAction("Product");
+            }
+            
         }
 
         [HttpPost, ValidateInput(false)]
