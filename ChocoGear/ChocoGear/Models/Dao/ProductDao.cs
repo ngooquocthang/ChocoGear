@@ -127,6 +127,10 @@ namespace ChocoGear.Models.Dao
                 return false;
             }
         }
+        public int GetIdName(string name)
+        {
+            return database.Products.Where(d => d.name_product == name).Select(d => d.id).FirstOrDefault();
+        }
 
         public List<ProductView> Skip(int Page, int Row)
         {

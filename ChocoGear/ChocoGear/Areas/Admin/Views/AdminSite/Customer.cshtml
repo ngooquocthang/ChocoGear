@@ -405,12 +405,32 @@
         .btn-src img {
             cursor: pointer;
         }
+
+    .Searchby {
+        position: absolute;
+        padding: 0;
+        top: 10px;
+        left: 840px;
+    }
+
+        .Searchby select {
+            outline: none;
+            height: 45px;
+            background: none;
+            border: none;
+        }
 </style>
 <h4>Customer</h4>
 @**@
 
+<div class="Searchby">
+    <select id="type">
+        <option value="phone" selected>Phone</option>
+        <option value="email">Email</option> 
+    </select>
+</div>
 <div class="srcbar-cv">
-    <input class="srcbar" type="text" name="name" value="" /><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+    <input class="srcbar" type="text" name="name" value="" id="textSearch" /><div class="btn-src" id="Search"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
 </div>
 <div class="righside">
     <div class="headtable">
@@ -427,18 +447,91 @@
     </div>
 
     <div class="bodytable">
-            <table class="tablerow" style="width:100%">
+        @if (Session["listCus"] != null)
+        {
+            var listCus = (List<ChocoGear.Models.ModelView.CustomerView>)Session["listCus"];
+            foreach (var item in listCus)
+            {
+                <table class="tablerow" style="width:100%" id="table1">
 
-                <tr id="">
-                    <td style="max-width:40px;min-width:40px;">Name</td>
-                    <td style="max-width:35px;min-width:30px;">Username</td>
-                    <td style="max-width:33px;min-width:35px;">Cuchi</td>
-                    <td style="max-width:40px;">113</td>
-                    <td style="max-width:40px;">Cuchi@gmail</td>
-                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
-                </tr>
-            </table>
+                    <tr id="">
+                        <td style="max-width:40px;min-width:40px;">@item.first_name @item.last_name</td>
+                        <td style="max-width:35px;min-width:30px;">@item.username</td>
+                        <td style="max-width:33px;min-width:35px;">@item.address</td>
+                        <td style="max-width:40px;">@item.phone</td>
+                        <td style="max-width:40px;">@item.email</td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
+                    </tr>
+                </table>
+            }
+            foreach (var item in listCus)
+            {
+                <table class="tablerow" style="width:100%" id="table1">
+
+                    <tr id="">
+                        <td style="max-width:40px;min-width:40px;">@item.first_name @item.last_name</td>
+                        <td style="max-width:35px;min-width:30px;">@item.username</td>
+                        <td style="max-width:33px;min-width:35px;">@item.address</td>
+                        <td style="max-width:40px;">0373847371</td>
+                        <td style="max-width:40px;">phuoc@gmail.com</td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
+                    </tr>
+                </table>
+            }
+            foreach (var item in listCus)
+            {
+                <table class="tablerow" style="width:100%" id="table1">
+
+                    <tr id="">
+                        <td style="max-width:40px;min-width:40px;">@item.first_name @item.last_name</td>
+                        <td style="max-width:35px;min-width:30px;">@item.username</td>
+                        <td style="max-width:33px;min-width:35px;">@item.address</td>
+                        <td style="max-width:40px;">012312</td>
+                        <td style="max-width:40px;">trug@gmail.com</td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
+                    </tr>
+                </table>
+            }
+        }
 
     </div>
 </div>
+@section script_admin{
+    <script> 
+        $('#Search').click(function () {
+            var type = $('#type').val();
+            if (type == "email") {
+                var name = $('#textSearch').val();
+                $('.bodytable table').each(function (result) {
+                    var id = $(this).find('td:nth-child(5)').text();
+                    if (id.indexOf(name) !== 0 && id.toLowerCase().indexOf(name.toLowerCase()) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                })
+            } else {
+                var name = $('#textSearch').val();
+                $('.bodytable table').each(function (result) {
+                    var id = $(this).find('td:nth-child(4)').text();
+                    if (id.search(name)) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                })
+            }
+        })
+        $('#textSearch').keyup(function (event) {
+            var name = $('#textSearch').val();
+            if (name == "") {
+                $('.bodytable table').each(function (result) {
+                    $(this).show();
+                })
+            }
+        })
+    </script>
+    }
+
+
 

@@ -49,7 +49,7 @@ namespace ChocoGear.Controllers
             fv.status = status;
             Models.IRepository<Models.ModelView.FeedBackView> repository = Models.Dao.FeedBackDao.Instance;
             repository.Create(fv);
-            return View();
+            return Json("Success");
         }
         public ActionResult AboutUs()
         {
@@ -88,6 +88,8 @@ namespace ChocoGear.Controllers
             var check = s.CheckLogin(user, tmp2);
             if (check == true)
             {
+                Models.Dao.CustomerDao cus = Models.Dao.CustomerDao.Instance;
+                Session["inforCus"] = cus.GetCus(user);
                 Session["login"] = user;
                 return RedirectToAction("Product");
             }
@@ -254,5 +256,51 @@ namespace ChocoGear.Controllers
             }
             return Json(count);
         }
+        public ActionResult Order()
+        {
+            if (Session["inforCus"] != null)
+            {
+                if (Session["Cart"] != null)
+                {
+                    var listcart = (List<ChocoGear.Models.ModelView.CartView>)Session["Cart"];
+                    var cus = (ChocoGear.Models.ModelView.CustomerView)Session["inforCus"];
+                    Models.IRepository<Models.ModelView.OrderView> order = Models.Dao.OrderDao.Instance;
+                    Models.IRepository<Models.ModelView.OrderDetail> orderD = Models.Dao.OrderDetailDao.Instance;
+                    var email = Request.Form["email"];
+                    var phone = Request.Form["phone"];
+                    var address = Request.Form["address"];
+                    var total = float.Parse(Request.Form["total"]);
+                    if (email != "" && phone != "" && address != "")
+                    {
+                        Models.ModelView.OrderView orderview = new Models.ModelView.OrderView();
+                        orderview.email_order = email;
+                        orderview.address_order = address;
+                        orderview.phone_order = phone;
+                        orderview.id_customer = cus.id;
+                        orderview.order_date = DateTime.Parse(DateTime.Now.ToString("d"));
+                        orderview.total = total;
+                        orderview.status = false;
+                        var id = order.Create(orderview);
+
+                        foreach (var cart in listcart)
+                        {
+                            Models.ModelView.OrderDetail orderDview = new Models.ModelView.OrderDetail();
+                            orderDview.id_orders = id;
+                            Models.Dao.ProductDao pro = Models.Dao.ProductDao.Instance;
+                            orderDview.id_product = pro.GetIdName(cart.product);
+                            orderDview.quantity = cart.quantity;
+                            orderDview.sub_total = cart.subtotal;
+                            orderDview.status = false;
+                            orderD.Create(orderDview);
+                        }
+                        Session["Cart"] = null;
+                        return Json("Order Success! Thank you so much <3 ");
+                    }
+                    return Json("Order Fail!");
+                }
+            }
+            return Json("Order Fail!");
+        }
+
     }
 }

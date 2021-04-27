@@ -10,6 +10,8 @@ namespace ChocoGear.Models.Dao
 {
     public sealed class CustomerDao : IRepository<ModelView.CustomerView>
     {
+
+        Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
         private static CustomerDao instance = null;
         private CustomerDao()
         {
@@ -31,7 +33,6 @@ namespace ChocoGear.Models.Dao
         {
             try
             {
-                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
                 Models.Entity.Customer c = new Entity.Customer() {first_name=item.first_name,last_name=item.last_name,phone=item.phone,email=item.email,address=item.address,username=item.username,password=item.password,status=item.status};
                 db.Customers.Add(c);
                 db.SaveChanges();
@@ -56,12 +57,18 @@ namespace ChocoGear.Models.Dao
 
         public List<CustomerView> Gets()
         {
-            throw new NotImplementedException();
+            var q = db.Customers.Select(d => new Models.ModelView.CustomerView { id = d.id, username = d.username, password = d.password, address = d.address, email = d.email, first_name = d.first_name, last_name = d.last_name, phone = d.phone, status = (bool)d.status }).ToList();
+            return q;
         }
 
         public int Update(CustomerView item)
         {
             throw new NotImplementedException();
+        }
+
+        public Models.ModelView.CustomerView GetCus(string username) {
+            var q = db.Customers.Where(d => d.username == username).Select(d => new Models.ModelView.CustomerView { id = d.id, username = d.username, password = d.password, address = d.address, email = d.email, first_name = d.first_name, last_name = d.last_name, phone = d.phone, status = (bool)d.status }).FirstOrDefault();
+            return q;
         }
     }
 }

@@ -224,7 +224,8 @@
             <div class="headlistbig">
                 <table style="width:100%">
                     <tr>
-                        <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxAll" onclick="checkFluency();" type="checkbox" value="" /></th>
+                        
+                        <th style="max-width:18px;"><span style="font-size: 16px;">Delete All</span><input class="checkboxfirst" id="checkboxAll" onclick="checkFluency();" type="checkbox" value="" /></th>
                         <th style="max-width:180px;">Product</th>
                         <th style="max-width:73px;">Name</th>
                         <th style="max-width:180px;">Price</th>
@@ -258,7 +259,7 @@
             </div>
             <div class="btn-del-all-cv"><button class="btn-del-all" id="btndelall">DELETE( <span id="countCart">0</span> )</button></div>
             <div class="totalsub"><p class="subtotal">TOTAL : <span id="total">@total</span><span>.0$</span></p></div>
-            <div class="btn-checkout-cv"><button class="btn-checkout">CHECKOUT</button></div>
+            <div class="btn-checkout-cv"><button class="btn-checkout" id="checkout">CHECKOUT</button></div>
             
         </div>
     </div>
@@ -290,6 +291,9 @@
                 $('#checkboxAll').attr('disabled', true);
             }
         });
+    })
+    $('#checkout').click(function () {
+        window.location.href = "checkout";
     })
         function inscrease(obj) {
             var name = $(obj).attr('data-product');
@@ -363,7 +367,6 @@
                         if (data == "0") {
                             $('#checkboxAll').prop('checked', false);
                             $('#checkboxAll').attr('disabled', true);
-                            $('#btndelall').css('display', 'none');
                         }
                     });
                 });
@@ -374,7 +377,7 @@
             }
 
         }
-        function checkFluency() {
+        @*function checkFluency() {
             var checkbox = document.getElementById("checkboxAll");
 
             var btndel = document.getElementById("btndelall");
@@ -384,8 +387,8 @@
             else {
                 btndel.style.display = 'block';
             }
-        }
-        function checkFluency1() {
+        }*@
+        @*function checkFluency1() {
             var checkbox1 = document.getElementById("checkboxfirst2");
 
             var btndel = document.getElementById("btndelall");
@@ -395,7 +398,7 @@
             else {
                 btndel.style.display = 'block';
             }
-        }
+        }*@
 
         $('#checkboxAll').change(function () {
             var a = "";
@@ -409,7 +412,6 @@
                         var arr = a.split(",");
                         for (var i = 0; i < arr.length; i++) {
                             $('#checkbox_' + arr[i]).prop('checked', true);
-                            del++;
                             if (i == arr.length - 1) {
                                 $('#countCart').html(arr[i]);
                             }
@@ -446,7 +448,6 @@
                     $('.headlist').empty();
                     $('#checkboxAll').prop('checked', false);
                     $('#total').html(0);
-                    $('#btndelall').css('display', 'none');
                     $('#checkboxAll').attr('disabled', true);
                 });
             }

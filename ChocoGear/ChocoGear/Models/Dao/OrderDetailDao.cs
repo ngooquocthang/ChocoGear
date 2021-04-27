@@ -6,32 +6,31 @@ using System.Web;
 
 namespace ChocoGear.Models.Dao
 {
-    public sealed class OrderDao : IRepository<ModelView.OrderView>
+    public class OrderDetailDao : IRepository<Models.ModelView.OrderDetail>
     {
         Models.Entity.ChocoGearEntities database = new Entity.ChocoGearEntities();
-        private static OrderDao instance = null;
-        private OrderDao()
+        private static OrderDetailDao instance = null;
+        private OrderDetailDao()
         {
 
         }
-        public static OrderDao Instance
+        public static OrderDetailDao Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new OrderDao();
+                    instance = new OrderDetailDao();
                 }
                 return instance;
             }
         }
-
-        public int Create(OrderView item)
+        public int Create(OrderDetail item)
         {
-            Models.Entity.Order order = new Entity.Order() { id = item.id,email_order = item.email_order, address_order = item.address_order, phone_order = item.phone_order, id_customer = item.id_customer, order_date = item.order_date, total = item.total, status = item.status };
-            database.Orders.Add(order);
+            Entity.OrderDetail orderD = new Entity.OrderDetail() { id = item.id, id_orders = item.id_orders, id_product = item.id_product, quantity = item.quantity, sub_total = item.sub_total, status = item.status };
+            database.OrderDetails.Add(orderD);
             database.SaveChanges();
-            return order.id;
+            return 1;
         }
 
         public int Delete(int id)
@@ -39,17 +38,17 @@ namespace ChocoGear.Models.Dao
             throw new NotImplementedException();
         }
 
-        public OrderView GetId(int id)
+        public OrderDetail GetId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<OrderView> Gets()
+        public List<OrderDetail> Gets()
         {
             throw new NotImplementedException();
         }
 
-        public int Update(OrderView item)
+        public int Update(OrderDetail item)
         {
             throw new NotImplementedException();
         }
