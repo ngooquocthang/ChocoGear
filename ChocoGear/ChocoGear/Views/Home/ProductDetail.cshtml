@@ -28,12 +28,14 @@
 
     .about-product {
         box-sizing: border-box;
-        height: 800px;
-        padding: 20px 20px 20px 20px;
+        height: 670px;
+        border: 1px solid #f58d8d;
         width: 70%;
-        background: #FFDFDF;
-        margin-right:auto;
-        margin-left:auto;
+        background: white;
+        margin-right: auto;
+        margin-left: auto;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
     }
 
     .leftside {
@@ -43,6 +45,7 @@
         height: 100%;
         background: white;
         overflow: hidden;
+        border-bottom-left-radius: 10px;
     }
 
     .rightside {
@@ -52,6 +55,7 @@
         height: 100%;
         background: white;
         padding: 10px 10px 10px 50px;
+        border-top-right-radius: 10px;
     }
 
         .rightside h2 {
@@ -69,7 +73,6 @@
 
     .leftside img {
         height: 100%;
-        
     }
 
     .inforproduct {
@@ -153,6 +156,7 @@
         margin-right: auto;
         width: 500px;
     }
+
     .inforproduct .btn-submit input {
         height: 70px;
         width: 500px;
@@ -164,23 +168,38 @@
         color: #f58d8d;
         font-size: 30px;
     }
+
     .cover-img {
-        padding:0;
-        overflow:hidden;
+        background: url(/Upload/Img/keyboard2.jpg);
+        background-attachment: fixed;
+        background-size: cover;
     }
-    .cover-img img {
-        width:100%;
+
+    .cover-img {
+        font-size: 120px;
+        text-align: center;
+        padding-top: 150px;
+        color: transparent;
+        -webkit-text-stroke: 3px white;
+        font-family: 'Source Sans Pro', sans-serif;
     }
+
+        .cover-img img {
+            width: 100%;
+        }
+
     .infor .infor1 {
-        display:inline-block;
-        font-size:20px;
-        color:black;
-        margin-top:10px;
-        margin-bottom:50px;
+        display: inline-block;
+        font-size: 20px;
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 50px;
     }
+
     .infor2 {
         display: inline-block;
     }
+
     .btn-buy {
         height: 50px;
         width: 200px;
@@ -188,13 +207,19 @@
         font-weight: 600;
         border: none;
         background: #f58d8d;
-        color:white;
+        color: white;
+        cursor:pointer;
     }
+    .btn-buy:active {
+        transform:scale(0.95);
+    }
+
     .about-product-cover {
         padding: 0;
         width: 100%;
-        background: #FFDFDF;
+        background: white;
     }
+
     .Product-Des {
         width: 70%;
         background: white;
@@ -203,24 +228,51 @@
         margin-left: auto;
         margin-right: auto;
     }
+
     .Des_cover {
         width: 100%;
         background: white;
-        
-    }
-    .Des {
-        width:100%;
-        background:pink;
-        height:100%;
     }
 
+    .Des {
+        width: 100%;
+        background: white;
+        height: 100%;
+        padding: 20px;
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #EBABAB;
+        border-radius: 20px;
+        height: 100px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #1093ff, #83d1e9);
+        }
+
+    .headDetail {
+        font-family: 'Source Sans Pro', sans-serif;
+        margin-left: 36%;
+        font-size: 50px;
+    }
 </style>
 @foreach (var item in list)
 {
     if (item.id==pv.id)
     {
         <div class="head-infor-product">
-            <div class="cover-img"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /></div>
+            <div class="cover-img">ChocoGear</div>
         </div>
         <div class="about-product-cover">
             <div class="about-product">
@@ -259,10 +311,12 @@
                 </div>
             </div>
         </div>
+        <div class="headDetail"><span>Detail Information</span></div>
+        
         <div class="Des_cover">
             <div class="Product-Des">
                 <div class="Des">
-                    @pv.description
+                    <p>@Html.Raw(item.description)</p>
                 </div>
             </div>
         </div>
@@ -270,7 +324,7 @@
 }
 <div class="inforproduct">
     <h1>SUBCRIBE</h1>
-    <p><a href="#">SIGN UP</a> for <strong>FREE</strong> account </p>
+    <p><a href="@Url.Action("LoginAndRegister")">SIGN UP</a> for <strong>FREE</strong> account </p>
     <form action="/" class="form-user" method="post">
         <p>Full Name</p>
         <br />
