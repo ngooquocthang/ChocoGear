@@ -16,9 +16,9 @@
         height: 100px;
     }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(to right, #1093ff, #83d1e9);
-        }
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to right, #1093ff, #83d1e9);
+    }
 
     .Content-Product {
         height: 100%;
@@ -35,36 +35,45 @@
         margin-right: auto;
     }
 
-        .Product-cv .header {
-            width: 100%;
-            height: 50px;
-            background: #EBABAB;
-            padding-top: 12px;
-            margin-top: 10px;
-        }
-
-            .Product-cv .header a {
-                font-family: 'Source Sans Pro', sans-serif;
-                font-weight: 600;
-            }
-
-    .col-4 {
+    .Product-cv .header {
         width: 100%;
-        border: 1px solid #EBABAB;
-        padding: 0;
-        background: #FFDFDF;
-        margin-bottom: 0px;
+        height: 50px;
+        background: #EBABAB;
+        padding-top: 12px;
         margin-top: 10px;
     }
 
-        .col-4 .img {
-            width: 100%;
-            height: 100%;
-        }
+    .Product-cv .header a {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+    }
 
-        .col-4 p {
-            margin-left: 10px;
-        }
+    .col-4 {
+        width: 100%;
+        padding:10px;
+    }
+    .productTag {
+        width: 100%;
+        border: 1px solid #EBABAB;
+        padding: 0;
+        background: white;
+        margin-bottom: 0px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+
+    .col-4 img {
+       height:300px;
+       border-bottom:3px solid #EBABAB;
+    }
+
+    .col-4 p {
+        margin-left: 10px;
+        
+    }
 
     .Content-small {
         padding: 0;
@@ -81,6 +90,32 @@
         font-weight: 600;
         display: inline-block;
         margin-right: 85%;
+    }
+    .col-4 .NamePro {
+        font-size:15px;
+    }
+    .col-4 .PricePro {
+        margin-top:20px;
+        margin-bottom:20px;
+        font-size: 20px;
+        color: orangered;
+        width:140px;
+    }
+    .header {
+        border-radius:5px;
+    }
+    .btnbuy-content {
+        display:inline-block;
+    }
+    .btnbuy-content .PricePro {
+        display:inline-block;
+        font-style:normal;
+    }
+    .btnbuy-content a {
+        font-size:15px;
+        font-weight:600;
+        display:inline-block;
+        font-style:italic;
     }
 </style>
 <div class="Menubar" id="Menubar">
@@ -101,36 +136,32 @@
 </div>
 <div class="Content-Product">
     <div class="Product-cv">
-        @*foreach*@
+        @*foreach Category*@
         <div class="header"><p>Header</p><a href="#">More</a></div>
         <div class="Content-small">
             <div class="row">
-                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                @*foreach Product*@
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+
             </div>
         </div>
-        @*foreach*@
+        @*foreach Category*@
         <div class="header"><p>Header</p><a href="#">More</a></div>
         <div class="Content-small">
             <div class="row">
-                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
+                @*foreach Product*@
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+                <div class="col-4"><div class="productTag"><a href=""><img src="~/Upload/Img/JonsboMOD3Pink.png" alt="Alternate Text" /><p class="NamePro">Tay cầm console quay tay</p><div class="btnbuy-content"><p class="PricePro">1000$</p><a href="#">&#10141; Click to buy</a></div></a></div></div>
+
             </div>
         </div>
-        @*foreach*@
-        <div class="header"><p>Header</p><a href="#">More</a></div>
-        <div class="Content-small">
-            <div class="row">
-                <div class="col-4"><img src="~/Upload/Img/PC.png" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/keyboard3.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-                <div class="col-4"><img src="~/Upload/Img/PC_about.jpg" alt="Alternate Text" /><p>Name</p><p>Price</p></div>
-            </div>
-        </div>
+
+
     </div>
 </div>
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
