@@ -427,7 +427,92 @@
             background: none;
             border: none;
         }
+
+    .OrderDetail-Form {
+        height: 650px;
+        width: 600px;
+        background: white;
+        position: absolute;
+        left: 30%;
+        z-index: 50;
+        padding: 0;
+        border-radius:10px;
+        font-family: 'Source Sans Pro', sans-serif;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        display:none;
+    }
+    .head-order table {
+        background: #EBABAB;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        color:white;
+    }
+    .body-order {
+        width:100%;
+        height:450px;
+        background:transparent;
+        overflow:scroll;
+        border-top:1px solid #EBABAB;
+        font-size:13px;
+        padding:0;
+    }
+    .body-order table {
+        background:white;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        color:#707070;
+        cursor:pointer;
+        transition:0.5s;
+        margin-bottom:10px;
+        padding:5px;
+    }
+    .body-order table:hover {
+        background:#EBABAB;
+        color:white;
+    }
+    .Table-Order button {
+        width: 100px;
+        height: 50px;
+        margin-top:10px;
+        margin-left: 12px;
+        background: #EBABAB;
+        border: none;
+        color: white;
+        font-family: 'Source Sans Pro', sans-serif;
+        border-radius:10px;
+        transition:0.5s;    
+    }
+    .Table-Order button:hover {
+        transform:scale(0.95);
+        cursor:pointer;
+    }
 </style>
+<div class="OrderDetail-Form" id="order-form">
+    <div class="Table-Order">
+        <div class="head-order">
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </table>
+        </div>
+        <div class="body-order">
+            @*foreach*@
+            <table style="width:100%">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </table>
+        </div>
+        <button onclick="hideorder();">BACK</button>
+    </div>
+</div>
 <h4>Order</h4>
 @**@
 <div class="Searchby">
@@ -475,7 +560,7 @@
                         {
                             <td style="max-width:40px;min-width:35px;">Recived</td>
                         }
-                        <td style="max-width:40px;"><a href="#">Detail</a></td>
+                        <td style="max-width:40px;"><a onclick="showorder();" href="#">Detail</a></td>
                     </tr>
                 </table>
             }
@@ -516,6 +601,14 @@
                 })
             }
         })
+        function showorder() {
+            var ordershow = document.getElementById("order-form");
+            ordershow.style.display = 'block';
+        }
+        function hideorder() {
+            var orderhide = document.getElementById("order-form");
+            orderhide.style.display = 'none';
+        }
     </script>
     }
 

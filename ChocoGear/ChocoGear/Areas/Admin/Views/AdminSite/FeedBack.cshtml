@@ -422,11 +422,63 @@
         outline: none;
     }
 
-        .btn-read:hover {
-            background: #f17777;
-            color: white;
-        }
+    .btn-read:hover {
+        background: #f17777;
+        color: white;
+    }
+    .form-read {
+        font-family: 'Source Sans Pro', sans-serif;
+        height: 500px;
+        width: 400px;
+        background: white;
+        z-index: 50;
+        position: absolute;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+        left: 35%;
+        font-weight:600;
+        display:none;
+    }
+    .form-read textarea {
+        height:210px;
+        width:350px;
+        outline:none;
+        border:1px solid #EBABAB;
+    }
+    .form-read button {
+        width:100px;
+        height:50px;
+        margin-left:12px;
+        background:#EBABAB;
+        border:none;
+        color:white;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    .form-read button:hover {
+        transform:scale(0.95);
+        cursor:pointer;
+    }
+    .form-read button:active {
+        transform:scale(0.95);
+        cursor:pointer;
+    }
+    .form-read  {
+        padding-top:0;
+    }
 </style>
+<div class="form-read" id="form-read">
+    <h4>FEEDBACK OF USER</h4>
+    <form action="/" method="post">
+        <div>Email : <span>Email</span></div>
+        <div>Date : <span>dd/mm/yy</span></div>
+        <div>Content :</div>
+        <div>
+            <textarea></textarea>
+        </div>
+
+    </form>
+    <button onclick="click_back();" id="back-btn">BACK</button>
+</div>
 <h4>Customer Feedback</h4>
 @**@
 
@@ -470,7 +522,7 @@
                             @Html.Raw(res);
                         }</td>
                         <td style="max-width:35px;min-width:30px;">@item.created</td>
-                        <td style="max-width:40px;"><button class="btn-read">Read</button></td>
+                        <td style="max-width:40px;"><button onclick="click_read();" class="btn-read">Read</button></td>
                     </tr>
                 </table>
             }
@@ -489,6 +541,15 @@
                         $(this).show();
                     }
                 })
-            }</script>
+        }
+            function click_read() {
+                var read = document.getElementById("form-read");
+                read.style.display = 'block';
+        }
+        function click_back() {
+            var back = document.getElementById("form-read");
+            back.style.display = 'none';
+        }
+    </script>
 }
 
