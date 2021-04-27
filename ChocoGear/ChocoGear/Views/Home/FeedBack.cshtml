@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "FeedBack";
     Layout = "~/Views/Shared/SmallUserPage.cshtml";
+    List<ChocoGear.Models.ModelView.CustomerView> list = new List<ChocoGear.Models.ModelView.CustomerView>();
+    list = ViewBag.list_product;
 }
 <style>
     .Contact-form {
@@ -129,10 +131,26 @@
 <div class="feedback-form">
     <h4>FEEDBACK FORM</h4>
     <form>
-        <input type="text" id="email" value="" required placeholder="Your Email" />
-        <br />
+        @if (Session["inforCus"]!=null)
+        {
+            var cv = (ChocoGear.Models.ModelView.CustomerView)Session["inforCus"];
+            foreach (var item in list)
+            {
+                if (item.id==cv.id)
+                {
+                    <input type="text" id="email" value="@item.email" required placeholder="Your Email" />
+                    <br />
+                }
+            }
+        }
+        else
+        {
+            <input type="text" id="email" value="" required placeholder="Your Email" />
+            <br />
+        }
+
         <textarea id="textarea" placeholder="Send To ChocoGear..."></textarea>
-        <button onclick="click_send();">Send</button>
+        <button type="button" onclick="click_send();">Send</button>
     </form>
 </div>
 @section script_admin{
@@ -145,8 +163,10 @@
                 url: 'CreateFeedBack',
                 data: { email: email, content: content }
             }).done(function (msg) {
-                alert("success");
+                alert("Success");
+                $('#email').val("");
+                $('#textarea').val("");
             });
         }
     </script>
-    }
+}
