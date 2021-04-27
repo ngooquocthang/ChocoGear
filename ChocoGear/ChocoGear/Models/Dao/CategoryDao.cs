@@ -28,12 +28,18 @@ namespace ChocoGear.Models.Dao
 
         public int Create(CategoryView item)
         {
-            throw new NotImplementedException();
+            Entity.Category cate = new Entity.Category() { id = item.id, name_category = item.name_category, status = item.status };
+            database.Categories.Add(cate);
+            database.SaveChanges();
+            return cate.id;
         }
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var q = database.Categories.Where(d => d.id == id).FirstOrDefault();
+            database.Categories.Remove(q);
+            database.SaveChanges();
+            return 1;
         }
 
         public CategoryView GetId(int id)
@@ -49,7 +55,25 @@ namespace ChocoGear.Models.Dao
 
         public int Update(CategoryView item)
         {
-            throw new NotImplementedException();
+            if(CheckNameExist(item.name_category, item.id) == false)
+            {
+                var q = database.Categories.Where(d => d.id == item.id).FirstOrDefault();
+                q.name_category = item.name_category;
+                q.status = item.status;
+                database.SaveChanges();
+                return 1;
+            }
+            return 0;
+        }
+
+        public bool CheckNameExist(string name, int id)
+        {
+            var q = database.Categories.Where(d => d.id != id && d.name_category == name).Count();
+            if(q > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

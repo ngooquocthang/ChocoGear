@@ -182,9 +182,37 @@ namespace ChocoGear.Areas.Admin.Controllers
             return Json(a);*/
         }
 
+        public ActionResult UpdateCategory()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            var name = Request.Form["name"];
+            var status = bool.Parse(Request.Form["status"]);
+            var nameBefore = Request.Form["nameBefore"];
+            Models.ModelView.CategoryView cateV = new Models.ModelView.CategoryView();
+            cateV.id = id;
+            cateV.name_category = name;
+            cateV.status = status;
+            Models.IRepository<Models.ModelView.CategoryView> cate = Models.Dao.CategoryDao.Instance;
+            var result = cate.Update(cateV);
+            if(result == 0)
+            {
+                return Json("Category exits!!");
+            }
+            return Json("Success");
+        }
+        public ActionResult DeleteCate()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.CategoryView> cate = Models.Dao.CategoryDao.Instance;
+            cate.Delete(id);
+            return Json("Success");
+        }
+
         //FeedBack
         public ActionResult FeedBack()
         {
+            Models.IRepository<Models.ModelView.FeedBackView> feedback = Models.Dao.FeedBackDao.Instance;
+            Session["listFeedback"] = feedback.Gets();
             return View();
         }
 
@@ -196,9 +224,22 @@ namespace ChocoGear.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult deleteCustomer()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.CustomerView> customer = Models.Dao.CustomerDao.Instance;
+            var result = customer.Delete(id);
+            if(result == 1)
+            {
+                return Json("Delete Success");
+            }
+            return Json("Delete Fail!");
+        }
         //Order
         public ActionResult Order()
         {
+            Models.IRepository<Models.ModelView.OrderView> order = Models.Dao.OrderDao.Instance;
+            Session["listOrder"] = order.Gets();
             return View();
         }
     }

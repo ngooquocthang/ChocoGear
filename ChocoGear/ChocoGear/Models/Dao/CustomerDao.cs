@@ -47,7 +47,10 @@ namespace ChocoGear.Models.Dao
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var q = db.Customers.Where(d => d.id == id).FirstOrDefault();
+            db.Customers.Remove(q);
+            db.SaveChanges();
+            return 1;
         }
 
         public CustomerView GetId(int id)

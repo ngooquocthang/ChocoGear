@@ -426,7 +426,9 @@
 <div class="Searchby">
     <select id="type">
         <option value="phone" selected>Phone</option>
-        <option value="email">Email</option> 
+        <option value="email">Email</option>
+        <option value="name">Name</option>
+        <option value="address">Address</option>
     </select>
 </div>
 <div class="srcbar-cv">
@@ -452,15 +454,27 @@
             var listCus = (List<ChocoGear.Models.ModelView.CustomerView>)Session["listCus"];
             foreach (var item in listCus)
             {
-                <table class="tablerow" style="width:100%" id="table1">
+                <table class="tablerow" style="width:100%" id="row_@item.id">
 
                     <tr id="">
                         <td style="max-width:40px;min-width:40px;">@item.first_name @item.last_name</td>
                         <td style="max-width:35px;min-width:30px;">@item.username</td>
-                        <td style="max-width:33px;min-width:35px;">@item.address</td>
+                        <td style="max-width:33px;min-width:35px;">@{
+                            var a = item.address;
+                            var res = "";
+                            if(a.Length > 20)
+                            {
+                                res += a.Substring(0, 20) + "...";
+                            }
+                            else
+                            {
+                                res += a;
+                            }
+                            @Html.Raw(res);
+                        }</td>
                         <td style="max-width:40px;">@item.phone</td>
                         <td style="max-width:40px;">@item.email</td>
-                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="" data-name="" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-idcustomer="@item.id" data-firstname="" onclick="deleteCustomer(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button></td>
                     </tr>
                 </table>
             }
@@ -470,6 +484,17 @@
 </div>
 @section script_admin{
     <script> 
+        function deleteCustomer(obj) {
+            var id = $(obj).attr('data-idcustomer');
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("deleteCustomer")",
+                data: { id: id }
+            }).done(function (data) {
+                alert(data);
+                $('#row_' + id).remove();
+            });
+        }
         $('#Search').click(function () {
             var type = $('#type').val();
             if (type == "email") {
@@ -482,11 +507,31 @@
                         $(this).show();
                     }
                 })
-            } else {
+            } else if (type == "phone") {
                 var name = $('#textSearch').val();
                 $('.bodytable table').each(function (result) {
                     var id = $(this).find('td:nth-child(4)').text();
                     if (id.search(name)) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                })
+            } else if (type == "name") {
+                var name = $('#textSearch').val();
+                $('.bodytable table').each(function (result) {
+                    var id = $(this).find('td:nth-child(1)').text();
+                    if (id.indexOf(name) !== 0 && id.toLowerCase().indexOf(name.toLowerCase()) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                })
+            } else {
+                var name = $('#textSearch').val();
+                $('.bodytable table').each(function (result) {
+                    var id = $(this).find('td:nth-child(3)').text();
+                    if (id.indexOf(name) !== 0 && id.toLowerCase().indexOf(name.toLowerCase()) < 0) {
                         $(this).hide();
                     } else {
                         $(this).show();

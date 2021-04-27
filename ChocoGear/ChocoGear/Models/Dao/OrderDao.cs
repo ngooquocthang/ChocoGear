@@ -46,7 +46,22 @@ namespace ChocoGear.Models.Dao
 
         public List<OrderView> Gets()
         {
-            throw new NotImplementedException();
+            var q = database.Orders.Select(d => new Models.ModelView.OrderView { id = d.id, email_order = d.email_order, address_order = d.address_order, phone_order = d.phone_order, id_customer = (int)d.id_customer, order_date = (DateTime)d.order_date, total = (float)d.total, status = (bool)d.status }).ToList();
+            var a = (from cus in database.Customers
+                     join order in database.Orders on cus.id equals order.id_customer
+                     select new Models.ModelView.OrderView
+                     {
+                         id = order.id,
+                         email_order = order.email_order,
+                         address_order = order.address_order,
+                         phone_order = order.phone_order,
+                         id_customer = (int)order.id_customer,
+                         order_date = (DateTime)order.order_date,
+                         total = (float)order.total,
+                         status = (bool)order.status,
+                         namecus_order = cus.first_name +" "+cus.last_name
+                     }).ToList();
+            return a;
         }
 
         public int Update(OrderView item)

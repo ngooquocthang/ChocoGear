@@ -295,7 +295,7 @@
 </style>
 <h4>Category</h4>
 <div class="srcbar-cv">
-    <input class="srcbar" type="text" name="name" value=""  placeholder="Name"/><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+    <input id="textSearch" class="srcbar" type="text" name="name" value=""  placeholder="Name"/><div class="btn-src" id="Search"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
 </div>
 <form method="post">
     <input type="text" class="Name" id="Name" name="Name" placeholder="Name" />
@@ -321,7 +321,7 @@
         <p>Active</p>
     </div>
     <div class="btn-area">
-        <input class="btn-edit" id="update" type="submit" style="font-size: 12px;" value="Update" /><input class="btn-cancel" style="font-size: 12px;" id="cancel" value="Cancel" />
+        <input class="btn-edit" id="update" type="hidden" style="font-size: 12px;" value="Update" /><input class="btn-cancel" style="font-size: 12px;" id="cancel" value="Cancel" />
     </div>
 
 </form>
@@ -365,17 +365,24 @@
     <script>
     $('#create').click(function () {
         var Name = $('#Name').val();
-        var Status = $('#Statuss').prop('checked');
-        $.ajax({
-            method: "post",
-            url: "@Url.Action("CreateCategory")",
-            data: { Name: Name, Status: Status }
-        }).done(function (data) {
+        if (Name != "") {
+            var Status = $('#Statuss').prop('checked');
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("CreateCategory")",
+                data: { Name: Name, Status: Status }
+            }).done(function (data) {
 
-        });
+            });
+        } else {
+            alert("Please enter information of category !!");
+        }
+
     })
+        var nameBeforeEdit = "";
         function Edit(obj) {
             var a = $(obj).parents("tr").find(".HeadName").text();
+            nameBeforeEdit = a;
             var b = $(obj).parents("tr").find(".HeadCheckbok").text();
             var idcate = $(obj).attr('data-idcategory');
 
@@ -396,7 +403,8 @@
                 method: "post",
                 url: "@Url.Action("UpdateCategory")",
                 data: { id: id, name: name, status: status }
-            }).done(function () {
+            }).done(function (data) {
+                alert(data);
                 $('#bodytable').load();
             });
         })
@@ -413,8 +421,8 @@
                 method: "post",
                 url: "@Url.Action("DeleteCate")",
                 data: { id: id }
-            }).done(function (data) {
-                $('#Row_' + name).remove();
+                }).done(function (data) {
+                    $('#Row_' + name).remove();
             });
             }
             else {
@@ -423,6 +431,26 @@
 
 
         }
+        $('#Search').click(function () {
+            var name = $('#textSearch').val();
+            $('.bodytable table').each(function (result) {
+                var id = $(this).find('td:nth-child(1)').text();
+                if (id.indexOf(name) !== 0 && id.toLowerCase().indexOf(name.toLowerCase()) < 0) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            })
+        })
+
+        $('#textSearch').keyup(function (event) {
+            var name = $('#textSearch').val();
+            if (name == "") {
+                $('.bodytable table').each(function (result) {
+                    $(this).show();
+                })
+            }
+        })
     </script>
 }
 

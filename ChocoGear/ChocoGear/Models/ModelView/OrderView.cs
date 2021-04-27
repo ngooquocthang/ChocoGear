@@ -15,5 +15,6 @@ namespace ChocoGear.Models.ModelView
         public string phone_order { get; set; }
         public float total { get; set; }
         public bool status { get; set; }
+        public string namecus_order { get; set; }
     }
 }

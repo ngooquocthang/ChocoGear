@@ -446,24 +446,35 @@
     </div>
 
     <div class="bodytable">
-        <table class="tablerow" style="width:100%">
+        @if (Session["listFeedback"] != null)
+        {
+            var listFeedback = (List<ChocoGear.Models.ModelView.FeedBackView>)Session["listFeedback"];
+            foreach (var item in listFeedback)
+            {
+                <table class="tablerow" style="width:100%">
 
-            <tr id="">
-                <td style="max-width:40px;min-width:40px;">Emailda</td>
-                <td style="max-width:35px;min-width:30px;">...</td>
-                <td style="max-width:35px;min-width:30px;">Date</td>
-                <td style="max-width:40px;"><button class="btn-read">Read</button></td>
-            </tr>
-        </table>
-        <table class="tablerow" style="width:100%">
+                    <tr id="">
+                        <td style="max-width:40px;min-width:40px;">@item.email</td>
+                        <td style="max-width:35px;min-width:30px;">@{
 
-            <tr id="">
-                <td style="max-width:40px;min-width:40px;">das</td>
-                <td style="max-width:35px;min-width:30px;">...</td>
-                <td style="max-width:35px;min-width:30px;">Date</td>
-                <td style="max-width:40px;"><button class="btn-read">Read</button></td>
-            </tr>
-        </table>
+                            var a = item.content;
+                            var res = "";
+                            if (a.Length > 15)
+                            {
+                                res += a.Substring(0, 15) + "....";
+                            }
+                            else
+                            {
+                                res += item.content;
+                            }
+                            @Html.Raw(res);
+                        }</td>
+                        <td style="max-width:35px;min-width:30px;">@item.created</td>
+                        <td style="max-width:40px;"><button class="btn-read">Read</button></td>
+                    </tr>
+                </table>
+            }
+        }
     </div>
 </div>
 @section script_admin{

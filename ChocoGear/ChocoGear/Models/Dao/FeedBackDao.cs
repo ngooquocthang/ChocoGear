@@ -8,6 +8,7 @@ namespace ChocoGear.Models.Dao
 {
     public sealed class FeedBackDao : IRepository<ModelView.FeedBackView>
     {
+        Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
         private static FeedBackDao instance = null;
         private FeedBackDao()
         {
@@ -29,7 +30,7 @@ namespace ChocoGear.Models.Dao
         {
             try
             {
-                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+
                 Entity.Feedback fb = new Entity.Feedback() { id = item.id, email = item.email, content = item.content, created = item.created, status = item.status };
                 db.Feedbacks.Add(fb);
                 db.SaveChanges();
@@ -53,7 +54,8 @@ namespace ChocoGear.Models.Dao
 
         public List<FeedBackView> Gets()
         {
-            throw new NotImplementedException();
+            var q = db.Feedbacks.Select(d => new FeedBackView { id = d.id, content = d.content, created = (DateTime)d.created, email = d.email, status = (bool)d.status }).ToList();
+            return q;
         }
 
         public int Update(FeedBackView item)
