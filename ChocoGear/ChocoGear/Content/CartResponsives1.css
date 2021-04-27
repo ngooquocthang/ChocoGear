@@ -1,0 +1,366 @@
+﻿.totalsub {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+}
+
+.btn-del-all-cv, .btn-checkout-cv, .totalsub {
+    margin-top: 10px;
+    box-sizing: border-box;
+    float: left;
+    height:50px;
+}
+
+.btn-del-all-cv, .totalsub {
+    margin-right: 277px;
+}
+.col-4 img {
+    height: 300px;
+    border-bottom: 3px solid #EBABAB;
+}
+.col-4 .PricePro {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: orangered;
+    width: 140px;
+}
+.DropMenubar {
+    height: 100px;
+    width: 150px;
+    background: white;
+    position: absolute;
+    left: 1320px;
+    top: 146px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    transition: 0.5s;
+    opacity: 1;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+
+.DropMenubar a:hover {
+    color: pink;
+    display: block;
+    opacity: 1;
+}
+
+.login-f:hover .DropMenubar {
+    left: 1370px;
+    top: 138px;
+    opacity: 1;
+}
+.Menubar-fixed {
+    width: 10%;
+    height: 30%;
+    background: white;
+    position: absolute;
+    position: fixed;
+    top: 310px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    padding: 40px 0 20px 0;
+}
+
+    .Menubar-fixed ul li {
+        margin-left: 30px;
+        font-family: 'Source Sans Pro', sans-serif;
+        list-style-type: none;
+        margin-bottom: 20px;
+    }
+
+.srcbar input {
+    height: 30px;
+    width: 50%;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    border: 1px solid #ff9898;
+    outline: none;
+    padding-left: 10px;
+}
+
+.cate-find {
+    margin-left: 30px;
+}
+
+    .cate-find select {
+        height: 30px;
+        border: none;
+        background: none;
+        outline: none;
+    }
+
+.Menubar-fixed button {
+    margin-bottom: 10px;
+    height: 30px;
+    width: 50px;
+    outline: none;
+    background: #ff9898;
+    border: none;
+}
+
+    .Menubar-fixed button:hover {
+        transform: scale(0.95);
+        cursor: pointer;
+    }
+
+.srcbar input, .srcbar button {
+    display: inline-block;
+}
+
+.srcbar button {
+    padding: 0;
+    color: white;
+}
+@media only screen and (max-width:1366px){
+    .totalsub {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+    }
+
+    .btn-del-all-cv, .btn-checkout-cv, .totalsub {
+        margin-top: 10px;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    .btn-del-all-cv, .totalsub {
+        margin-right: 111px;
+    }
+}
+/*//================//*/
+.feedback-form {
+    height: 550px;
+    width: 400px;
+    background: #f8e7e7;
+    z-index: 10;
+    position: absolute;
+    top: 208px;
+    left: 980px;
+    border-radius: 10px;
+    padding: 30px;
+    transition: 0.5s;
+}
+
+@media only screen and (max-width : 1536px) {
+    .feedback-form {
+        height: 550px;
+        width: 400px;
+        background: #f8e7e7;
+        z-index: 10;
+        position: absolute;
+        top: 160px;
+        left: 730px;
+        border-radius: 10px;
+        padding: 30px;
+    }
+    /*Col-4 responsive*/
+    .Content-Product {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+    }
+
+    .Product-cv {
+        padding: 0;
+        width: 60%;
+        height: 100%;
+        background: white;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .Product-cv .header {
+        width: 100%;
+        height: 50px;
+        background: #EBABAB;
+        padding-top: 12px;
+        margin-top: 10px;
+    }
+
+    .Product-cv .header a {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+    }
+
+    .col-4 {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .productTag {
+        width: 100%;
+        border: 1px solid #EBABAB;
+        padding: 0;
+        background: white;
+        margin-bottom: 0px;
+        margin-top: 10px;
+        overflow: hidden;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+
+    .col-4 img {
+        height: 260px;
+        border-bottom: 3px solid #EBABAB;
+    }
+
+    .col-4 p {
+        margin-left: 10px;
+    }
+
+    .Content-small {
+        padding: 0;
+    }
+
+    .row {
+        padding: 0;
+    }
+
+    .Product-cv .header p {
+        margin-left: 10px;
+        font-size: 20px;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+        display: inline-block;
+        margin-right: 85%;
+    }
+
+    .col-4 .NamePro {
+        font-size: 15px;
+    }
+
+    .col-4 .PricePro {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        color: orangered;
+        width: 80px;
+    }
+
+    .header {
+        border-radius: 5px;
+    }
+
+    .btnbuy-content {
+        display: inline-block;
+    }
+
+    .btnbuy-content .PricePro {
+        display: inline-block;
+        font-style: normal;
+    }
+
+    .btnbuy-content a {
+        font-size: 15px;
+        font-weight: 600;
+        display: inline-block;
+        font-style: italic;
+    }
+
+    .btnbuy-content a:hover {
+        color: hotpink;
+    }
+
+    .Menubar .list li a:hover {
+        color: white;
+    }
+
+    .Menubar .list li:hover {
+        background: #707070;
+    }
+    /*loginDropmenu responesive*/
+    .DropMenubar {
+        height: 12
+        0px;
+        width: 170px;
+        background: white;
+        position: absolute;
+        left: 1120px;
+        top: 146px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        transition: 0.5s;
+        opacity: 0;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+
+    .DropMenubar a:hover {
+        color: pink;
+        display: block;
+        opacity: 1;
+    }
+
+    .login-f:hover .DropMenubar {
+        left: 1170px;
+        top: 138px;
+        opacity: 1;
+    }
+    /*Menubar-fix responsive*/
+    .Menubar-fixed {
+        width: 15%;
+        height: 35%;
+        background: white;
+        position: absolute;
+        position: fixed;
+        top: 310px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        padding: 40px 0 20px 0;
+    }
+
+    .Menubar-fixed ul li {
+        margin-left: 30px;
+        font-family: 'Source Sans Pro', sans-serif;
+        list-style-type: none;
+        margin-bottom: 20px;
+    }
+
+    .srcbar input {
+        height: 30px;
+        width: 50%;
+        margin-left: 30px;
+        margin-bottom: 10px;
+        border: 1px solid #ff9898;
+        outline: none;
+        padding-left: 10px;
+    }
+
+    .cate-find {
+        margin-left: 30px;
+    }
+
+    .cate-find select {
+        height: 30px;
+        border: none;
+        background: none;
+        outline: none;
+    }
+
+    .Menubar-fixed button {
+        margin-bottom: 10px;
+        height: 30px;
+        width: 50px;
+        outline: none;
+        background: #ff9898;
+        border: none;
+    }
+
+    .Menubar-fixed button:hover {
+        transform: scale(0.95);
+        cursor: pointer;
+    }
+
+    .srcbar input, .srcbar button {
+        display: inline-block;
+    }
+
+    .srcbar button {
+        padding: 0;
+        color: white;
+    }
+}

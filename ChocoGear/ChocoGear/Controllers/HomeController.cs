@@ -12,7 +12,11 @@ namespace ChocoGear.Controllers
     {
         public ActionResult Index()
         {
-
+            if (Session["Cart"] == null)
+            {
+                List<Models.ModelView.CartView> Cart = new List<Models.ModelView.CartView>();
+                Session["Cart"] = Cart;
+            }
             return View();
         }
         public ActionResult CountCart()
@@ -28,21 +32,17 @@ namespace ChocoGear.Controllers
                 return Json("0");
             }
         }
-        public ActionResult Product()
+        public ActionResult Product(string cate)
         {
-            Models.IRepository<Models.ModelView.ProductView> repository = Models.Dao.ProductDao.Instance;
-            Models.IRepository<Models.ModelView.CategoryView> repositorys = Models.Dao.CategoryDao.Instance;
+            Models.Dao.ProductDao product = Models.Dao.ProductDao.Instance;
 
             if (Session["Cart"] == null)
             {
                 List<Models.ModelView.CartView> Cart = new List<Models.ModelView.CartView>();
                 Session["Cart"] = Cart;
             }
-
-            var s = repositorys.Gets();
-            ViewBag.listcate = s;
-            var q = repository.Gets();
-            ViewBag.listproduct = q;
+            Session["listProduct"] = product.Search_characters_Category(cate);
+            Session["NameCate"] = cate;
             return View();
         }
 
