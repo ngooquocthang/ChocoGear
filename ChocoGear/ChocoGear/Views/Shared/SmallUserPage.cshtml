@@ -134,7 +134,7 @@
                                     <br />
                                     <div><a href="@Url.Action("ChangePassword")">Change Password</a></div>
                                     <br />
-                                    <div><a href="@Url.Action("Index")">Log Out</a></div>
+                                    <div><a onclick="logout();">Log Out</a></div>
                                 </div>
                             </li>
                         }
@@ -159,6 +159,15 @@
         @RenderBody()
     </div>
     <script>
+        function logout() {
+            $.ajax({
+                method: "post",
+                url: 'Delete_Sesstion'
+            }).done(function (data) {
+                alert(data);
+                window.location.href = "Index";
+            });
+        }
         @*function loginhover() {
             var hoverlog = document.getElementById("DropMenubar");
             hoverlog.style.left = '1370px';

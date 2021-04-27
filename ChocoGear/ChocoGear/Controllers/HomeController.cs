@@ -265,14 +265,16 @@ namespace ChocoGear.Controllers
             Models.Dao.Security s = new Models.Dao.Security();
             Models.Entity.ChocoGearEntities db = new Models.Entity.ChocoGearEntities();
 
-            var username = Request.Form[""];
-            var email = Request.Form[""];
-            var tmp = username + email;
+            var username = Request.Form["user"];
+            var email = Request.Form["email"];
+            var string_default = "aptechloveindia";
+            var tmp = username + string_default;
             var tmp1 = s.Base64(tmp);
+            var tmp2 = s.MD5Hash(tmp1);
             if (s.Check_email_username(email, username))
             {
                 var q = db.Customers.Single(d => d.email == email && d.username == username);
-                q.password = tmp1;
+                q.password = tmp2;
                 db.SaveChanges();
 
                 //Send Mail
@@ -280,7 +282,7 @@ namespace ChocoGear.Controllers
                 var receiverEmail = new MailAddress(email, "Receiver");
                 var password = "Cf123456789";
                 var sub = "Order Gear";
-                var body = tmp1;
+                var body = string_default;
                 var smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
@@ -305,6 +307,7 @@ namespace ChocoGear.Controllers
                 return Json("Email, Username are not available");
             }
         }
+
 
         public ActionResult AddToCart(int id)
         {
@@ -482,6 +485,11 @@ namespace ChocoGear.Controllers
         public ActionResult FogetPass()
         {
             return View();
+        }
+        public ActionResult Delete_Sesstion()
+        {
+            Session["inforCus"] = null;
+            return Json("Success");
         }
     }
 }

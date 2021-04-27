@@ -98,7 +98,13 @@
                 data: { user: user, email: email }
             }).done(function (data) {
                 alert(data);
+                $('#user').val("");
+                $('#email').val("");
             });
+        }
+
+        function click_Cancel() {
+            window.location.href = "Index";
         }
     </script>
 }
