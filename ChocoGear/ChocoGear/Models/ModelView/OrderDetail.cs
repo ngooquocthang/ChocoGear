@@ -13,5 +13,7 @@ namespace ChocoGear.Models.ModelView
         public int quantity { get; set; }
         public double sub_total { get; set; }
         public bool status { get; set; }
+        public string name_product { get; set; }
+        public float price { get; set; }
     }
 }

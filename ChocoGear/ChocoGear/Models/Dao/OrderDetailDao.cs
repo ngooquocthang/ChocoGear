@@ -52,5 +52,11 @@ namespace ChocoGear.Models.Dao
         {
             throw new NotImplementedException();
         }
+
+        public List<Models.ModelView.OrderDetail> getList(int id)
+        {
+            var q = database.OrderDetails.Where(d => d.id_orders == id).Select(d => new ModelView.OrderDetail { id = d.id, id_orders = (int)d.id_orders, id_product = (int)d.id_product, quantity = (int)d.quantity, sub_total = (float)d.sub_total, status = (bool)d.status, name_product = d.Product.name_product, price = (float)d.Product.price }).ToList();
+            return q;
+        }
     }
 }

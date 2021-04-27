@@ -8,6 +8,7 @@
     var q = (ChocoGear.Models.ModelView.ProductView)Session["EditProduct"];
     List<ChocoGear.Models.ModelView.ProductView> listProduct = new List<ChocoGear.Models.ModelView.ProductView>();
     listProduct = ViewBag.data;
+    var row = 0;
 }
 <style>
     .Name {
@@ -508,10 +509,10 @@
     <div class="bodytable">
         @foreach (var item in listProduct)
         {
-            var row = 0;
+            
             <table class="tablerow" id="load_table"  style="width:100%">
 
-                <tr id="Row_@item.name_product">
+                <tr id="Row_@row">
                     <td style="max-width:40px;min-width:40px;">@item.name_product</td>
                     <td style="max-width:35px;min-width:30px;">@item.name_category</td>
                     <td style="max-width:33px;min-width:35px;">@item.name_brand</td>
@@ -523,7 +524,7 @@
                 <td style="max-width:40px;min-width:35px;">Unavailable</td>}
                     <td style="max-width:32px;">@item.price$</td>
                     <td style="max-width:40px;"><img height="100" width="100" src="@Url.Content("~/Areas/Admin/Upload/")@item.name_image" alt="Alternate Text" /></td>
-                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-idproduct="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                    <td style="max-width:40px;"><button type="button" class="btn-Del" data-row="@row" data-idproduct="@item.id" data-name="@item.name_product" onclick="deleteProduct(this)"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" onclick="showEdit(this);" data-nameproduct="@item.name_product" data-idproduct="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                 </tr>
             </table>
             row++;
@@ -612,14 +613,14 @@
 
         function deleteProduct (obj){
             var id = $(obj).attr('data-idproduct');
-            var name = $(obj).attr('data-name');
+            var row = $(obj).attr('data-row');
             if (confirm("Are you sure you want to delete this product?")) {
                 $.ajax({
                     method: "post",
                     url: "@Url.Action("DeleteProduct")",
                     data: { id: id }
                 }).done(function () {
-                    $('#Row_' + name).remove();
+                    $('#Row_' + row).remove();
                     });
                 }
             else {
