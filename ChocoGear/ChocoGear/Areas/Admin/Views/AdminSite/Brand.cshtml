@@ -1,9 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "Category";
+    ViewBag.Title = "Brand";
     Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
     var row = 0;
-
 }
 
 <style type="text/css">
@@ -33,14 +32,14 @@
         color: #2C2A2A;
     }
 
-    h4::after {
-        content: '';
-        bottom: 0;
-        width: 60px;
-        height: 2px;
-        background: #2C2A2A;
-        display: block;
-    }
+        h4::after {
+            content: '';
+            bottom: 0;
+            width: 60px;
+            height: 2px;
+            background: #2C2A2A;
+            display: block;
+        }
 
 
     .btn-add {
@@ -206,12 +205,13 @@
         background: WHITE;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-        left:500px;
-        top:100px;
-        z-index:10;
-        padding:30px 30px 30px 30px;
-        display:none;
+        left: 500px;
+        top: 100px;
+        z-index: 10;
+        padding: 30px 30px 30px 30px;
+        display: none;
     }
+
         .category-edit-form .Name {
             width: 90%;
             border-bottom: 1px solid #2C2A2A;
@@ -226,8 +226,10 @@
             font-weight: 600;
             margin-bottom: 20px;
         }
+
     .btn-area {
     }
+
     .btn-edit {
         display: inline-flex;
         width: 100px;
@@ -239,8 +241,9 @@
         color: white;
         cursor: pointer;
         padding: 0 30px 0 30px;
-        margin-right:10px;
+        margin-right: 10px;
     }
+
     .btn-cancel {
         display: inline-flex;
         width: 100px;
@@ -251,9 +254,9 @@
         margin-top: 20px;
         color: white;
         cursor: pointer;
-        padding:0 30px 0 30px;
-        
+        padding: 0 30px 0 30px;
     }
+
     .srcbar-cv {
         height: 45px;
         padding: 0;
@@ -290,37 +293,26 @@
         right: 0;
     }
 
-    .btn-src img {
-        cursor: pointer;
-    }
+        .btn-src img {
+            cursor: pointer;
+        }
 </style>
-<h4>Category</h4>
+<h4>Brand</h4>
 <div class="srcbar-cv">
-    <input id="textSearch" class="srcbar" type="text" name="name" value=""  placeholder="Name"/><div class="btn-src" id="Search"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+    <input id="textSearch" class="srcbar" type="text" name="name" value="" placeholder="Name Brand" /><div class="btn-src" id="Search"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
 </div>
-<form method="post">
-    <input type="text" class="Name" id="Name" name="Name" placeholder="Name" />
+<form action="@Url.Action("CreateBrand")" method="post">
+    <input type="text" class="Name" id="Name" name="Name" placeholder="Name Brand" />
     <br />
-    <div class="status">
-        <input type="checkbox" id="Statuss" name="name" />
-    </div>
-    <div class="status-text">
-        <p>Active</p>
-    </div>
     <br />
-    <input class="btn-add" id="create" type="submit" value="Add Product" />
+    <br />
+    <input class="btn-add" id="create" type="submit" value="Add Brand" />
 </form>
 @*edit*@
 <form action="" method="post" class="category-edit-form" id="editform">
     <input type="text" class="Name" id="Name_Edit" name="Name" placeholder="Name" />
     <br />
-    <div class="status">
-        <input type="checkbox" id="Status_Edit" name="name" />
-    </div>
-    <input type="hidden" class="idcate" id="idcate" name="idcate"/>
-    <div class="status-text">
-        <p>Active</p>
-    </div>
+    <input type="hidden" class="idcate" id="idcate" name="idcate" />
     <div class="btn-area">
         <input class="btn-edit" id="update" style="font-size: 12px;" value="Update" /><input class="btn-cancel" style="font-size: 12px;" id="cancel" value="Cancel" />
     </div>
@@ -331,31 +323,21 @@
     <div class="headtable">
         <table class="headtable2" style="width:100%">
             <tr>
-                <td style="max-width:55px;" >Name</td>
-                <td style="max-width:51px;">Status</td>
+                <td style="max-width:55px;">Name</td>
                 <td style="max-width:60px;">Action</td>
             </tr>
         </table>
     </div>
     <div class="bodytable">
-        @if (Session["listCate"] != null)
+        @if (Session["listBrands"] != null)
         {
-            var listCate = (List<ChocoGear.Models.ModelView.CategoryView>)Session["listCate"];
+            var listCate = (List<ChocoGear.Models.ModelView.Brand>)Session["listBrands"];
             foreach (var item in listCate)
             {
                 <table class="tablerow" id="Row_@row" style="width:100%">
                     <tr>
-                        <td style="max-width:40px;" class="HeadName">@item.name_category</td>
-                        
-                            @if (item.status == true)
-                            {
-                    <td style="max-width:40px;" class="HeadCheckbok">Available</td>
-                        }
-                        else
-                        {
-                    <td style="max-width:40px;" class="HeadCheckbok">Unavailable</td>
-                        }
-                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-row="@row" onclick="deleteCate(this)" data-namecategory="@item.name_category" data-idcategory="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" data-idcategory="@item.id" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
+                        <td style="max-width:40px;" class="HeadName">@item.name</td>
+                        <td style="max-width:40px;"><button type="button" class="btn-Del" data-row="@row" onclick="deleteBrand(this)" data-name="@item.name" data-id="@item.id"><img width="20" src="~/Areas/Admin/Upload/Icon/icondelete.ico" alt="Alternate Text" /></button><button class="btn-Edit" data-id="@item.id" onclick="Edit(this);"><img width="20" src="~/Areas/Admin/Upload/Icon/iconedit.ico" alt="Alternate Text" /></button></td>
                     </tr>
                 </table>
                 row++;
@@ -365,78 +347,44 @@
 </div>
 @section script_admin{
     <script>
-    $('#create').click(function () {
-        var Name = $('#Name').val();
-        if (Name != "") {
-            var Status = $('#Statuss').prop('checked');
-            $.ajax({
-                method: "post",
-                url: "@Url.Action("CreateCategory")",
-                data: { Name: Name, Status: Status }
-            }).done(function (data) {
-
-            });
-        } else {
-            alert("Please enter information of category !!");
-        }
-
-    })
-        var nameBeforeEdit = "";
-        function Edit(obj) {
-            var a = $(obj).parents("tr").find(".HeadName").text();
-            nameBeforeEdit = a;
-            var b = $(obj).parents("tr").find(".HeadCheckbok").text();
-            var idcate = $(obj).attr('data-idcategory');
-
-            $('#Name_Edit').val(a);
-            if (b == "Available") {
-                $('#Status_Edit').prop('checked', true);
-            }
-            $('#idcate').val(idcate);
-            var showEdit = document.getElementById("editform");
-            showEdit.style.display = 'block';
-        }
-
-        $('#update').click(function () {
-            var name = $('#Name_Edit').val();
-            var status = $('#Status_Edit').prop('checked');
-            var id = $('#idcate').val();
-            $.ajax({
-                method: "post",
-                url: "@Url.Action("UpdateCategory")",
-                data: { id: id, name: name, status: status }
-            }).done(function (data) {
-                if (data == "success") {
-                    window.location.href = "@Url.Action("Category")";
-                } else {
-                    alert(data);
-                }
-            });
-        })
-        $('#cancel').click(function () {
-            var showEdit = document.getElementById("editform");
-            showEdit.style.display = 'none';
-        })
-
-        function deleteCate(obj) {
-            var id = $(obj).attr('data-idcategory');
-            var name = $(obj).attr('data-namecategory');
+        function deleteBrand(obj) {
+            var id = $(obj).attr('data-id');
+            var name = $(obj).attr('data-name');
             var row = $(obj).attr('data-row');
-            if (confirm("Are you sure you want to delete this category?")) {
+            if (confirm("Are you sure you want to delete this brand?")) {
                 $.ajax({
                 method: "post",
-                url: "@Url.Action("DeleteCate")",
+                url: "@Url.Action("DeleteBrand")",
                 data: { id: id }
                 }).done(function (data) {
-                    $('#Row_' + row).remove();
+                    if (data == "Delete Success") {
+                        alert(data)
+                        $('#Row_' + row).remove();
+                    } else {
+                        alert(data);
+                    }
             });
             }
             else {
                 return false;
             }
-
-
         }
+        function Edit(obj) {
+            var a = $(obj).parents("tr").find(".HeadName").text();
+            nameBeforeEdit = a;
+            var b = $(obj).parents("tr").find(".HeadCheckbok").text();
+            var id = $(obj).attr('data-id');
+
+            $('#Name_Edit').val(a);
+
+            $('#idcate').val(id);
+            var showEdit = document.getElementById("editform");
+            showEdit.style.display = 'block';
+        }
+        $('#cancel').click(function () {
+            var showEdit = document.getElementById("editform");
+            showEdit.style.display = 'none';
+        })
         $('#Search').click(function () {
             var name = $('#textSearch').val();
             $('.bodytable table').each(function (result) {
@@ -448,7 +396,21 @@
                 }
             })
         })
-
+        $('#update').click(function () {
+            var name = $('#Name_Edit').val();
+            var id = $('#idcate').val();
+            $.ajax({
+                method: "post",
+                url: "@Url.Action("UpdateBrand")",
+                data: { id: id, name: name}
+            }).done(function (data) {
+                if (data == "success") {
+                    window.location.href = "@Url.Action("Brand")";
+                } else {
+                    alert(data);
+                }
+            });
+        })
         $('#textSearch').keyup(function (event) {
             var name = $('#textSearch').val();
             if (name == "") {
@@ -458,6 +420,4 @@
             }
         })
     </script>
-}
-
-
+    }

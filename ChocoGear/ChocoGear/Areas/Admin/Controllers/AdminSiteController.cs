@@ -24,11 +24,10 @@ namespace ChocoGear.Areas.Admin.Controllers
             Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
             Session["listBrand"] = brand.Gets();
 
-            Models.Dao.ProductDao product = Models.Dao.ProductDao.Instance;
+            Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
             Session["listProduct"] = product.Gets();
 
-            var q= product.Search_characters_Category(category_name);
-            ViewBag.data = q;
+            ViewBag.data = Session["listProduct"];
 
             return View();
         }
@@ -131,8 +130,15 @@ namespace ChocoGear.Areas.Admin.Controllers
             {
                 System.IO.File.Delete(fullPath);
             }
-            Product.Delete(id);
-            return Json("success");
+            var result = Product.Delete(id);
+            if(result == 1)
+            {
+                return Json("success");
+            }
+            else
+            {
+                return Json("fail");
+            }
         }
 
 
@@ -224,7 +230,7 @@ namespace ChocoGear.Areas.Admin.Controllers
             {
                 return Json("Category exits!!");
             }
-            return Json("Success");
+            return Json("success");
         }
         public ActionResult DeleteCate()
         {
@@ -280,6 +286,52 @@ namespace ChocoGear.Areas.Admin.Controllers
                 table += "<table style='width:100%'><tr><th style='width: 30%;'>" + item.name_product+ "</th><th style='width: 10%;'>" + item.price+ "$</th><th style='width:33 %;'>" + item.quantity+"</th><th>"+item.sub_total+"$</th></tr></table>";
             }
             return Json(table);
+        }
+
+        //Brand
+        public ActionResult Brand()
+        {
+            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+            Session["listBrands"] = brand.Gets();
+            return View();
+        }
+        public ActionResult CreateBrand()
+        {
+            var name = Request.Form["name"];
+            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+            Models.ModelView.Brand br = new Models.ModelView.Brand();
+            br.name = name;
+            brand.Create(br);
+            return RedirectToAction("Brand");
+        }
+        public ActionResult UpdateBrand()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            var name = Request.Form["name"];
+            Models.ModelView.Brand brandV = new Models.ModelView.Brand();
+            brandV.id = id;
+            brandV.name = name;
+            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+            var result = brand.Update(brandV);
+            if (result == 0)
+            {
+                return Json("Category exits!!");
+            }
+            return Json("success");
+        }
+        public ActionResult DeleteBrand()
+        {
+            var id = int.Parse(Request.Form["id"]);
+            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+            var res = brand.Delete(id);
+            if(res == 1)
+            {
+                return Json("Delete Success");
+            }
+            else
+            {
+                return Json("Delete Fail");
+            }
         }
     }
 }

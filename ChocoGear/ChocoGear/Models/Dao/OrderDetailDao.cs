@@ -58,5 +58,18 @@ namespace ChocoGear.Models.Dao
             var q = database.OrderDetails.Where(d => d.id_orders == id).Select(d => new ModelView.OrderDetail { id = d.id, id_orders = (int)d.id_orders, id_product = (int)d.id_product, quantity = (int)d.quantity, sub_total = (float)d.sub_total, status = (bool)d.status, name_product = d.Product.name_product, price = (float)d.Product.price }).ToList();
             return q;
         }
+
+        public int CheckConstraintProduct(int id)
+        {
+            var q = database.OrderDetails.Where(d => d.id_product == id).Count();
+            if(q > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

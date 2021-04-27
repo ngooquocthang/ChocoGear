@@ -517,7 +517,19 @@
             <table class="tablerow" id="load_table"  style="width:100%">
 
                 <tr id="Row_@row">
-                    <td style="max-width:40px;min-width:40px;">@item.name_product</td>
+                    <td style="max-width:40px;min-width:40px;">@{
+                        var a = item.name_product;
+                        var res = "";
+                        if(a.Length > 13)
+                        {
+                            res = a.Substring(0, 13) + "...";
+                        }
+                        else
+                        {
+                            res = a;
+                        }
+                        @Html.Raw(res);
+                    }</td>
                     <td style="max-width:35px;min-width:30px;">@item.name_category</td>
                     <td style="max-width:33px;min-width:35px;">@item.name_brand</td>
                     @if (item.status == true)
@@ -636,8 +648,12 @@
                     method: "post",
                     url: "@Url.Action("DeleteProduct")",
                     data: { id: id }
-                }).done(function () {
-                    $('#Row_' + row).remove();
+                }).done(function (data) {
+                    if (data == "success") {
+                        $('#Row_' + row).remove();
+                    } else {
+                        alert("Can't delete this product !");
+                    }
                     });
                 }
             else {

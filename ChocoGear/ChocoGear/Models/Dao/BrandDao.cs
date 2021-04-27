@@ -28,12 +28,20 @@ namespace ChocoGear.Models.Dao
 
         public int Create(Brand item)
         {
-            throw new NotImplementedException();
+            Entity.Brand brand = new Entity.Brand();
+            brand.id = item.id;
+            brand.name = item.name;
+            database.Brands.Add(brand);
+            database.SaveChanges();
+            return 1;
         }
 
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            var q = database.Brands.Where(d => d.id == id).FirstOrDefault();
+            database.Brands.Remove(q);
+            database.SaveChanges();
+            return 1;
         }
 
         public Brand GetId(int id)
@@ -49,7 +57,27 @@ namespace ChocoGear.Models.Dao
 
         public int Update(Brand item)
         {
-            throw new NotImplementedException();
+            if(CheckNameExist(item.name, item.id) == false)
+            {
+                var q = database.Brands.Where(d => d.id == item.id).FirstOrDefault();
+                q.name = item.name;
+                database.SaveChanges();
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+            
+        }
+        public bool CheckNameExist(string name, int id)
+        {
+            var q = database.Brands.Where(d => d.id != id && d.name == name).Count();
+            if (q > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

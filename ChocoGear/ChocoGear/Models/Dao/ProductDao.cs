@@ -50,9 +50,17 @@ namespace ChocoGear.Models.Dao
 
             var q = database.Products.Where(d => d.id == id).FirstOrDefault();
             database.Products.Remove(q);
-            database.SaveChanges();
-
-            return 1;
+            Models.Dao.OrderDetailDao orderdetail = Models.Dao.OrderDetailDao.Instance;
+            var check = orderdetail.CheckConstraintProduct(id);
+            if(check == 1)
+            {
+                return 0;
+            }
+            else
+            {
+                database.SaveChanges();
+                return 1;
+            }
         }
 
         public ProductView GetId(int id)
