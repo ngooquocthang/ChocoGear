@@ -33,7 +33,9 @@ namespace ChocoGear.Controllers
 
         public ActionResult FeedBack()
         {
-            
+            Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
+            var q=repository.Gets();
+            ViewBag.list_product = q;
             return View();
         }
         public ActionResult CreateFeedBack()
@@ -73,6 +75,9 @@ namespace ChocoGear.Controllers
         }
         public ActionResult ChangePassword()
         {
+            Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
+            var q = repository.Gets();
+            ViewBag.list_product = q;
             return View();
         }
 
@@ -93,7 +98,11 @@ namespace ChocoGear.Controllers
                 Session["login"] = user;
                 return RedirectToAction("Product");
             }
-            return View();
+            else
+            {
+                return RedirectToAction("LoginAndRegister");
+            }
+            
         }
 
         [HttpPost]
