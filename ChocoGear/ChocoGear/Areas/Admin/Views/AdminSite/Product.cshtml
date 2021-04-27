@@ -420,6 +420,17 @@
         border:none;
         outline:none;
     }
+    .form-Description {
+        width: 1000px;
+        height: 627px;
+        position: absolute;
+        background: white;
+        z-index: 50;
+        top: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        display:none;
+    }
 </style>
 <h4>Product</h4>
 @**@
@@ -455,11 +466,18 @@
     <br />
     <input id="img" class="Img" type="file" onchange="chooseFile(this)" name="Img" /><div class="picturebox"><img id="imagechoose" width="50" src="#" /></div>
     <br />
+    <br />
+    <input onclick="showDes();" class="btn-add"  type="button" value="Form Description" />
+    <br />
+    <br />
+    <input  class="btn-add" id="Create" type="submit" value="Add Product" />
+</form>
+<div class="form-Description" id="form-des">
     <p class="ckeditor-title">Desciption</p>
     <textarea id="Desciption" class="Description" name="Description" placeholder="Description"></textarea>
     <br />
-    <input class="btn-add" id="Create" type="submit" value="Add Product" />
-</form>
+    <input class="btn-add" onclick="hideDes();" type="button" value="Done" />
+</div>
 <div class="select-cv">
     <select id="list_search">
         <option disabled selected hidden value="value">Search by</option>
@@ -518,8 +536,8 @@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
     <script>
         CKEDITOR.replace('Description', {
-            height: 80,
-            width: 384,
+            height: 450,
+            width: 975,
 
         });
 
@@ -611,9 +629,17 @@
     var tmppath = "";
     $("#imagechoose").fadeIn("fast").attr('src', tmppath);
     }
-    }
-
-    </script>
+     }
+        function showDes() {
+            var Desshow = document.getElementById("form-des");
+            Desshow.style.display = 'block';
+        }
+        function hideDes() {
+            var Deshide = document.getElementById("form-des");
+            Deshide.style.display = 'none';
+        }
+        
+   </script>
 }
 
 
