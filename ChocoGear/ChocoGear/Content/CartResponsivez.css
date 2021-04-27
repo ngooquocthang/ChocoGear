@@ -1,0 +1,58 @@
+﻿.totalsub {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+}
+
+.btn-del-all-cv, .btn-checkout-cv, .totalsub {
+    margin-top: 10px;
+    box-sizing: border-box;
+    float: left;
+    height:50px;
+}
+
+.btn-del-all-cv, .totalsub {
+    margin-right: 277px;
+}
+@media only screen and (max-width:1366px){
+    .totalsub {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 600;
+    }
+
+    .btn-del-all-cv, .btn-checkout-cv, .totalsub {
+        margin-top: 10px;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    .btn-del-all-cv, .totalsub {
+        margin-right: 111px;
+    }
+}
+/*//================//*/
+.feedback-form {
+    height: 550px;
+    width: 400px;
+    background: #f8e7e7;
+    z-index: 10;
+    position: absolute;
+    top: 160px;
+    left: 980px;
+    border-radius: 10px;
+    padding: 30px;
+    transition: 0.5s;
+}
+
+@media only screen and (max-width : 1366px) {
+    .feedback-form {
+        height: 550px;
+        width: 400px;
+        background: #f8e7e7;
+        z-index: 10;
+        position: absolute;
+        top: 160px;
+        left: 730px;
+        border-radius: 10px;
+        padding: 30px;
+    }
+}

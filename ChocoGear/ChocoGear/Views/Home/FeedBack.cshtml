@@ -4,128 +4,134 @@
     Layout = "~/Views/Shared/SmallUserPage.cshtml";
 }
 <style>
-    .feedback-container {
-        width: 100%;
-        background:black;
-    }
-    .listFeedback {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        height: 700px;
-        width: 100%;
-        float: left;
-        background:white;
-    }
-    
-    .headlistbigs table {
-        border-bottom: 2px solid #ECACAC;
-        padding: 0;
-        margin: 0;
-    }
-    .listproduct .headlistbigs p {
-        display: inline-flex;
-        padding: 0px;
-        margin-top: 50px;
-        margin-left: 50px;
-        height: 50px;
-        text-align: center;
-        font-family: 'Source Sans Pro', sans-serif;
-        font-weight: 600;
-        color: #707070;
-    }
-
-
-
-    .headlists table {
-        border-bottom: 2px solid #ECACAC;
-        padding: 0;
-        margin: 0;
-    }
-
-    .headlists table tr th {
-        padding: 0;
-        margin: 0;
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #707070;
-        height: 100px;
-    }
-
-    .headlistbigs table {
-        border-bottom: 2px solid #ECACAC;
-        padding: 0;
-        margin: 0;
-    }
-
-    .headlistbigs table tr th {
-        padding: 0;
-        margin: 0;
-        font-family: 'Source Sans Pro', sans-serif;
-        color: #707070;
-        height: 100px;
-    }
-    .listFeedback {
-        padding:40px 40px 0 40px;
-    }
-    .btn-delete {
-        height: 50px;
-        width: 100px;
+    .Contact-form {
+        width: 1060px;
+        height: 600px;
+        background: #f2b1b1;
         border-radius: 10px;
-        border: none;
-        background: #FFDFDF;
-        transition: 0.5s;
-        font-family: 'Source Sans Pro', sans-serif;
-        color:#707070;
-        font-weight:600;
-    }
-    .btn-delete:hover{
-        background:#EBABAB;
-    }
-    .headlists {
-        height:700px;
-        overflow-y:scroll;
-    }
-    ::-webkit-scrollbar {
-        width: 2px;
+        padding-top: 50px;
+        margin-top: 50px;
+        margin-right: auto;
+        margin-left: auto;
     }
 
-    ::-webkit-scrollbar-track {
+    .Map {
+        width: 100%;
+        height: 400px;
         background: white;
+        overflow: hidden;
     }
 
-    ::-webkit-scrollbar-thumb {
-        background: #EBABAB;
-        border-radius: 20px;
-        height: 100px;
+    .feedback-form input {
+        height: 30px;
+        width: 340px;
+        margin-bottom: 20px;
+        outline: none;
+        padding: 5px;
+        border-bottom: 2px solid #f2b1b1;
+        background: none;
+        border-right: none;
+        border-left: none;
+        border-top: none;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(to right, #1093ff, #83d1e9);
+    .feedback-form textarea {
+        width: 340px;
+        height: 370px;
+        outline: none;
+        padding: 5px;
+        border: 2px solid #f2b1b1;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .feedback-form button {
+        width: 100px;
+        height: 50px;
+        border: 2px solid #f2b1b1;
+        cursor: pointer;
+        background: #f2b1b1;
+        color: white;
+        font-weight: 600;
+    }
+
+    .Contact-info {
+        height: 150px;
+        width: 100%;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    .Contact-info .info-left {
+        box-sizing: border-box;
+        float: left;
+        width: 20%;
+    }
+
+    .Contact-info .info-right {
+        box-sizing: border-box;
+        float: left;
+        width: 20%;
+    }
+
+    .Contact-info .info-left li {
+        text-decoration: none;
+        list-style-type: none;
+        margin-left: 50px;
+        color: white;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .Contact-info .info-left, .info-right {
+        margin-top: 50px;
+    }
+
+    .Contact-info .info-right li {
+        text-decoration: none;
+        list-style-type: none;
+        color: white;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    h4 {
+        margin-left: 10px;
+        text-align: center;
+        color: #707070;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .head-address {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 5px;
     }
 </style>
-<div class="feedback-container">
-    <div class="listFeedback">
-        <div class="headlistbigs">
-            <table style="width:100%">
-                <tr>
-                    <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst" onclick="checkFluency();" type="checkbox" value="" /></th>
-                    <th style="max-width:32px;">Usrname</th>
-                    <th style="max-width:73px;">Content</th>
-                    <th style="max-width:73px;">Action</th>
-                </tr>
-            </table>
+<div class="Contact-form">
+    <div class="Map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.282982036417!2d106.69300111535635!3d10.789624961899039!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529a1b2a41a6d%3A0xf1ac6a5097ebbabb!2sMAAC%20Vietnam!5e0!3m2!1svi!2s!4v1619451258207!5m2!1svi!2s" width="1060" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+    <div class="Contact-info">
+        <div class="info-left">
+            <ul>
+                <li class="head-address">Our Address</li>
+                <li>Da Kao, P1, Q1</li>
+                <li>TP.HCM</li>
+            </ul>
         </div>
-        <div class="headlists">
-            @*auto render data*@
-            <table style="width:100%">
-                <tr>
-                    <th style="max-width:18px;"><input class="checkboxfirst" id="checkboxfirst2" onclick="checkFluency1();" type="checkbox" value="" /></th>
-                    <th style="max-width:40px;">Name</th>
-                    <th style="max-width:73px;">noidung</th>
-                    <th style="max-width:53px;"><button class="btn-delete">Delete</button></th>
-                </tr>
-            </table>
-
+        <div class="info-right">
+            <ul>
+                <li class="head-address">Our Contact</li>
+                <li>+84 999999880</li>
+                <li>helloworld@gmail.com</li>
+            </ul>
         </div>
     </div>
+</div>
+<div class="feedback-form">
+    <h4>FEEDBACK FORM</h4>
+    <form>
+        <input type="text" value="" required placeholder="Your Email" />
+        <br />
+        <textarea placeholder="Send To ChocoGear..."></textarea>
+        <button>Send</button>
+    </form>
 </div>

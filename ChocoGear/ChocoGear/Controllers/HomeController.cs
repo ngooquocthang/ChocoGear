@@ -56,6 +56,10 @@ namespace ChocoGear.Controllers
         {
             return View();
         }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Create_Login()
