@@ -33,8 +33,23 @@ namespace ChocoGear.Controllers
 
         public ActionResult FeedBack()
         {
+            
             return View();
-
+        }
+        public ActionResult CreateFeedBack()
+        {
+            var email = Request.Form["email"];
+            var content = Request.Form["content"];
+            var date = DateTime.Parse(DateTime.Now.ToString("d"));
+            var status = true;
+            Models.ModelView.FeedBackView fv = new Models.ModelView.FeedBackView();
+            fv.email = email;
+            fv.content = content;
+            fv.created = date;
+            fv.status = status;
+            Models.IRepository<Models.ModelView.FeedBackView> repository = Models.Dao.FeedBackDao.Instance;
+            repository.Create(fv);
+            return View();
         }
         public ActionResult AboutUs()
         {

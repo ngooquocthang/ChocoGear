@@ -27,7 +27,18 @@ namespace ChocoGear.Models.Dao
 
         public int Create(FeedBackView item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+                Entity.Feedback fb = new Entity.Feedback() { id = item.id, email = item.email, content = item.content, created = item.created, status = item.status };
+                db.Feedbacks.Add(fb);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public int Delete(int id)

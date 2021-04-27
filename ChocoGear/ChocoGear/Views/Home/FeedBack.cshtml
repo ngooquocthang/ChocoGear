@@ -129,9 +129,24 @@
 <div class="feedback-form">
     <h4>FEEDBACK FORM</h4>
     <form>
-        <input type="text" value="" required placeholder="Your Email" />
+        <input type="text" id="email" value="" required placeholder="Your Email" />
         <br />
-        <textarea placeholder="Send To ChocoGear..."></textarea>
-        <button>Send</button>
+        <textarea id="textarea" placeholder="Send To ChocoGear..."></textarea>
+        <button onclick="click_send();">Send</button>
     </form>
 </div>
+@section script_admin{
+    <script>
+        function click_send() {
+            var email = $('#email').val();
+            var content = $('#textarea').val();
+            $.ajax({
+                method: "Post",
+                url: 'CreateFeedBack',
+                data: { email: email, content: content }
+            }).done(function (msg) {
+                alert("success");
+            });
+        }
+    </script>
+    }

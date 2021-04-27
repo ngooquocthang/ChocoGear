@@ -1,8 +1,6 @@
 ﻿
-@{
-    ViewBag.Title = "FeedBack";
-    Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml";
-}
+@{ ViewBag.Title = "FeedBack";
+                Layout = "~/Areas/Admin/Views/Shared/AdminPage.cshtml"; }
 
 <style>
     .Name {
@@ -423,16 +421,17 @@
         border: none;
         outline: none;
     }
-    .btn-read:hover {
-        background:#f17777;
-        color:white;
-    }
+
+        .btn-read:hover {
+            background: #f17777;
+            color: white;
+        }
 </style>
 <h4>Customer Feedback</h4>
 @**@
 
 <div class="srcbar-cv">
-    <input class="srcbar" type="text" name="name" value="" /><div class="btn-src"><img src="~/Upload/Icon/iconfinder_icon.png" /></div>
+    <input  class="srcbar" placeholder="Email" id="name_search" type="text" name="name" value="" /><div  class="btn-src"><img onclick="click_search();" src="~/Upload/Icon/iconfinder_icon.png" /></div>
 </div>
 <div class="righside">
     <div class="headtable">
@@ -450,7 +449,16 @@
         <table class="tablerow" style="width:100%">
 
             <tr id="">
-                <td style="max-width:40px;min-width:40px;">Email</td>
+                <td style="max-width:40px;min-width:40px;">Emailda</td>
+                <td style="max-width:35px;min-width:30px;">...</td>
+                <td style="max-width:35px;min-width:30px;">Date</td>
+                <td style="max-width:40px;"><button class="btn-read">Read</button></td>
+            </tr>
+        </table>
+        <table class="tablerow" style="width:100%">
+
+            <tr id="">
+                <td style="max-width:40px;min-width:40px;">das</td>
                 <td style="max-width:35px;min-width:30px;">...</td>
                 <td style="max-width:35px;min-width:30px;">Date</td>
                 <td style="max-width:40px;"><button class="btn-read">Read</button></td>
@@ -458,4 +466,18 @@
         </table>
     </div>
 </div>
+@section script_admin{
+    <script>
+        function click_search() {
+                var name_search = $('#name_search').val();
+                $('.bodytable table').each(function (results) {
+                    var id = $(this).find('td:nth-child(1)').text();
+                    if (id.indexOf(name_search) !== 0 && id.toLowerCase().indexOf(name_search.toLowerCase()) < 0) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                })
+            }</script>
+}
 
