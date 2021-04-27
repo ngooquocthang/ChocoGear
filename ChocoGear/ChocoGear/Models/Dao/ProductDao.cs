@@ -109,7 +109,7 @@ namespace ChocoGear.Models.Dao
                 db.SaveChanges();
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }

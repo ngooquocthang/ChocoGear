@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "LoginAndRegister";
-    Layout = "~/Views/Shared/LoginAndRegister.cshtml";
+    Layout = "~/Views/Shared/LoginAndRegister.cshtml"; 
 }
 
 <style>
@@ -76,7 +76,7 @@
         border: 3px solid #F9CDCD;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
     }
-    
+
     .registerform .logo {
         margin-top: 20px;
         margin-bottom: 10px;
@@ -201,7 +201,7 @@
     #radio4:checked ~ .first {
         margin-left: -60%;
     }
-  
+
 
 
 
@@ -265,44 +265,45 @@
 <div class="square7" style="--i:5;"></div>
 <div class="container">
     <div class="loginform">
-        <form class="login" method="post" action="Create_Login">
+        <form class="login">
             <img class="logo" src="~/Upload/Logo/LOGOCHOSCOR.png" width="120" alt="" />
-            <input type="text" class="usrname" name="usrname" placeholder="Username" value="" />
+            <input type="text" class="usrname" id="user" name="usrname" placeholder="Username" value="" />
             <br />
-            <input type="password" class="password" name="password" placeholder="Password" value="" />
+            <input type="password" class="password" id="pass" name="password" placeholder="Password" value="" />
             <br />
-            <input type="submit" class="btn-login" name="btn-login" value="LOGIN" />
+            <input type="button" onclick="click_login();" class="btn-login" name="btn-login" value="LOGIN" />
             <br />
-            <p>DONT HAVE ACCOUNT? <a href="#" onclick="RegisToggle();"><strong>SIGN UP</strong></a></p>
-
+            <p>DONT HAVE ACCOUNT? <a onclick="RegisToggle();"><strong>SIGN UP</strong></a></p>
         </form>
     </div>
     <div class="registerform">
-        <form class="register" method="post" action="Create_Register">
+        <form class="register">
             <img class="logo" src="~/Upload/Logo/LOGOCHOSCOR.png" width="100" alt="" />
-            <input type="text" class="name" name="firstname" placeholder="First Name" value="" />
+            <input type="text" class="name" id="firstname" name="firstname" placeholder="First Name" value="" />
             <br />
-            <input type="text" class="name" name="lastname" placeholder="Last Name" value="" />
+            <input type="text" class="name" id="lastname" name="lastname" placeholder="Last Name" value="" />
             <br />
-            <input type="text" class="usrname" name="usrname" placeholder="Username" value="" />
+            <input type="text" class="usrname" id="usrname" name="usrname" placeholder="Username" value="" />
             <br />
-            <input type="password" class="password" name="password" placeholder="Password" value="" />
+            <input type="password" class="password" id="password" name="password" placeholder="Password" value="" />
             <br />
-            <input type="password" class="password" name="cfpassword" placeholder="Confirm Password" value="" />
+            <input type="password" class="password" id="cfpassword" name="cfpassword" placeholder="Confirm Password" value="" />
             <br />
-            <input type="email" class="email" name="email" placeholder="Email" value="" />
+            <input type="email" class="email" id="email" name="email" placeholder="Email" value="" />
             <br />
-            <input type="text" class="address" name="address" placeholder="Address" value="" />
+            <input type="text" class="address" id="address" name="address" placeholder="Address" value="" />
             <br />
-            <input type="text" class="phone" name="phone" placeholder="Phone" maxlength="12" value="" />
+            <input type="text" class="phone" id="phone" name="phone" placeholder="Phone" maxlength="12" value="" />
             <br />
-            <input type="submit" class="btn-regis" name="btn-login" value="SIGN UP" />
+            <input type="button" onclick="click_register();" class="btn-regis" name="btn-login" value="SIGN UP" />
             <br />
-            <p>HAVE ACCOUNT? <a href="#" onclick="LoginToggle();"><strong>LOGIN</strong></a></p>
+            <p>HAVE ACCOUNT? <a  onclick="LoginToggle();"><strong>LOGIN</strong></a></p>
         </form>
     </div>
 </div>
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+@section script_admin{
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
 <script>
     let spinnerWrapper = document.getElementById("loading");
     window.addEventListener('load', function () {
@@ -311,7 +312,7 @@
 
     function LoginToggle() {
         var login = document.getElementById("bodySlide");
-        
+
         if (window.screen.width < '1368') {
             login.style.left = '528px';
         } else {
@@ -326,7 +327,7 @@
     }
     function RegisToggle() {
         var regis = document.getElementById("bodySlide");
-        
+
         if (window.screen.width < '1368') {
             regis.style.left = '128px';
         } else {
@@ -338,5 +339,79 @@
         slide.style.borderTopRightRadius = '0';
         slide.style.borderBottomRightRadius = '0';
     }
+
+    function click_register() {
+        var first_name = $('#firstname').val();
+        var last_name = $('#lastname').val();
+        var phone = $('#phone').val();
+        var email = $('#email').val();
+        var address = $('#address').val();
+        var username = $('#usrname').val();
+        var password = $('#password').val();
+        var cfpassword = $('#cfpassword').val();
+        if (first_name == "" || last_name == "" || phone == "" || email == "" || address == "" || username == "" || password == "") {
+            alert("Please enter all fields");
+            $('#firstname').val("");
+            $('#lastname').val("");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#address').val("");
+            $('#usrname').val("");
+            $('#password').val("");
+            $('#cfpassword').val("");
+        } else if (password != cfpassword) {
+            alert("Confirm Password not macth");
+            $('#firstname').val("");
+            $('#lastname').val("");
+            $('#phone').val("");
+            $('#email').val("");
+            $('#address').val("");
+            $('#usrname').val("");
+            $('#password').val("");
+            $('#cfpassword').val("");
+        } else {
+            $.ajax({
+                method: "post",
+                url: 'Create_Register',
+                data: { first_name: first_name, last_name: last_name, phone: phone, email: email, address: address, username: username, password: password }
+            }).done(function (data) {
+                alert(data);
+                $('#firstname').val("");
+                $('#lastname').val("");
+                $('#phone').val("");
+                $('#email').val("");
+                $('#address').val("");
+                $('#usrname').val("");
+                $('#password').val("");
+                $('#cfpassword').val("");
+            });
+        }
+    }
+    function click_login() {
+        var user = $('#user').val();
+        var pass = $('#pass').val();
+        if (user == "" || pass == "") {
+            alert("Please enter all fields");
+        } else {
+            $.ajax({
+                method: "post",
+                url: 'Create_login',
+                data: { user: user, pass: pass }
+            }).done(function (data) {
+                if (data == "Login Success") {
+                    alert(data);
+                    window.location.href = "Index";
+                } else {
+                    alert(data);
+                    $('#user').val("");
+                    $('#pass').val("");
+                }
+
+            });
+        }
+    }
 </script>
+
+
+}
 

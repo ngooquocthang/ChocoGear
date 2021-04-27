@@ -102,18 +102,68 @@ namespace ChocoGear.Controllers
         }
         public ActionResult ChangePassword()
         {
+            if (Session["inforCus"] == null)
+            {
+                return RedirectToAction("LoginAndRegister");
+            }
             Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
             var q = repository.Gets();
             ViewBag.list_product = q;
             return View();
         }
 
+        public ActionResult Create_ChangePassword()
+        {
+            var id = int.Parse(Request.Form["id_cus"]);
+            var username = Request.Form["username"];
+            var password_old = Request.Form["pass_old"];
+            var password_new = Request.Form["pass_new"];
+            var password_new_cf = Request.Form["pass_new_cf"];
+            Models.Dao.Security s = new Models.Dao.Security();
+            var tmp_old = username + password_old;
+            var tmp_old1 = s.Base64(tmp_old);
+            var tmp_old2 = s.MD5Hash(tmp_old1);
+
+            var tmp_new = username + password_new;
+            var tmp_new1 = s.Base64(tmp_new);
+            var tmp_new2 = s.MD5Hash(tmp_new1);
+
+            Models.Entity.ChocoGearEntities db = new Models.Entity.ChocoGearEntities();
+            if (password_old == "" || password_new == "" || password_new_cf == "")
+            {
+                var a = "Please fill in your PassWord";
+                return Json(a);
+            }
+            else
+            {
+                if (tmp_old2 == tmp_new2)
+                {
+                    return Json("Password already exists");
+                }
+                else
+                {
+                    if (s.CheckPass(tmp_old2))
+                    {
+                        var q = db.Customers.Single(d => d.id == id);
+                        q.password = tmp_new2;
+                        db.SaveChanges();
+                        return Json("Success");
+                    }
+                    else
+                    {
+                        return Json("PassWord Old Wrong");
+                    }
+                }
+
+            }
+        }
+
         [HttpPost]
         public ActionResult Create_Login()
         {
             Models.Dao.Security s = new Models.Dao.Security();
-            var user = Request.Form["usrname"];
-            var pass = Request.Form["password"];
+            var user = Request.Form["user"];
+            var pass = Request.Form["pass"];
             var tmp = user + pass;
             var tmp1 = s.Base64(tmp);
             var tmp2 = s.MD5Hash(tmp1);
@@ -123,13 +173,12 @@ namespace ChocoGear.Controllers
                 Models.Dao.CustomerDao cus = Models.Dao.CustomerDao.Instance;
                 Session["inforCus"] = cus.GetCus(user);
                 Session["login"] = user;
-                return RedirectToAction("Product");
+                return Json("Login Success");
             }
             else
             {
-                return RedirectToAction("LoginAndRegister");
+                return Json("Login Fail");
             }
-            
         }
 
         [HttpPost]
@@ -137,35 +186,111 @@ namespace ChocoGear.Controllers
         public ActionResult Create_Register()
         {
             Models.Dao.Security s = new Models.Dao.Security();
-            var firstname = Request.Form["firstname"];
-            var lastname = Request.Form["lastname"];
+            var firstname = Request.Form["first_name"];
+            var lastname = Request.Form["last_name"];
             var phone = Request.Form["phone"];
             var email = Request.Form["email"];
             var address = Request.Form["address"];
-            var user = Request.Form["usrname"];
+            var user = Request.Form["username"];
             var pass = Request.Form["password"];
-            var cfpass = Request.Form["cfpassword"];
-            if (pass != cfpass)
-            {
-                return RedirectToAction("LoginAndRegister");
-            }
             var status = true;
             var tmp = user + pass;
             var tmp1 = s.Base64(tmp);
             var tmp2 = s.MD5Hash(tmp1);
+            if (s.Check_email(email))
+            {
+                return Json("Email was availabled");
+            }
+            else if (s.Check_username(user))
+            {
+                return Json("Username was availabled");
+            }
+            else
+            {
+                Models.ModelView.CustomerView cv = new Models.ModelView.CustomerView();
+                Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
+                cv.first_name = firstname;
+                cv.last_name = lastname;
+                cv.phone = phone;
+                cv.email = email;
+                cv.address = address;
+                cv.username = user;
+                cv.password = tmp2;
+                cv.status = status;
+                repository.Create(cv);
+                return Json("Success");
+            }
+        }
+
+        public ActionResult create_update_customer()
+        {
+            var id = int.Parse(Request.Form["id_customer"]);
+            var first_name = Request.Form["first_name"];
+            var last_name = Request.Form["last_name"];
+            var phone = Request.Form["phone"];
+            var email = Request.Form["email"];
+            var address = Request.Form["address"];
+            var password = Request.Form["password"];
             Models.ModelView.CustomerView cv = new Models.ModelView.CustomerView();
-            Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
-            cv.first_name = firstname;
-            cv.last_name = lastname;
+            cv.id = id;
+            cv.first_name = first_name;
+            cv.last_name = last_name;
             cv.phone = phone;
             cv.email = email;
             cv.address = address;
-            cv.username = user;
-            cv.password = tmp2;
-            cv.status = status;
-            repository.Create(cv);
-            return RedirectToAction("LoginAndRegister");
+            cv.password = password;
+            Models.IRepository<Models.ModelView.CustomerView> repository = Models.Dao.CustomerDao.Instance;
+            repository.Update(cv);
+            var q = repository.GetId(id);
+            Session["inforCus"] = q;
+            return Json(q);
+        }
 
+
+        public ActionResult Forget_Password()
+        {
+            Models.Dao.Security s = new Models.Dao.Security();
+            Models.Entity.ChocoGearEntities db = new Models.Entity.ChocoGearEntities();
+
+            var username = Request.Form[""];
+            var email = Request.Form[""];
+            var tmp = username + email;
+            var tmp1 = s.Base64(tmp);
+            if (s.Check_email_username(email, username))
+            {
+                var q = db.Customers.Single(d => d.email == email && d.username == username);
+                q.password = tmp1;
+                db.SaveChanges();
+
+                //Send Mail
+                var senderEmail = new MailAddress("tranphuoc4511@gmail.com", "ChocoGear");
+                var receiverEmail = new MailAddress(email, "Receiver");
+                var password = "Cf123456789";
+                var sub = "Order Gear";
+                var body = tmp1;
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail.Address, password)
+                };
+                using (var mess = new MailMessage(senderEmail, receiverEmail)
+                {
+                    Subject = sub,
+                    Body = body
+                })
+                {
+                    smtp.Send(mess);
+                }
+                return Json("Success");
+            }
+            else
+            {
+                return Json("Email, Username are not available");
+            }
         }
 
         public ActionResult AddToCart(int id)
@@ -273,6 +398,10 @@ namespace ChocoGear.Controllers
 
         public ActionResult CustomerInfor()
         {
+            if (Session["inforCus"] == null)
+            {
+                return RedirectToAction("LoginAndRegister");
+            }
             return View();
         }
 

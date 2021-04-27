@@ -45,5 +45,49 @@ namespace ChocoGear.Models.Dao
             }
             return false;
         }
+
+        public bool CheckPass(string password) {
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Customers.Where(d => d.password.Equals(password)).Count();
+            if (q>0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool Check_email_username(string email, string username)
+        {
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Customers.Where(d => d.email.Equals(email) && d.username.Equals(username)).Count();
+            if (q > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool Check_email(string email)
+        {
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Customers.Where(d => d.email.Equals(email)).Count();
+            if (q > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool Check_username(string username)
+        {
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Customers.Where(d => d.username.Equals(username)).Count();
+            if (q > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
     }
 }

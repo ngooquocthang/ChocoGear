@@ -74,22 +74,70 @@
 </style>
 <div class="Usr-Container">
     <div class="bigtitle"><h1>Your Information</h1></div>
-    <div class="">
-        <div class="title">Name</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png"/>
+    @if (Session["inforCus"] != null)
+    {
+        var cv = (ChocoGear.Models.ModelView.CustomerView)Session["inforCus"];
+        <input id="id_customer" style="display:none;" type="text"  value="@cv.id" />
+        <div class="">
+        <div class="title">first Name</div><input class="val" id="edit_first_name" readonly type="text" name="name" value="@cv.first_name" /><img class="btn-edit"  onclick="click_first_name();" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+    </div>
+         <div class="">
+        <div class="title">Last Name</div><input class="val" id="edit_last_name" readonly type="text" name="name" value="@cv.last_name" /><img class="btn-edit"  onclick="click_last_name();" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
     </div>
     <div class="">
-        <div class="title">Phone</div><input class="val" type="text" maxlength="12" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+        <div class="title">Phone</div><input class="val" id="edit_phone" readonly type="text" maxlength="12" name="name" value="@cv.phone" /><img onclick="click_phone();" class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
     </div>
     <div class="">
-        <div class="title">Address</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+        <div class="title">Address</div><input class="val" id="edit_address" readonly type="text" name="name" value="@cv.address" /><img onclick="click_address();" class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
     </div>
     <div class="">
-        <div class="title">Email</div><input class="val" type="text" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+        <div class="title">Email</div><input class="val" id="edit_email" readonly type="text" name="name" value="@cv.email" /><img class="btn-edit" onclick="click_email();" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
     </div>
     <div class="">
-        <div class="title">Password</div><input class="val" type="password" name="name" value="" /><img class="btn-edit" width="32" src="~/Upload/Icon/iconfinder_create_326602.png" />
+        <div class="title">Password</div><input class="val" id="edit_pass" readonly type="password" name="name" value="@cv.password" /><img class="btn-edit" width="32" onclick="click_pass();" src="~/Upload/Icon/iconfinder_create_326602.png" />
     </div>
     <br />
-    <button>Update</button>
+    <button type="button" onclick="click_btn_update();">Update</button>   
+    }
+   
 </div>
+@section script_admin{
+    <script>
+        function click_first_name() {
+            document.getElementById('edit_first_name').removeAttribute('readonly');
+        }
+        function click_last_name() {
+            document.getElementById('edit_last_name').removeAttribute('readonly');
+        }
+        function click_phone() {
+            document.getElementById('edit_phone').removeAttribute('readonly');
+        }
+        function click_address() {
+            document.getElementById('edit_address').removeAttribute('readonly');
+        }
+        function click_email() {
+            document.getElementById('edit_email').removeAttribute('readonly');
+        }
+        function click_pass() {
+            window.location.href = "ChangePassword";
+        }
+
+        function click_btn_update() {
+            var id_customer = $('#id_customer').val();
+            var first_name = $('#edit_first_name').val();
+            var last_name = $('#edit_last_name').val();
+            var phone = $('#edit_phone').val();
+            var address = $('#edit_address').val();
+            var email = $('#edit_email').val();
+            var password = $('#edit_pass').val();
+            $.ajax({
+                method: "Post",
+                url: 'create_update_customer',
+                data: { id_customer: id_customer, first_name: first_name, last_name: last_name, phone: phone, address: address, email: email, password: password }
+            }).done(function (data) {
+                alert("Success");
+            });
+        }
+    </script>    
+}
 

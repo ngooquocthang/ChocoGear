@@ -55,7 +55,19 @@ namespace ChocoGear.Models.Dao
 
         public CustomerView GetId(int id)
         {
-            throw new NotImplementedException();
+            Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+            var q = db.Customers.Where(d => d.id == id).Select(d => new ModelView.CustomerView()
+            {
+                id = d.id,
+                first_name = d.first_name,
+                last_name = d.last_name,
+                phone = d.phone,
+                email = d.email,
+                address = d.address,
+                username = d.username,
+                password = d.password,
+            }).FirstOrDefault();
+            return q;
         }
 
         public List<CustomerView> Gets()
@@ -66,7 +78,24 @@ namespace ChocoGear.Models.Dao
 
         public int Update(CustomerView item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Models.Entity.ChocoGearEntities db = new Entity.ChocoGearEntities();
+                var q = db.Customers.Where(d => d.id == item.id).FirstOrDefault();
+                q.id = item.id;
+                q.first_name = item.first_name;
+                q.last_name = item.last_name;
+                q.phone = item.phone;
+                q.email = item.email;
+                q.address = item.address;
+                q.password = item.password;
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public Models.ModelView.CustomerView GetCus(string username) {
