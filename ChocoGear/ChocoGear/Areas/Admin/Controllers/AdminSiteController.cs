@@ -18,17 +18,25 @@ namespace ChocoGear.Areas.Admin.Controllers
         // PRODUCT
         public ActionResult Product(string category_name)
         {
-            Models.IRepository<Models.ModelView.CategoryView> category = Models.Dao.CategoryDao.Instance;
-            Session["listCate"] = category.Gets();
+            if (Session["login_admin"] != null)
+            {
+                Models.IRepository<Models.ModelView.CategoryView> category = Models.Dao.CategoryDao.Instance;
+                Session["listCate"] = category.Gets();
 
-            Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
-            Session["listBrand"] = brand.Gets();
+                Models.IRepository<Models.ModelView.Brand> brand = Models.Dao.BrandDao.Instance;
+                Session["listBrand"] = brand.Gets();
 
-            Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
-            Session["listProduct"] = product.Gets();
+                Models.IRepository<Models.ModelView.ProductView> product = Models.Dao.ProductDao.Instance;
+                Session["listProduct"] = product.Gets();
 
-            ViewBag.data = Session["listProduct"];
+                ViewBag.data = Session["listProduct"];
 
+                return View();
+            }
+            else
+            {
+
+            }
             return View();
         }
         [HttpPost, ValidateInput(false)]

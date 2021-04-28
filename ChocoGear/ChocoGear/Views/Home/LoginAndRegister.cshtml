@@ -401,10 +401,13 @@
                 if (data == "Login Success") {
                     alert(data);
                     window.location.href = "Index";
-                } else {
+                } else if (data =="Login Fail") {
                     alert(data);
                     $('#user').val("");
                     $('#pass').val("");
+                } else if (data == "Login Admin Success") {
+                    alert(data);
+                    window.location.href = "/Admin/AdminSite/Product";
                 }
 
             });
